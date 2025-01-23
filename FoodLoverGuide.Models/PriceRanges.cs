@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace FoodLoverGuide.Models
 {
-    internal class Category
+    public class PriceRanges
     {
+        public Guid Id { get; set; }
+        public double FromPrice { get; set; }
+        public double ToPrice { get; set; }
     }
 }
