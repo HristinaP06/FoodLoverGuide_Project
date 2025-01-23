@@ -27,9 +27,18 @@ namespace FoodLoverGuide.Models
 
         [ForeignKey(nameof(PriceRanges))]
         public Guid PriceRangeId { get; set; }
+
+        [Required]
         public PriceRanges PriceRange { get; set; }
 
+        [Required]  
         public string Menu { get; set; }
+
+        [ForeignKey(nameof(RestaurantFeatures))]
+        public RestaurantFeatures Features { get; set; }
+        
+
+
 
     }
 }
