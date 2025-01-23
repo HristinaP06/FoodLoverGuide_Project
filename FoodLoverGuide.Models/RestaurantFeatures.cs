@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace FoodLoverGuide.Models
 {
-    internal class RestaurantFeatures
+    public class RestaurantFeatures
     {
+        public Guid FeatureId { get; set; }
+        public Features Feature { get; set; }
+        public Guid RestaurantId { get; set; }
+        public Restaurant Restaurant { get; set; }
+
     }
 }
