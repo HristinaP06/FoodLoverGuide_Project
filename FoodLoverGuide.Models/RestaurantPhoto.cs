@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace FoodLoverGuide.Models
 {
-    public class Reviews
+    public class RestaurantPhoto
     {
         public Guid Id { get; set; }
+        public string? Photo { get; set; }
+
     }
 }
