@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FoodLoverGuide.Models
 {
-    public class Features
+    public class Category
     {
+        [Key]
         public Guid Id { get; set; }
-        public string Feature { get; set; }
-
+        [Required]
+        public string CategoryName { get; set; }
     }
 }
