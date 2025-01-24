@@ -30,7 +30,7 @@ namespace FoodLoverGuide.Models
 
         [ForeignKey(nameof(MenuItem))]  
         public Guid MenuId { get; set; }
-        public ICollection<MenuItem> Menu { get; set; }
+        public ICollection<MenuItem>? Menu { get; set; }
 
         [ForeignKey(nameof(RestaurantPhoto))]
         public Guid RestaurantPhotoId { get; set; }
