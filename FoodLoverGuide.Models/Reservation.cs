@@ -13,11 +13,14 @@ namespace FoodLoverGuide.Models
         [Key]
         public Guid Id { get; set; }
 
-        [ForeignKey(nameof(Restaurant))]
+
+        
         public Guid RestaurantId { get; set; }
-        public Restaurant _Restaurant { get; set; }
+
+        public Restaurant Restaurant { get; set; }
 
         public int? Adults { get; set; }
+
         public int? Children { get; set; }
 
         public DateTime Date { get; set; }

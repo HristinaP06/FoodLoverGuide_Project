@@ -19,10 +19,12 @@ namespace FoodLoverGuide.Models
         [Required]
         public string Location { get; set; }
 
-        [ForeignKey(nameof(Category))]
-        public Guid CategoryId { get; set; }
-        public Category RestaurantCategories { get; set; }
+        public Guid ReservationId { get; set; }
+        public ICollection<Reservation> Reservation {  get; set; }
 
+        public ICollection<RestaurantCategories> RestaurantCategoriesList { get; set; }
+
+         public Guid WorkTimeId { get; set; }
         public ICollection<WorkTimeSchedule> WorkTime { get; set; }
 
         public double? PriceRangeFrom { get; set; }
@@ -49,8 +51,7 @@ namespace FoodLoverGuide.Models
         public int? IndoorCapacity { get; set; }
         public int? OutdoorCapacity { get; set; }
 
-        [ForeignKey(nameof(Contact))]
-        public Guid ContactsId { get; set; }
+        public Guid ContactId { get; set; }
         public Contact? RestaurantContacts { get; set; }
     }
 }

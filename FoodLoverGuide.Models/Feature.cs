@@ -15,7 +15,7 @@ namespace FoodLoverGuide.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<RestaurantFeature> RestaurantsList { get; set; }
+        public ICollection<RestaurantFeature> RestaurantsList = new List<RestaurantFeature>();
 
     }
 }

@@ -13,5 +13,8 @@ namespace FoodLoverGuide.Models
         public Guid Id { get; set; }
 
         public int? _Rating { get; set; }
+
+        public Guid RestaurantId { get; set; }
+        public Restaurant Restaurant { get; set; }
     }
 }
