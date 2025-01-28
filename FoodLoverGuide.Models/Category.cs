@@ -10,6 +10,7 @@ namespace FoodLoverGuide.Models
         [Required]
         public string CategoryName { get; set; }
 
+
         public ICollection<RestaurantCategories> RestaurantCategoriesList = new List<RestaurantCategories>();
     }
 }

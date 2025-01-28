@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoodLoverGuide.Models
+﻿namespace FoodLoverGuide.Models
 {
     public class SocialMedia
     {
@@ -13,6 +7,7 @@ namespace FoodLoverGuide.Models
         public string Media { get; set; }
 
         public Guid ContactId { get; set; }
+
         public Contact Contact { get; set; }
     }
 }

@@ -6,7 +6,9 @@ namespace FoodLoverGuide.Models
     {
         [ForeignKey(nameof(Category))]
         public Guid CategoryId { get; set; }
+
         public Category Category { get; set; }
+
 
         [ForeignKey(nameof(Restaurant))]
         public Guid RestaurantId { get; set; }
