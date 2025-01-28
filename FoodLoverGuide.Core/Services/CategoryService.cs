@@ -20,43 +20,24 @@ namespace FoodLoverGuide.Core.Services
             _repo = repo;
         }
 
-        public void Add(Category category)
+        public async Task Add(Category entity)
         {
-            if(CategoryValidator.ValidateInput(category.CategoryName))
-            {
-                _repo.Add(category);
-            }
-            else
-            {
-                throw new ArgumentException("Invalid name or already existing category!");
-            }
+            await _repo.Add(entity);
         }
 
-        public void Delete(Guid id)
-        {
-            if (CategoryValidator.CategoryExist(id))
-            {
-                _repo.Delete(id);
-            }
-            else
-            {
-                throw new ArgumentException("This category does not exist!");
-            }
-        }
-
-        public List<Category> Find(Expression<Func<Category, bool>> filter)
+        public Task Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Category> GetAll()
+        public Task<List<Category>> Find(Expression<Func<Category, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        public Category GetById(Guid id)
+        public async Task<List<Category>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _repo.GetAll();
         }
 
         public Category GetRestaurantCategory(Guid restaurantId)
@@ -64,7 +45,7 @@ namespace FoodLoverGuide.Core.Services
             throw new NotImplementedException();
         }
 
-        public void Update(Category category)
+        public Task Update(Category entity)
         {
             throw new NotImplementedException();
         }

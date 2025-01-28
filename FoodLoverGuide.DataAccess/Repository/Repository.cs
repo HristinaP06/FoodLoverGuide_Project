@@ -18,42 +18,53 @@ namespace FoodLoverGuide.DataAccess.Repository
             this._context = context;
             this.dbSet = _context.Set<T>();
         }
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-            dbSet.Add(entity);
+            await dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public List<T> CheckIfExists(List<Guid> id)
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = dbSet.Find(id);
+            if (entity == null) 
+            {
+                throw new ArgumentException("id is null");
+            }
+            dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Guid id)
+        public async Task Update(T entity)
         {
-            T obj = dbSet.Find(id);
-            dbSet.Remove(obj);
+           dbSet.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public List<T> Find(Expression<Func<T, bool>> filter)
+        public async Task<List<T>> Find(Expression<Func<T, bool>> filter)
         {
-            return dbSet.Where(filter).ToList();
+            return await dbSet.Where(filter).ToListAsync();
         }
 
-        public T Get(Guid id)
+        public async Task<T> Get(Guid id)
         {
-            T obj = dbSet.Find(id);
-            return obj;
+            var entity = dbSet.Find(id);
+            if (entity == null)
+            {
+                throw new ArgumentException("id is null");
+            }
+            return entity;
         }
 
-        public List<T> GetAll()
+        /*
+        public async Task<T> GetById(Guid id)
         {
-            return dbSet.ToList();
-        }
 
-        public void Update(T entity)
+        }
+*/
+        public async Task<List<T>> GetAll()
         {
-            dbSet.Update(entity);
-            
+            return await dbSet.ToListAsync();
         }
     }
 }

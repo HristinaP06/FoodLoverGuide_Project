@@ -9,18 +9,18 @@ namespace FoodLoverGuide.DataAccess.Repository
 {
     public interface IRepository <T> where T : class
     {
-        void Add (T entity);
+        Task Add (T entity);
 
-        void Update (T entity);
+        Task Update (T entity);
 
-        void Delete (Guid id);
+        Task Delete (Guid id);
 
-        T Get (Guid id);
+        Task<T> Get (Guid id);
 
-        List<T> GetAll ();
+        //Task<T> GetById(Guid id);
 
-        List<T> Find(Expression<Func<T,bool>> filter);
+        Task<List<T>> GetAll ();
 
-        List<T> CheckIfExists(List<Guid> id);
+        Task<List<T>> Find(Expression<Func<T,bool>> filter);
     }
 }
