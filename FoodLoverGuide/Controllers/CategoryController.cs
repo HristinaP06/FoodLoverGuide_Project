@@ -30,6 +30,11 @@ namespace FoodLoverGuide.Controllers
             return RedirectToAction("Index");
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> Edit(Category category)
+        {
+            await _service.Update(category);
+            return RedirectToAction("Index");
+        }
     }
 }
