@@ -12,9 +12,15 @@ namespace FoodLoverGuide.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string? Telephone { get; set; }
-        public string? Email { get; set; }
-        public ICollection<string>? SocialMedia { get; set; }
 
+        public string? Telephone { get; set; }
+
+        public string? Email { get; set; }
+
+        public ICollection<SocialMedia>? SocialMedia { get; set; }
+
+        public Guid RestaurantId { get; set; }
+
+        public Restaurant Restaurant { get; set; }
     }
 }

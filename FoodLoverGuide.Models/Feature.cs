@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FoodLoverGuide.Models
 {
@@ -15,7 +10,6 @@ namespace FoodLoverGuide.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<RestaurantFeature> RestaurantsList { get; set; }
-
+        public ICollection<RestaurantFeature> RestaurantsList = new List<RestaurantFeature>();
     }
 }
