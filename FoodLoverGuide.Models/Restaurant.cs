@@ -60,7 +60,7 @@ namespace FoodLoverGuide.Models
         public int? OutdoorCapacity { get; set; }
 
         public Guid ContactId { get; set; }
-
+      
         public Contact? RestaurantContacts { get; set; }
     }
 }
