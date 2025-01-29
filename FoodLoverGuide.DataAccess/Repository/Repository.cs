@@ -46,7 +46,7 @@ namespace FoodLoverGuide.DataAccess.Repository
             return await dbSet.Where(filter).ToListAsync();
         }
 
-        public async Task<T> Get(Guid id)
+        public async Task<T> GetById(Guid id)
         {
             var entity = dbSet.Find(id);
             if (entity == null)
@@ -56,12 +56,7 @@ namespace FoodLoverGuide.DataAccess.Repository
             return entity;
         }
 
-        /*
-        public async Task<T> GetById(Guid id)
-        {
 
-        }
-*/
         public async Task<List<T>> GetAll()
         {
             return await dbSet.ToListAsync();

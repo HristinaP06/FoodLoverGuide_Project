@@ -15,7 +15,7 @@ namespace FoodLoverGuide.Core
         Task Update(T entity);
         Task Delete(Guid id);
         Task<List<T>> GetAll();
-       // Task<T> GetById(Guid id);
+        Task<T> GetById(Guid id);
         Task<List<T>> Find (Expression<Func<T, bool>> filter);
 
     }

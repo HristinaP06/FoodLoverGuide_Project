@@ -15,9 +15,7 @@ namespace FoodLoverGuide.DataAccess.Repository
 
         Task Delete (Guid id);
 
-        Task<T> Get (Guid id);
-
-        //Task<T> GetById(Guid id);
+        Task<T> GetById(Guid id);
 
         Task<List<T>> GetAll ();
 

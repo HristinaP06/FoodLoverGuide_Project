@@ -8,20 +8,8 @@ using System.Threading.Tasks;
 
 namespace FoodLoverGuide.Core.IServices
 {
-    public interface ICategoryService : IService<Category> 
+    public interface ICategoryService : IService<Category>
     {
-       // void Add(Category category);
-
-        //void Update(Category category);
-
-       // void Delete(Guid id);
-
-        //Category GetById(Guid id);
-
-       // List<Category> GetAll();
-
         Category GetRestaurantCategory(Guid restaurantId);
-
-       // List<Category> Find(Expression<Func<Category, bool>> filter);
     }
 }

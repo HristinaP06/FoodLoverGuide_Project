@@ -1,5 +1,4 @@
 ﻿using FoodLoverGuide.Core.IServices;
-using FoodLoverGuide.Core.Validators;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
 using System;
@@ -25,14 +24,14 @@ namespace FoodLoverGuide.Core.Services
             await _repo.Add(entity);
         }
 
-        public Task Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+             await _repo.Delete(id);
         }
 
-        public Task<List<Category>> Find(Expression<Func<Category, bool>> filter)
+        public async Task<List<Category>> Find(Expression<Func<Category, bool>> filter)
         {
-            throw new NotImplementedException();
+            return await _repo.Find(filter);
         }
 
         public async Task<List<Category>> GetAll()
@@ -40,14 +39,19 @@ namespace FoodLoverGuide.Core.Services
             return await _repo.GetAll();
         }
 
+        public async Task<Category> GetById(Guid id)
+        {
+            return await _repo.GetById(id);
+        }
+
         public Category GetRestaurantCategory(Guid restaurantId)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(Category entity)
+        public async Task Update(Category entity)
         {
-            throw new NotImplementedException();
+             await _repo.Update(entity);
         }
     }
 }

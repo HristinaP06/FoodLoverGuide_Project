@@ -36,11 +36,10 @@ namespace FoodLoverGuide.Core
         {
             await _repo.Update(entity);
         }
-
-        /*
+        
         public async Task<T> GetById(Guid Id)
         {
-
-        }*/
+            return await _repo.GetById(Id);
+        }
     }
 }

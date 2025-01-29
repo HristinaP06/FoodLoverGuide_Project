@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoodLoverGuide.Models;
 
 namespace FoodLoverGuide.Core.IServices
 {
-    public interface IWorkTimeScheduleService
+    public interface IWorkTimeScheduleService : IService<WorkTimeSchedule>
     {
     }
 }
