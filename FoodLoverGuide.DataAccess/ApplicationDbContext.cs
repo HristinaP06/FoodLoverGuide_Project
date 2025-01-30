@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -30,6 +30,8 @@ namespace FoodLoverGuide.DataAccess
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<WorkTimeSchedule> WorkTimeSchedules { get; set; }
+
+        public DbSet<User> Users {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -96,6 +98,21 @@ namespace FoodLoverGuide.DataAccess
                 .HasOne(res => res.Restaurant)
                 .WithMany(r => r.Reservation)
                 .HasForeignKey(f => f.RestaurantId);
+
+            builder.Entity<Reservation>()
+                .HasOne(u => u.User)
+                .WithMany(r => r.Reservations)
+                .HasForeignKey(f => f.UserId);
+
+            builder.Entity<Rating>()
+                .HasOne(u => u.User)
+                .WithMany(r => r.Ratings)
+                .HasForeignKey(f => f.UserId);
+
+            builder.Entity<Review>()
+                .HasOne(u => u.User)
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(f => f.UserId);
 
             base.OnModelCreating(builder);
         }

@@ -5,6 +5,11 @@ using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Core;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.Services;
+using FoodLoverGuide.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using FoodLoverGuide.Models;
+using Microsoft.Build.Execution;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +17,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("FoodLoverGuide.DataAccess")));
+
+
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders(); 
+
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
@@ -31,6 +45,10 @@ builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISocialMediaService, SocialMediaService>();
 builder.Services.AddScoped<IWorkTimeScheduleService, WorkTimeScheduleService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
+    AddCookie(options => 
+    { options.LoginPath = "/Account/Login"; options.AccessDeniedPath = "/Account/AccessDenied"; });
 
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLoverGuide", "FoodLoverGuide.csproj", "{72116CDE-3470-44A7-ADE6-2380DEC9CDD8}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLoverGuide.Models", "..\FoodLoverGuide.Models\FoodLoverGuide.Models.csproj", "{4FE9F594-B600-4464-9825-D43507622A0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLoverGuide.DataAccess", "..\FoodLoverGuide.DataAccess\FoodLoverGuide.DataAccess.csproj", "{F38F90E1-6512-42A8-9756-C73805BFDFAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLoverGuide.Utility", "..\FoodLoverGuide.Utility\FoodLoverGuide.Utility.csproj", "{44D155C4-DC8C-4689-AE12-FC3B98C1560E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F38F90E1-6512-42A8-9756-C73805BFDFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38F90E1-6512-42A8-9756-C73805BFDFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38F90E1-6512-42A8-9756-C73805BFDFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D155C4-DC8C-4689-AE12-FC3B98C1560E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D155C4-DC8C-4689-AE12-FC3B98C1560E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D155C4-DC8C-4689-AE12-FC3B98C1560E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D155C4-DC8C-4689-AE12-FC3B98C1560E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FoodLoverGuide.Models\FoodLoverGuide.Models.csproj" />
+    <ProjectReference Include="..\FoodLoverGuide.Utility\FoodLoverGuide.Utility.csproj" />
   </ItemGroup>
 
 </Project>

@@ -30,10 +30,24 @@ namespace FoodLoverGuide.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var obj = await _service.GetById(id);
+            return View(obj);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Edit(Category category)
         {
             await _service.Update(category);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _service.Delete(id);
             return RedirectToAction("Index");
         }
     }
