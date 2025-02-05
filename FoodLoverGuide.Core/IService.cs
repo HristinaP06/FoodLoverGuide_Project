@@ -14,7 +14,7 @@ namespace FoodLoverGuide.Core
         Task Add(T entity);
         Task Update(T entity);
         Task Delete(Guid id);
-        Task<List<T>> GetAll();
+        IQueryable<T> GetAll();
         Task<T> GetById(Guid id);
         Task<List<T>> Find (Expression<Func<T, bool>> filter);
 

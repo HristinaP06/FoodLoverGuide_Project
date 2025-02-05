@@ -9,7 +9,7 @@ namespace FoodLoverGuide.Models
 
         public string? Photo { get; set; }
 
-        public Guid RestaurantId { get; set; }
+        public Guid? RestaurantId { get; set; }
 
         public Restaurant Restaurant { get; set; }
     }

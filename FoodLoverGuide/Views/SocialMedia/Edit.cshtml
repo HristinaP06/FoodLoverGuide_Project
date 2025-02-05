@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model FoodLoverGuide.Models.SocialMedia;
+
+<form method="post">
+    <lable asp-for="Media">
+        <input type="text" asp-for="Media" />
+    </lable>
+    <button type="submit" class="btn btn-success" asp-action="Edit" asp-controller="SocialMedia" asp-route-id="@Model.Id">Edit</button>
+</form>
+

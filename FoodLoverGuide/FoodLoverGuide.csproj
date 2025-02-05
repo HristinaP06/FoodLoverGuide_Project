@@ -32,9 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
-    <Folder Include="Views\Contact\" />
-    <Folder Include="Views\Feature\" />
-    <Folder Include="Views\SocialMedia\" />
   </ItemGroup>
 
 </Project>

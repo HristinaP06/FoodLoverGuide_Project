@@ -9,9 +9,9 @@ namespace FoodLoverGuide.Models
         public Guid Id { get; set; }
 
         [ForeignKey(nameof(Restaurant))]
-        public Guid RestaurantId { get; set; }
+        public Guid? RestaurantId { get; set; }
 
-        public Restaurant Restaurant { get; set; }
+        public Restaurant? Restaurant { get; set; }
 
         public DayOfWeek Date { get; set; }
 

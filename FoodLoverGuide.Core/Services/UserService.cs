@@ -33,9 +33,9 @@ namespace FoodLoverGuide.Core.Services
             return await _repo.Find(filter);
         }
 
-        public async Task<List<User>> GetAll()
+        public IQueryable<User> GetAll()
         {
-            return await _repo.GetAll();
+            return  _repo.GetAll();
         }
 
         public async Task<User> GetById(Guid id)

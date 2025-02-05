@@ -17,7 +17,7 @@ namespace FoodLoverGuide.DataAccess.Repository
 
         Task<T> GetById(Guid id);
 
-        Task<List<T>> GetAll ();
+        IQueryable<T> GetAll ();
 
         Task<List<T>> Find(Expression<Func<T,bool>> filter);
     }

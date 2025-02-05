@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<FoodLoverGuide.Models.SocialMedia>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Media</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var media in Model)
+        {
+            <tr>
+                <td>@media.Media</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="SocialMedia" asp-route-id="@media.Id" class="btn btn-success">Edit</a>
+                    <form method="post" asp-controller="SocialMedia" asp-action="Delete">
+                        <button class="btn btn-danger" type="submit" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@media.Id">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

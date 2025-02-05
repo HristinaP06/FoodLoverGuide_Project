@@ -1,6 +1,7 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Controllers
 {
@@ -15,7 +16,7 @@ namespace FoodLoverGuide.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var list = await _service.GetAll();
+            var list = await _service.GetAll().ToListAsync();
             return View(list);
         }
 
@@ -31,11 +32,26 @@ namespace FoodLoverGuide.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(Contact contact)
-        //{
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var obj = await _service.GetById(id);
+            return View(obj);
+        }
 
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Edit(Contact contact)
+        {
+            await _service.Update(contact);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _service.Delete(id);
+            return RedirectToAction("Index");
+        }
 
     }
 }

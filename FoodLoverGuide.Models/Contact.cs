@@ -19,7 +19,7 @@ namespace FoodLoverGuide.Models
 
         public ICollection<SocialMedia>? SocialMedia { get; set; }
 
-        public Guid RestaurantId { get; set; }
+        public Guid? RestaurantId { get; set; }
 
         public Restaurant Restaurant { get; set; }
     }

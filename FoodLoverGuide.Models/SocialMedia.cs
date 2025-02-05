@@ -9,7 +9,7 @@ namespace FoodLoverGuide.Models
 
         public string? Media { get; set; }
 
-        public Guid ContactId { get; set; }
+        public Guid? ContactId { get; set; }
 
         public Contact Contact { get; set; }
     }

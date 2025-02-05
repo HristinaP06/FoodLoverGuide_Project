@@ -27,9 +27,9 @@ namespace FoodLoverGuide.Core
            return await _repo.Find(filter);
         }
 
-        public async Task<List<T>> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return await _repo.GetAll();
+            return _repo.GetAll();
         }
 
         public async Task Update(T entity)

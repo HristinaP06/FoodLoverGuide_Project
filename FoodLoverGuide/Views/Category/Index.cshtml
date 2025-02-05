@@ -17,9 +17,9 @@
         <tr>
             <td>@cat.CategoryName</td>
             <td>
-               <button type="submit" asp-controller="Category" asp-action="Edit" asp-route-id="@cat.Id">Edit</button>
+                    <a asp-action="Edit" asp-controller="Category" asp-route-id="@cat.Id" class="btn btn-success">Edit</a>
                <form method="post" asp-controller="Category" asp-action="Delete">
-                        <button type="submit" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">Delete</button>
+                        <button class="btn btn-danger" type="submit" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">Delete</button>
                </form>
                 </td>
         </tr>

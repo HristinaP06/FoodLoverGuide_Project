@@ -5,13 +5,13 @@ namespace FoodLoverGuide.Models
     public class RestaurantCategories
     {
         [ForeignKey(nameof(Category))]
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
 
         public Category Category { get; set; }
 
 
         [ForeignKey(nameof(Restaurant))]
-        public Guid RestaurantId { get; set; }
+        public Guid? RestaurantId { get; set; }
 
         public Restaurant Restaurant { get; set; }
     }

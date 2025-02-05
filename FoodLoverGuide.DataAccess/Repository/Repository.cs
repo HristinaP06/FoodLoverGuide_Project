@@ -56,10 +56,9 @@ namespace FoodLoverGuide.DataAccess.Repository
             return entity;
         }
 
-
-        public async Task<List<T>> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return await dbSet.ToListAsync();
+            return dbSet.AsQueryable();
         }
     }
 }
