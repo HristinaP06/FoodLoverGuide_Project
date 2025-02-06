@@ -3,6 +3,7 @@ using FoodLoverGuide.Models;
 using FoodLoverGuide.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared.Project;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Controllers
@@ -15,6 +16,8 @@ namespace FoodLoverGuide.Controllers
         private readonly ISocialMediaService _socialMediaService;
         private readonly IFeatureService _featureService;
         private readonly IWorkTimeScheduleService _workTimeScheduleService;
+        private readonly IRestaurantCategoriesService _restaurantCategoriesService;
+        private readonly IRestaurantFeatureService _restaurantFeatureService;
 
         public RestaurantController
             (IRestaurantService rService, ICategoryService categoryService, IContactService contactService, 
@@ -35,29 +38,45 @@ namespace FoodLoverGuide.Controllers
 
         public async Task<IActionResult> Add()
         {
-            
-            return View();
+            var categories = await _categoryService.GetAll().ToListAsync();
+            var features = await _featureService.GetAll().ToListAsync();
+
+            var model = new RestaurantDetailsViewModel()
+            {
+                Categories = categories.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.CategoryName
+                }).ToList(),
+                Features = features.Select(f => new SelectListItem
+                { 
+                    Value = f.Id.ToString(),
+                    Text = f.Name
+                }).ToList()
+            };
+
+            return View(model);
         }
 
         
         [HttpPost]
-        public async Task<IActionResult> Add(RestaurantDetailsViewModel restaurantDetailsViewModel)
+        public async Task<IActionResult> Add(RestaurantDetailsViewModel model)
         {
             
             var sm = new SocialMedia()
             {
-                Media = restaurantDetailsViewModel.Media
+                Media = model.Media
             };
             await _socialMediaService.Add(sm);  
 
-            restaurantDetailsViewModel.SocialMedias = new List<SocialMedia> { sm };  
+            model.SocialMedias = new List<SocialMedia> { sm };  
 
             
             var contact = new Contact()
             {
-                Telephone = restaurantDetailsViewModel.Telephone,
-                Email = restaurantDetailsViewModel.Email,
-                SocialMedia = restaurantDetailsViewModel.SocialMedias, 
+                Telephone = model.Telephone,
+                Email = model.Email,
+                SocialMedia = model.SocialMedias, 
             };
             await _contactService.Add(contact);  
 
@@ -68,29 +87,51 @@ namespace FoodLoverGuide.Controllers
             
             var workTime = new WorkTimeSchedule()
             {
-                Date = restaurantDetailsViewModel.Date,
-                Start = restaurantDetailsViewModel.Start,
-                End = restaurantDetailsViewModel.End
+                Date = model.Date,
+                Start = model.Start,
+                End = model.End
             };
             await _workTimeScheduleService.Add(workTime);  
 
            
             var restaurant = new Restaurant()
             {
-                Name = restaurantDetailsViewModel.Name,
-                Description = restaurantDetailsViewModel.Description,
-                Location = restaurantDetailsViewModel.Location,
-                PriceRangeFrom = restaurantDetailsViewModel.PriceRangeFrom,
-                PriceRangeTo = restaurantDetailsViewModel.PriceRangeTo,
-                IndoorCapacity = restaurantDetailsViewModel.IndoorCapacity,
-                OutdoorCapacity = restaurantDetailsViewModel.OutdoorCapacity,
+                Name = model.Name,
+                Description = model.Description,
+                Location = model.Location,
+                PriceRangeFrom = model.PriceRangeFrom,
+                PriceRangeTo = model.PriceRangeTo,
+                IndoorCapacity = model.IndoorCapacity,
+                OutdoorCapacity = model.OutdoorCapacity,
                 RestaurantContacts = contact 
             };
-
             await _rService.Add(restaurant);  
 
             contact.RestaurantId = restaurant.Id;
-            await _contactService.Update(contact);  
+            await _contactService.Update(contact);
+
+            if (model.SelectedCategoriesId != null && model.SelectedCategoriesId.Any())
+            {
+                foreach(var categoryId in model.SelectedCategoriesId)
+                {
+                    _restaurantCategoriesService.Add(new RestaurantCategories
+                    {
+                        CategoryId = categoryId,
+                        RestaurantId = restaurant.Id
+                    });
+                }
+            }
+            if (model.SelectedFeaturesId != null && model.SelectedFeaturesId.Any())
+            {
+                foreach (var featureId in model.SelectedFeaturesId)
+                {
+                    _restaurantFeatureService.Add(new RestaurantFeature
+                    {
+                        FeatureId = featureId,
+                        RestaurantId = restaurant.Id
+                    });
+                }
+            }
 
             return RedirectToAction("Index");
         }
@@ -112,6 +153,9 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
+            var restaurant = await _rService.GetAll().Include(r => r.RestaurantCategoriesList).FirstOrDefaultAsync(c => c.Id == id);
+            
+
             await _rService.Delete(id);
             return RedirectToAction("Index");
         }

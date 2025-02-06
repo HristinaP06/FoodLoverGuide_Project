@@ -40,79 +40,94 @@ namespace FoodLoverGuide.DataAccess
             builder.Entity<RestaurantCategories>()
                 .HasOne(c => c.Category)
                 .WithMany(r => r.RestaurantCategoriesList)
-                .HasForeignKey(f => f.CategoryId);
+                .HasForeignKey(f => f.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RestaurantCategories>()
                 .HasOne(r => r.Restaurant)
                 .WithMany(c =>c.RestaurantCategoriesList)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Contact>()
                 .HasOne(c => c.Restaurant)
                 .WithOne(r => r.RestaurantContacts)
-                .HasForeignKey<Contact>(f => f.RestaurantId);
+                .HasForeignKey<Contact>(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<SocialMedia>()
                .HasOne(s => s.Contact)
                .WithMany(c => c.SocialMedia)
-               .HasForeignKey(f => f.ContactId);
+               .HasForeignKey(f => f.ContactId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RestaurantFeature>().HasKey(rf => new {rf.FeatureId, rf.RestaurantId});
 
             builder.Entity<RestaurantFeature>()
                 .HasOne(f => f.Features)
                 .WithMany(r => r.RestaurantsList)
-                .HasForeignKey(k => k.FeatureId);
+                .HasForeignKey(k => k.FeatureId)
+                .OnDelete(DeleteBehavior.Cascade);
             
             builder.Entity<RestaurantFeature>()
                 .HasOne(r => r.Restaurants)
                 .WithMany(f => f.Features)
-                .HasForeignKey(k => k.RestaurantId);
+                .HasForeignKey(k => k.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<MenuItem>()
                 .HasOne(r=> r.Restaurant)
                 .WithMany(m=> m.Menu)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Rating>()
                 .HasOne(res => res.Restaurant)
                 .WithMany(r => r.RatingList)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Review>()
                 .HasOne(res => res.Restaurant)
                 .WithMany(r => r.Reviews)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RestaurantPhoto>()
                 .HasOne(r => r.Restaurant)
                 .WithMany(p => p.Photos)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<WorkTimeSchedule>()
                 .HasOne(r => r.Restaurant)
                 .WithMany(w => w.WorkTime)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Reservation>()
                 .HasOne(res => res.Restaurant)
                 .WithMany(r => r.Reservation)
-                .HasForeignKey(f => f.RestaurantId);
+                .HasForeignKey(f => f.RestaurantId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Reservation>()
                 .HasOne(u => u.User)
                 .WithMany(r => r.Reservations)
-                .HasForeignKey(f => f.UserId);
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Rating>()
                 .HasOne(u => u.User)
                 .WithMany(r => r.Ratings)
-                .HasForeignKey(f => f.UserId);
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Review>()
                 .HasOne(u => u.User)
                 .WithMany(r => r.Reviews)
-                .HasForeignKey(f => f.UserId);
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(builder);
         }
