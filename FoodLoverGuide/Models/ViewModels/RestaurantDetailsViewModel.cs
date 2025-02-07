@@ -1,7 +1,7 @@
 ﻿using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace FoodLoverGuide.ViewModels
+namespace FoodLoverGuide.Models.ViewModels
 {
     public class RestaurantDetailsViewModel
     {

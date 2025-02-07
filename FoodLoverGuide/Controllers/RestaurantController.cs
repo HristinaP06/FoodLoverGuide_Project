@@ -1,6 +1,6 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Models;
-using FoodLoverGuide.ViewModels;
+using FoodLoverGuide.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Project;
@@ -32,8 +32,20 @@ namespace FoodLoverGuide.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var list = await _rService.GetAll().ToListAsync();
-            return View(list);
+           
+            var rest = await _rService.GetAll().ToListAsync();
+            var contact = await _contactService.GetAll().ToListAsync();
+            var model = rest.Select(r => new RestaurantDetailsViewModel
+            {
+                Name = r.Name,
+                Description = r.Description,
+                Location = r.Location,
+                PriceRangeFrom = r.PriceRangeFrom,
+                PriceRangeTo = r.PriceRangeTo,
+                IndoorCapacity = r.IndoorCapacity,
+                OutdoorCapacity = r.OutdoorCapacity
+            });
+            return View(model);
         }
 
         public async Task<IActionResult> Add()
@@ -110,30 +122,8 @@ namespace FoodLoverGuide.Controllers
             contact.RestaurantId = restaurant.Id;
             await _contactService.Update(contact);
 
-            if (model.SelectedCategoriesId != null && model.SelectedCategoriesId.Any())
-            {
-                foreach(var categoryId in model.SelectedCategoriesId)
-                {
-                    _restaurantCategoriesService.Add(new RestaurantCategories
-                    {
-                        CategoryId = categoryId,
-                        RestaurantId = restaurant.Id
-                    });
-                }
-            }
-            if (model.SelectedFeaturesId != null && model.SelectedFeaturesId.Any())
-            {
-                foreach (var featureId in model.SelectedFeaturesId)
-                {
-                    _restaurantFeatureService.Add(new RestaurantFeature
-                    {
-                        FeatureId = featureId,
-                        RestaurantId = restaurant.Id
-                    });
-                }
-            }
-
             return RedirectToAction("Index");
+            
         }
 
         [HttpGet]

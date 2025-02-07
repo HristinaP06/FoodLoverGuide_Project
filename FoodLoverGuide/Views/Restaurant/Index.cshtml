@@ -4,7 +4,7 @@
 @{
 }
 
-@model FoodLoverGuide.ViewModels.RestaurantDetailsViewModel
+@model IEnumerable<FoodLoverGuide.Models.ViewModels.RestaurantDetailsViewModel>
 <table class="table">
     <thead>
         <tr>
@@ -12,13 +12,24 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td></td>
-        
-        </tr>
+        @foreach (var res in Model)
+        {
+            <tr>
+                <th scope="row">Name</th>
+                <td>@res.Name</td>
+            </tr>
+            <tr>
+                <th scope="row">Description</th>
+                <td>@res.Description</td>
+            </tr>
+            <tr>
+                <th scope="row">Category:</th>
+                @foreach(var cat in res.Categories)
+                {
+                    <td>@cat.Value</td>
+                }
+            </tr>
+        }
     </tbody>
 </table>
 

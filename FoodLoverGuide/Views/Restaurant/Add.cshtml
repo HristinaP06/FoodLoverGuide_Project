@@ -1,4 +1,4 @@
-﻿@model FoodLoverGuide.ViewModels.RestaurantDetailsViewModel
+﻿@model FoodLoverGuide.Models.ViewModels.RestaurantDetailsViewModel
 
 @{
     ViewData["Title"] = "Restaurant Details";
@@ -94,17 +94,17 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="Categories">Category:</label>
+            <label asp-for="SelectedCategoriesId">Category:</label>
             <div class="dropdown">
-                <select asp-for="Categories" asp-items="ViewBag.Categories" multiple="multiple" class="form-control">
+                <select asp-for="SelectedCategoriesId" asp-items="Model.Categories" multiple="multiple" class="form-control">
                 </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label asp-for="Features">Feature:</label>
+            <label asp-for="SelectedFeaturesId">Feature:</label>
             <div class="dropdown">
-                <select asp-for="Features" asp-items="ViewBag.Features" multiple="multiple" class="form-control">
+                <select asp-for="SelectedFeaturesId" asp-items="Model.Features" multiple="multiple" class="form-control">
                 </select>
             </div>
         </div>
