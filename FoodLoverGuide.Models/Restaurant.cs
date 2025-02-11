@@ -25,8 +25,6 @@ namespace FoodLoverGuide.Models
 
         public ICollection<RestaurantCategories>? RestaurantCategoriesList { get; set; }
 
-        public Guid? WorkTimeId { get; set; }
-
         public ICollection<WorkTimeSchedule> WorkTime { get; set; }
 
         public double? PriceRangeFrom { get; set; }

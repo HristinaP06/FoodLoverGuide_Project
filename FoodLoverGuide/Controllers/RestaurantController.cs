@@ -21,7 +21,8 @@ namespace FoodLoverGuide.Controllers
 
         public RestaurantController
             (IRestaurantService rService, ICategoryService categoryService, IContactService contactService, 
-            ISocialMediaService socialMediaService, IFeatureService featureService, IWorkTimeScheduleService workTimeScheduleService)
+            ISocialMediaService socialMediaService, IFeatureService featureService, IWorkTimeScheduleService workTimeScheduleService,
+            IRestaurantCategoriesService restaurantCategoriesService, IRestaurantFeatureService restaurantFeatureService)
         {
             _rService = rService;
             _categoryService = categoryService;
@@ -29,6 +30,8 @@ namespace FoodLoverGuide.Controllers
             _socialMediaService = socialMediaService;
             _featureService = featureService;
             _workTimeScheduleService = workTimeScheduleService;
+            _restaurantCategoriesService = restaurantCategoriesService;
+            _restaurantFeatureService = restaurantFeatureService;
         }
         public async Task<IActionResult> Index()
         {
@@ -117,9 +120,39 @@ namespace FoodLoverGuide.Controllers
                 OutdoorCapacity = model.OutdoorCapacity,
                 RestaurantContacts = contact 
             };
-            await _rService.Add(restaurant);  
+
+            await _rService.Add(restaurant);
+
+            if (model.SelectedCategoriesId != null)
+            {
+                foreach( var category in model.SelectedCategoriesId)
+                {
+                    RestaurantCategories restaurantCategories = new RestaurantCategories()
+                    {
+                        CategoryId = category,
+                        RestaurantId = restaurant.Id
+                    };
+                    _restaurantCategoriesService.Add(restaurantCategories);
+                }
+            }
+
+            if (model.SelectedFeaturesId != null)
+            {
+                foreach (var feature in model.SelectedFeaturesId)
+                {
+                    RestaurantFeature restaurantFeauters = new RestaurantFeature()
+                    {
+                        FeatureId = feature,
+                        RestaurantId = restaurant.Id
+                    };
+                    _restaurantFeatureService.Add(restaurantFeauters);
+                }
+            }
+
 
             contact.RestaurantId = restaurant.Id;
+            workTime.RestaurantId = restaurant.Id;
+            await _workTimeScheduleService.Update(workTime);
             await _contactService.Update(contact);
 
             return RedirectToAction("Index");
