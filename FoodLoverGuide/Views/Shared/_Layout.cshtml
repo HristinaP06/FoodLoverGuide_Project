@@ -28,13 +28,13 @@
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Add">AddCategory</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Create">AddCategory</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Feature" asp-action="Add">AddFeature</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Feature" asp-action="Create">AddFeature</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Add">AddRestaurant</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Create">AddRestaurant</a>
 						</li>
 						@if(User.IsInRole(SD.AdminRole))
 						{
@@ -45,21 +45,16 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-								<a class="dropdown-item“ href="@Url.Action("Add", "Category")">
+								<a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Create">
 									Add Category
 								</a>
-								<a class="dropdown-item" href="@Url.Action("Delete", "Category")"> 
+								<a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Delete">
 									Delete Category
-									</a>
-								<a class="dropdown-item“ href="@Url.Action("Add", "Contact")">
-									Add Contact
 								</a>
-								<a class="dropdown-item“ href="@Url.Action("Edit", "Category")">
+								<a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Edit">
 									Edit Category
 								</a>
-								<a class="dropdown-item“ href="@Url.Action("Edit", "Contact")">
-									Edit Contact
-								</a>
+								
 							</div>
 						</li>
 						}

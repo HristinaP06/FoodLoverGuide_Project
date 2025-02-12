@@ -78,7 +78,7 @@ namespace FoodLoverGuide.Controllers
         {
             var workTime = new WorkTimeSchedule()
             {
-                Date = model.Date,
+                Date = model.Date, 
                 Start = model.Start,
                 End = model.End
             };
