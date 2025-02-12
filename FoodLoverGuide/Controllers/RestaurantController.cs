@@ -13,7 +13,6 @@ namespace FoodLoverGuide.Controllers
         private readonly IRestaurantService _rService;
         private readonly ICategoryService _categoryService;
         private readonly IContactService _contactService;
-        private readonly ISocialMediaService _socialMediaService;
         private readonly IFeatureService _featureService;
         private readonly IWorkTimeScheduleService _workTimeScheduleService;
         private readonly IRestaurantCategoriesService _restaurantCategoriesService;
@@ -21,13 +20,12 @@ namespace FoodLoverGuide.Controllers
 
         public RestaurantController
             (IRestaurantService rService, ICategoryService categoryService, IContactService contactService, 
-            ISocialMediaService socialMediaService, IFeatureService featureService, IWorkTimeScheduleService workTimeScheduleService,
+             IFeatureService featureService, IWorkTimeScheduleService workTimeScheduleService,
             IRestaurantCategoriesService restaurantCategoriesService, IRestaurantFeatureService restaurantFeatureService)
         {
             _rService = rService;
             _categoryService = categoryService;
             _contactService = contactService;
-            _socialMediaService = socialMediaService;
             _featureService = featureService;
             _workTimeScheduleService = workTimeScheduleService;
             _restaurantCategoriesService = restaurantCategoriesService;
@@ -51,7 +49,7 @@ namespace FoodLoverGuide.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Create()
         {
             var categories = await _categoryService.GetAll().ToListAsync();
             var features = await _featureService.GetAll().ToListAsync();
@@ -75,31 +73,15 @@ namespace FoodLoverGuide.Controllers
 
         
         [HttpPost]
-        public async Task<IActionResult> Add(RestaurantDetailsViewModel model)
+        public async Task<IActionResult> Create(RestaurantDetailsViewModel model)
         {
-            
-            var sm = new SocialMedia()
-            {
-                Media = model.Media
-            };
-            await _socialMediaService.Add(sm);  
-
-            model.SocialMedias = new List<SocialMedia> { sm };  
-
-            
             var contact = new Contact()
             {
                 Telephone = model.Telephone,
-                Email = model.Email,
-                SocialMedia = model.SocialMedias, 
+                Email = model.Email
             };
             await _contactService.Add(contact);  
 
-            
-            sm.ContactId = contact.Id;
-            await _socialMediaService.Update(sm);  
-
-            
             var workTime = new WorkTimeSchedule()
             {
                 Date = model.Date,
@@ -167,9 +149,10 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Restaurant restaurant)
+        public async Task<IActionResult> Edit(RestaurantDetailsViewModel restaurant)
         {
-            await _rService.Update(restaurant);
+            
+            
             return RedirectToAction("Index");
         }
 

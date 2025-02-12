@@ -43,7 +43,6 @@ builder.Services.AddScoped<IRestaurantFeatureService, RestaurantFeatureService>(
 builder.Services.AddScoped<IRestaurantPhotoService, RestaurantPhotoService>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
-builder.Services.AddScoped<ISocialMediaService, SocialMediaService>();
 builder.Services.AddScoped<IWorkTimeScheduleService, WorkTimeScheduleService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).

@@ -19,13 +19,13 @@ namespace FoodLoverGuide.Controllers
             return View(list);
         }
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Category category)
+        public async Task<IActionResult> Create(Category category)
         {
             await _service.Add(category);
             return RedirectToAction("Index");

@@ -55,12 +55,6 @@ namespace FoodLoverGuide.DataAccess
                 .HasForeignKey<Contact>(f => f.RestaurantId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<SocialMedia>()
-               .HasOne(s => s.Contact)
-               .WithMany(c => c.SocialMedia)
-               .HasForeignKey(f => f.ContactId)
-               .OnDelete(DeleteBehavior.Cascade);
-
             builder.Entity<RestaurantFeature>().HasKey(rf => new {rf.FeatureId, rf.RestaurantId});
 
             builder.Entity<RestaurantFeature>()

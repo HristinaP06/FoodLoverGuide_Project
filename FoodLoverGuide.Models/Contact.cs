@@ -17,10 +17,14 @@ namespace FoodLoverGuide.Models
 
         public string? Email { get; set; }
 
-        public ICollection<SocialMedia>? SocialMedia { get; set; }
-
         public Guid? RestaurantId { get; set; }
 
         public Restaurant Restaurant { get; set; }
+
+        public string? Instagram { get; set; }
+
+        public string? Facebook { get; set; }
+
+        public string? WebSite { get; set; }
     }
 }

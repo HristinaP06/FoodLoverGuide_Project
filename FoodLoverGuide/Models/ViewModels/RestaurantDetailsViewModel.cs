@@ -14,8 +14,6 @@ namespace FoodLoverGuide.Models.ViewModels
 
         public string? Media { get; set; }
 
-        public ICollection<SocialMedia> SocialMedias { get; set; }
-
         public List<Guid>? SelectedCategoriesId { get; set; } = new List<Guid>();
         public List<SelectListItem>? Categories { get; set; } = new List<SelectListItem>();
 
