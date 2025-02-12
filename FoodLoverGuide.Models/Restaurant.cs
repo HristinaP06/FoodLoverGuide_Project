@@ -57,8 +57,14 @@ namespace FoodLoverGuide.Models
 
         public int? OutdoorCapacity { get; set; }
 
-        public Guid? ContactId { get; set; }
-      
-        public Contact RestaurantContacts { get; set; }
+        public string? Telephone { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? Instagram { get; set; }
+
+        public string? Facebook { get; set; }
+
+        public string? WebSite { get; set; }
     }
 }

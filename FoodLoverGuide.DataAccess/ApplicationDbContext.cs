@@ -11,8 +11,6 @@ namespace FoodLoverGuide.DataAccess
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Contact> Contacts { get; set; }
-
         public DbSet<Feature> Features { get; set; }
 
         public DbSet<MenuItem> MenuItems { get; set; }
@@ -47,12 +45,6 @@ namespace FoodLoverGuide.DataAccess
                 .HasOne(r => r.Restaurant)
                 .WithMany(c =>c.RestaurantCategoriesList)
                 .HasForeignKey(f => f.RestaurantId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Contact>()
-                .HasOne(c => c.Restaurant)
-                .WithOne(r => r.RestaurantContacts)
-                .HasForeignKey<Contact>(f => f.RestaurantId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<RestaurantFeature>().HasKey(rf => new {rf.FeatureId, rf.RestaurantId});

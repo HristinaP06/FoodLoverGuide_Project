@@ -12,20 +12,17 @@ namespace FoodLoverGuide.Controllers
     {
         private readonly IRestaurantService _rService;
         private readonly ICategoryService _categoryService;
-        private readonly IContactService _contactService;
         private readonly IFeatureService _featureService;
         private readonly IWorkTimeScheduleService _workTimeScheduleService;
         private readonly IRestaurantCategoriesService _restaurantCategoriesService;
         private readonly IRestaurantFeatureService _restaurantFeatureService;
 
         public RestaurantController
-            (IRestaurantService rService, ICategoryService categoryService, IContactService contactService, 
-             IFeatureService featureService, IWorkTimeScheduleService workTimeScheduleService,
+            (IRestaurantService rService, ICategoryService categoryService,IFeatureService featureService, IWorkTimeScheduleService workTimeScheduleService,
             IRestaurantCategoriesService restaurantCategoriesService, IRestaurantFeatureService restaurantFeatureService)
         {
             _rService = rService;
             _categoryService = categoryService;
-            _contactService = contactService;
             _featureService = featureService;
             _workTimeScheduleService = workTimeScheduleService;
             _restaurantCategoriesService = restaurantCategoriesService;
@@ -35,7 +32,6 @@ namespace FoodLoverGuide.Controllers
         {
            
             var rest = await _rService.GetAll().ToListAsync();
-            var contact = await _contactService.GetAll().ToListAsync();
             var model = rest.Select(r => new RestaurantDetailsViewModel
             {
                 Name = r.Name,
@@ -44,7 +40,12 @@ namespace FoodLoverGuide.Controllers
                 PriceRangeFrom = r.PriceRangeFrom,
                 PriceRangeTo = r.PriceRangeTo,
                 IndoorCapacity = r.IndoorCapacity,
-                OutdoorCapacity = r.OutdoorCapacity
+                OutdoorCapacity = r.OutdoorCapacity,
+                Telephone = r.Telephone,
+                Email = r.Email,
+                Instagram = r.Instagram,
+                Facebook = r.Facebook,
+                WebSite = r.WebSite
             });
             return View(model);
         }
@@ -75,13 +76,6 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(RestaurantDetailsViewModel model)
         {
-            var contact = new Contact()
-            {
-                Telephone = model.Telephone,
-                Email = model.Email
-            };
-            await _contactService.Add(contact);  
-
             var workTime = new WorkTimeSchedule()
             {
                 Date = model.Date,
@@ -93,6 +87,7 @@ namespace FoodLoverGuide.Controllers
            
             var restaurant = new Restaurant()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
                 Location = model.Location,
@@ -100,7 +95,11 @@ namespace FoodLoverGuide.Controllers
                 PriceRangeTo = model.PriceRangeTo,
                 IndoorCapacity = model.IndoorCapacity,
                 OutdoorCapacity = model.OutdoorCapacity,
-                RestaurantContacts = contact 
+                Telephone = model.Telephone,
+                Email = model.Email,
+                Instagram = model.Instagram,
+                Facebook = model.Facebook,
+                WebSite = model.WebSite
             };
 
             await _rService.Add(restaurant);
@@ -131,37 +130,99 @@ namespace FoodLoverGuide.Controllers
                 }
             }
 
-
-            contact.RestaurantId = restaurant.Id;
             workTime.RestaurantId = restaurant.Id;
+
             await _workTimeScheduleService.Update(workTime);
-            await _contactService.Update(contact);
 
             return RedirectToAction("Index");
-            
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
             var obj = await _rService.GetById(id);
-            return View(obj);
+            var vm = new RestaurantDetailsViewModel
+            {
+                Name = obj.Name,
+                Description = obj.Description,
+                Location = obj.Location,
+                PriceRangeFrom = obj.PriceRangeFrom,
+                PriceRangeTo = obj.PriceRangeTo,
+                IndoorCapacity = obj.IndoorCapacity,
+                OutdoorCapacity = obj.OutdoorCapacity,
+                Telephone = obj.Telephone,
+                Email = obj.Email,
+                Instagram = obj.Instagram,
+                Facebook = obj.Facebook,
+                WebSite = obj.WebSite
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(RestaurantDetailsViewModel restaurant)
+        public async Task<IActionResult> Edit(RestaurantDetailsViewModel model)
         {
-            
-            
+            var workTime = new WorkTimeSchedule()
+            {
+                Date = model.Date,
+                Start = model.Start,
+                End = model.End
+            };
+            await _workTimeScheduleService.Update(workTime);
+
+
+            var restaurant = new Restaurant()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Location = model.Location,
+                PriceRangeFrom = model.PriceRangeFrom,
+                PriceRangeTo = model.PriceRangeTo,
+                IndoorCapacity = model.IndoorCapacity,
+                OutdoorCapacity = model.OutdoorCapacity,
+                Telephone = model.Telephone,
+                Email = model.Email,
+                Instagram = model.Instagram,
+                Facebook = model.Facebook,
+                WebSite = model.WebSite
+            };
+
+            await _rService.Update(restaurant);
+
+            if (model.SelectedCategoriesId != null)
+            {
+                foreach (var category in model.SelectedCategoriesId)
+                {
+                    RestaurantCategories restaurantCategories = new RestaurantCategories()
+                    {
+                        CategoryId = category,
+                        RestaurantId = restaurant.Id
+                    };
+                    _restaurantCategoriesService.Update(restaurantCategories);
+                }
+            }
+
+            if (model.SelectedFeaturesId != null)
+            {
+                foreach (var feature in model.SelectedFeaturesId)
+                {
+                    RestaurantFeature restaurantFeauters = new RestaurantFeature()
+                    {
+                        FeatureId = feature,
+                        RestaurantId = restaurant.Id
+                    };
+                    _restaurantFeatureService.Update(restaurantFeauters);
+                }
+            }
+
+            workTime.RestaurantId = restaurant.Id;
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var restaurant = await _rService.GetAll().Include(r => r.RestaurantCategoriesList).FirstOrDefaultAsync(c => c.Id == id);
-            
-
             await _rService.Delete(id);
             return RedirectToAction("Index");
         }

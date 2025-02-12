@@ -22,13 +22,31 @@
                 <th scope="row">Description</th>
                 <td>@res.Description</td>
             </tr>
+            @if (res.Categories != null)
+            {
             <tr>
-                <th scope="row">Category:</th>
-                @foreach(var cat in res.Categories)
+                <th scope="row">Categories:</th>
+                @foreach(var cat in res.SelectedCategoriesId)
                 {
-                    <td>@cat.Value</td>
+                    <td>@res.Categories.Where(c => c.Value == cat.ToString()).Select(c => c.Text)</td>
                 }
             </tr>
+            }
+
+            @if (res.Features != null)
+            {
+                <tr>
+                    <th scope="row">Features:</th>
+                    @foreach (var feature in res.SelectedFeaturesId)
+                    {
+                        <td>@res.Features.Where(f => f.Value == feature.ToString()).Select(f => f.Text)</td>
+                    }
+                </tr>
+            }
+            <a asp-action="Edit" asp-controller="Restaurant" asp-route-id="@res.Id" class="btn btn-success">Edit</a>
+            <form method="post" asp-controller="Restaurant" asp-action="Delete">
+                <button class="btn btn-danger" type="submit" asp-controller="Restaurant" asp-action="Delete" asp-route-id="@res.Id">Delete</button>
+            </form>
         }
     </tbody>
 </table>

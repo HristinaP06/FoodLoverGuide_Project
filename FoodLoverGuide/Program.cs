@@ -33,7 +33,6 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IFeatureService, FeatureService>();
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 builder.Services.AddScoped<IRatingService, RatingService>();
