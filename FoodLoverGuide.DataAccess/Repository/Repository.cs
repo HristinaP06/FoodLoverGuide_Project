@@ -37,7 +37,7 @@ namespace FoodLoverGuide.DataAccess.Repository
 
         public async Task Update(T entity)
         {
-           dbSet.Update(entity);
+            dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
 

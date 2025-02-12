@@ -19,10 +19,10 @@ namespace FoodLoverGuide.Models.ViewModels
 
         public string? WebSite { get; set; }
 
-        public List<Guid>? SelectedCategoriesId { get; set; } = new List<Guid>();
+        public List<Guid> SelectedCategoriesId { get; set; } = new List<Guid>();
         public List<SelectListItem>? Categories { get; set; } = new List<SelectListItem>();
 
-        public List<Guid>? SelectedFeaturesId { get; set; } = new List<Guid>();
+        public List<Guid> SelectedFeaturesId { get; set; } = new List<Guid>();
         public List<SelectListItem>? Features { get; set; } = new List<SelectListItem>();
 
         public double? PriceRangeFrom { get; set; }

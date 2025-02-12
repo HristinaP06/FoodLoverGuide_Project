@@ -22,7 +22,7 @@
                 <th scope="row">Description</th>
                 <td>@res.Description</td>
             </tr>
-            @if (res.Categories != null)
+            @if (res.SelectedCategoriesId != null)
             {
             <tr>
                 <th scope="row">Categories:</th>
@@ -33,7 +33,7 @@
             </tr>
             }
 
-            @if (res.Features != null)
+            @if (res.SelectedFeaturesId != null)
             {
                 <tr>
                     <th scope="row">Features:</th>

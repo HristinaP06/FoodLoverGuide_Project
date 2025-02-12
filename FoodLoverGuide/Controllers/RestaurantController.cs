@@ -28,12 +28,13 @@ namespace FoodLoverGuide.Controllers
             _restaurantCategoriesService = restaurantCategoriesService;
             _restaurantFeatureService = restaurantFeatureService;
         }
+
         public async Task<IActionResult> Index()
         {
-           
-            var rest = await _rService.GetAll().ToListAsync();
+            var rest = await _rService.GetAll().Include(x => x.Features).Include(x => x.RestaurantCategoriesList).ToListAsync();
             var model = rest.Select(r => new RestaurantDetailsViewModel
             {
+                Id = r.Id,
                 Name = r.Name,
                 Description = r.Description,
                 Location = r.Location,
@@ -41,6 +42,9 @@ namespace FoodLoverGuide.Controllers
                 PriceRangeTo = r.PriceRangeTo,
                 IndoorCapacity = r.IndoorCapacity,
                 OutdoorCapacity = r.OutdoorCapacity,
+                SelectedCategoriesId = r.RestaurantCategoriesList?.Select(x => x.CategoryId)?.ToList(),
+                SelectedFeaturesId = r.Features?.Select(x => x.FeatureId)?.ToList(),
+                Categories = r.RestaurantCategoriesList?.Select(x => new SelectListItem() { Value = x.Category.CategoryName }).ToList(),
                 Telephone = r.Telephone,
                 Email = r.Email,
                 Instagram = r.Instagram,
@@ -111,9 +115,13 @@ namespace FoodLoverGuide.Controllers
                     RestaurantCategories restaurantCategories = new RestaurantCategories()
                     {
                         CategoryId = category,
-                        RestaurantId = restaurant.Id
+                        RestaurantId = restaurant?.Id,
+                        Restaurant = restaurant,
+                        Category = await _categoryService.GetById(category)
                     };
-                    _restaurantCategoriesService.Add(restaurantCategories);
+                    await _restaurantCategoriesService.Add(restaurantCategories);
+                    restaurant?.RestaurantCategoriesList?.Add(restaurantCategories);
+                    
                 }
             }
 
@@ -124,16 +132,19 @@ namespace FoodLoverGuide.Controllers
                     RestaurantFeature restaurantFeauters = new RestaurantFeature()
                     {
                         FeatureId = feature,
-                        RestaurantId = restaurant.Id
+                        RestaurantId = restaurant?.Id,
+                        Restaurants = restaurant,
+                        Features = await _featureService.GetById(feature)
                     };
-                    _restaurantFeatureService.Add(restaurantFeauters);
+                    await _restaurantFeatureService.Add(restaurantFeauters);
+                    restaurant?.Features?.Add(restaurantFeauters);
                 }
             }
 
             workTime.RestaurantId = restaurant.Id;
-
+            await _rService.Update(restaurant);
             await _workTimeScheduleService.Update(workTime);
-
+            
             return RedirectToAction("Index");
         }
 

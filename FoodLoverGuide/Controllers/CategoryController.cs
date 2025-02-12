@@ -28,6 +28,7 @@ namespace FoodLoverGuide.Controllers
         public async Task<IActionResult> Create(Category category)
         {
             await _service.Add(category);
+
             return RedirectToAction("Index");
         }
 

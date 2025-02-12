@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Core.Services
 {
