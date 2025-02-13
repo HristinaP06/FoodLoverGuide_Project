@@ -68,12 +68,11 @@ namespace FoodLoverGuide.Controllers
                     Text = c.CategoryName
                 }).ToList(),
                 Features = features.Select(f => new SelectListItem
-                { 
+                {
                     Value = f.Id.ToString(),
                     Text = f.Name
                 }).ToList()
             };
-
             return View(model);
         }
 
@@ -88,6 +87,7 @@ namespace FoodLoverGuide.Controllers
                 End = model.End
             };
             await _workTimeScheduleService.Add(workTime);  
+
 
            
             var restaurant = new Restaurant()

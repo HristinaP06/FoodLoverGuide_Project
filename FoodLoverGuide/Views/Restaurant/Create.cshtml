@@ -6,7 +6,7 @@
 
 <style>
     .form-container {
-        width: 60%;
+        width: 100%;
         margin: 0 auto;
         padding: 20px;
         background-color: #f9f9f9;
@@ -146,18 +146,53 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label asp-for="Date">Day:</label>
-            <input type="date" asp-for="Date" class="form-control" />
-        </div>
-
         <div class="form-group-inline">
             <div class="form-group">
+                <label>Понеделник</label>
                 <label asp-for="Start">From:</label>
                 <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="End">To:</label>
+                <input type="time" asp-for="End" class="form-control" />
             </div>
-
             <div class="form-group">
+                <label>Вторник</label>
+                <label asp-for="Start">From:</label>
+                <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="End">To:</label>
+                <input type="time" asp-for="End" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Сряда</label>
+                <label asp-for="Start">From:</label>
+                <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="End">To:</label>
+                <input type="time" asp-for="End" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Четвъртък</label>
+                <label asp-for="Start">From:</label>
+                <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="End">To:</label>
+                <input type="time" asp-for="End" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Петък</label>
+                <label asp-for="Start">From:</label>
+                <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="End">To:</label>
+                <input type="time" asp-for="End" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Събота</label>
+                <label asp-for="Start">From:</label>
+                <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="End">To:</label>
+                <input type="time" asp-for="End" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Неделя</label>
+                <label asp-for="Start">From:</label>
+                <input type="time" asp-for="Start" class="form-control" />
                 <label asp-for="End">To:</label>
                 <input type="time" asp-for="End" class="form-control" />
             </div>

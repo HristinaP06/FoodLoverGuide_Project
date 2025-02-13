@@ -36,6 +36,6 @@ namespace FoodLoverGuide.Models.ViewModels
         public TimeSpan Start { get; set; }
 
         public TimeSpan End { get; set; }
-        public ICollection<WorkTimeSchedule> WorkTime { get; set; }
+        public ICollection<WorkTimeSchedule> WorkTime { get; set; } 
     }
 }
