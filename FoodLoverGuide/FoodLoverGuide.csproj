@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
 
 </Project>

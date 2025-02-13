@@ -1,10 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
+@model IEnumerable<RestaurantDetailsVM>
 
-@model IEnumerable<FoodLoverGuide.Models.ViewModels.RestaurantDetailsViewModel>
 <table class="table">
     <thead>
         <tr>
@@ -22,27 +18,7 @@
                 <th scope="row">Description</th>
                 <td>@res.Description</td>
             </tr>
-            @if (res.SelectedCategoriesId != null)
-            {
-            <tr>
-                <th scope="row">Categories:</th>
-                @foreach(var cat in res.SelectedCategoriesId)
-                {
-                    <td>@res.Categories.Where(c => c.Value == cat.ToString()).Select(c => c.Text)</td>
-                }
-            </tr>
-            }
 
-            @if (res.SelectedFeaturesId != null)
-            {
-                <tr>
-                    <th scope="row">Features:</th>
-                    @foreach (var feature in res.SelectedFeaturesId)
-                    {
-                        <td>@res.Features.Where(f => f.Value == feature.ToString()).Select(f => f.Text)</td>
-                    }
-                </tr>
-            }
             <a asp-action="Edit" asp-controller="Restaurant" asp-route-id="@res.Id" class="btn btn-success">Edit</a>
             <form method="post" asp-controller="Restaurant" asp-action="Delete">
                 <button class="btn btn-danger" type="submit" asp-controller="Restaurant" asp-action="Delete" asp-route-id="@res.Id">Delete</button>
@@ -50,4 +26,3 @@
         }
     </tbody>
 </table>
-

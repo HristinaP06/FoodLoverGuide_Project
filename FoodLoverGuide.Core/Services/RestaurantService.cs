@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
-using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
 {
@@ -20,12 +15,29 @@ namespace FoodLoverGuide.Core.Services
             _repo = repo;
         }
 
-        public async Task Add(Restaurant entity)
+        public async Task AddRestaurant(RestaurantDetailsVM model)
         {
-            await _repo.Add(entity);
+            var restaurant = new Restaurant()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                Location = model.Location,
+                PriceRangeFrom = model.PriceRangeFrom,
+                PriceRangeTo = model.PriceRangeTo,
+                IndoorCapacity = model.IndoorCapacity,
+                OutdoorCapacity = model.OutdoorCapacity,
+                Telephone = model.Telephone,
+                Email = model.Email,
+                Instagram = model.Instagram,
+                Facebook = model.Facebook,
+                WebSite = model.WebSite
+            };
+
+            await _repo.Add(restaurant);
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteRestaurant(Guid id)
         {
             await _repo.Delete(id);
         }
@@ -35,7 +47,7 @@ namespace FoodLoverGuide.Core.Services
             return await _repo.Find(filter);
         }
 
-        public IQueryable<Restaurant> GetAll()
+        public IQueryable<Restaurant> GetAllRestaurants()
         {
             return _repo.GetAll();
         }
@@ -45,9 +57,25 @@ namespace FoodLoverGuide.Core.Services
             return await _repo.GetById(id);
         }
 
-        public async Task Update(Restaurant entity)
+        public async Task Update(RestaurantDetailsVM model)
         {
-            await _repo.Update(entity);
+            var restaurant = new Restaurant()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Location = model.Location,
+                PriceRangeFrom = model.PriceRangeFrom,
+                PriceRangeTo = model.PriceRangeTo,
+                IndoorCapacity = model.IndoorCapacity,
+                OutdoorCapacity = model.OutdoorCapacity,
+                Telephone = model.Telephone,
+                Email = model.Email,
+                Instagram = model.Instagram,
+                Facebook = model.Facebook,
+                WebSite = model.WebSite
+            };
+
+            await _repo.Update(restaurant);
         }
     }
 }
