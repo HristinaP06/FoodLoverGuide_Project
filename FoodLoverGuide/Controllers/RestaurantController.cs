@@ -42,9 +42,10 @@ namespace FoodLoverGuide.Controllers
                 PriceRangeTo = r.PriceRangeTo,
                 IndoorCapacity = r.IndoorCapacity,
                 OutdoorCapacity = r.OutdoorCapacity,
-                SelectedCategoriesId = r.RestaurantCategoriesList?.Select(x => x.CategoryId)?.ToList(),
-                SelectedFeaturesId = r.Features?.Select(x => x.FeatureId)?.ToList(),
-                Categories = r.RestaurantCategoriesList?.Select(x => new SelectListItem() { Value = x.Category.CategoryName }).ToList(),
+                SelectedCategoriesId = r.RestaurantCategoriesList.Select(c => c.CategoryId).ToList(),
+                SelectedFeaturesId = r.Features.Select(f => f.FeatureId).ToList(),
+                Categories = r.RestaurantCategoriesList.Select(x => new SelectListItem() { Value = x.Category.CategoryName }).ToList(),
+                Features = r.Features.Select(x => new SelectListItem() { Value = x.Features.Name}).ToList(),
                 Telephone = r.Telephone,
                 Email = r.Email,
                 Instagram = r.Instagram,
@@ -115,12 +116,13 @@ namespace FoodLoverGuide.Controllers
                     RestaurantCategories restaurantCategories = new RestaurantCategories()
                     {
                         CategoryId = category,
-                        RestaurantId = restaurant?.Id,
+                        RestaurantId = restaurant.Id,
                         Restaurant = restaurant,
-                        Category = await _categoryService.GetById(category)
+                        Category = await _categoryService.GetAll().Where(x => x.Id == category).Select(x => x).FirstAsync()
                     };
-                    await _restaurantCategoriesService.Add(restaurantCategories);
                     restaurant?.RestaurantCategoriesList?.Add(restaurantCategories);
+                    await _restaurantCategoriesService.Add(restaurantCategories);
+                    
                     
                 }
             }
@@ -132,12 +134,13 @@ namespace FoodLoverGuide.Controllers
                     RestaurantFeature restaurantFeauters = new RestaurantFeature()
                     {
                         FeatureId = feature,
-                        RestaurantId = restaurant?.Id,
+                        RestaurantId = restaurant.Id,
                         Restaurants = restaurant,
-                        Features = await _featureService.GetById(feature)
+                        Features = await _featureService.GetAll().Where(x => x.Id == feature).Select(x => x).FirstAsync()
                     };
-                    await _restaurantFeatureService.Add(restaurantFeauters);
                     restaurant?.Features?.Add(restaurantFeauters);
+                    await _restaurantFeatureService.Add(restaurantFeauters);
+                    
                 }
             }
 
