@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodLoverGuide.Models
 {
@@ -12,11 +11,10 @@ namespace FoodLoverGuide.Models
 
         public Restaurant Restaurant { get; set; }
 
-        public DayOfWeek Date { get; set; }
+        public DayOfWeek Day { get; set; }
 
-        public TimeSpan Start { get; set; }
+        public TimeSpan OpeningTime { get; set; }
 
-        public TimeSpan End { get; set; }
-
+        public TimeSpan ClosingTime { get; set; }
     }
 }
