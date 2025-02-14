@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace FoodLoverGuide.DataAccess.Repository
 {
-    public interface IRepository <T> where T : class
+    public interface IRepository 
     {
-        Task Add (T entity);
+        Task AddAsync<T>(T entity) where T : class;
 
-        Task Update (T entity);
+        Task UpdateAsync<T> (T entity) where T : class;
 
-        Task Delete (Guid id);
+        Task DeleteAsync<T> (Guid id) where T : class;
 
-        Task<T> GetById(Guid id);
+        Task<T> GetByIdAsync<T>(Guid id) where T : class;
 
-        IQueryable<T> GetAll ();
+        IQueryable<T> GetAllAsync<T> () where T : class;
 
-        Task<List<T>> Find(Expression<Func<T,bool>> filter);
+        Task<List<T>> FindAsync<T>(Expression<Func<T,bool>> filter) where T : class;
     }
 }
