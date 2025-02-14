@@ -8,47 +8,50 @@ using System.Threading.Tasks;
 
 namespace FoodLoverGuide.DataAccess.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository : IRepository
     {
-        private readonly ApplicationDbContext _context;
-        internal DbSet<T> dbSet;
+        private readonly ApplicationDbContext context;
+        
+        public DbSet<T> DbSet<T>() where T : class
+        {
+            return this.context.Set<T>();
+        }
 
         public Repository(ApplicationDbContext context)
         {
-            this._context = context;
-            this.dbSet = _context.Set<T>();
+            this.context = context;
         }
-        public async Task Add(T entity)
+        public async Task AddAsync<T>(T entity) where T : class
         {
-            await dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await DbSet<T>().AddAsync(entity);
+            await this.context.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync<T>(Guid id) where T : class
         {
-            var entity = dbSet.Find(id);
+            var entity = DbSet<T>().Find(id);
             if (entity == null) 
             {
                 throw new ArgumentException("id is null");
             }
-            dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
+            DbSet<T>().Remove(entity);
+            await this.context.SaveChangesAsync();
         }
 
-        public async Task Update(T entity)
+        public async Task UpdateAsync<T>(T entity) where T : class
         {
-            dbSet.Update(entity);
-            await _context.SaveChangesAsync();
+            DbSet<T>().Update(entity);
+            await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> Find(Expression<Func<T, bool>> filter)
+        public async Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> filter) where T : class
         {
-            return await dbSet.Where(filter).ToListAsync();
+            return await DbSet<T>().Where(filter).ToListAsync();
         }
 
-        public async Task<T> GetById(Guid id)
+        public async Task<T> GetByIdAsync<T>(Guid id) where T : class
         {
-            var entity = dbSet.Find(id);
+            var entity = DbSet<T>().Find(id);
             if (entity == null)
             {
                 throw new ArgumentException("id is null");
@@ -56,9 +59,9 @@ namespace FoodLoverGuide.DataAccess.Repository
             return entity;
         }
 
-        public IQueryable<T> GetAll()
+        public IQueryable<T> GetAllAsync<T>() where T : class
         {
-            return dbSet.AsQueryable();
+            return DbSet<T>().AsQueryable();
         }
     }
 }
