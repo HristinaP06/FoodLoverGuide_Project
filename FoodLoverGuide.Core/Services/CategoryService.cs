@@ -1,47 +1,42 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodLoverGuide.Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IRepository<Category> _repo;
+        private readonly IRepository repo;
 
-        public CategoryService(IRepository<Category> repo)
+        public CategoryService(IRepository repo)
         {
-            _repo = repo;
+            this.repo = repo;
         }
 
         public async Task Add(Category entity)
         {
-            await _repo.Add(entity);
+            await this.repo.AddAsync(entity);
         }
 
         public async Task Delete(Guid id)
         {
-             await _repo.Delete(id);
+             await this.repo.DeleteAsync<Category>(id);
         }
 
         public async Task<List<Category>> Find(Expression<Func<Category, bool>> filter)
         {
-            return await _repo.Find(filter);
+            return await this.repo.FindAsync(filter);
         }
 
         public IQueryable<Category> GetAll()
         {
-            return _repo.GetAll();
+            return this.repo.GetAllAsync<Category>();
         }
 
         public async Task<Category> GetById(Guid id)
         {
-            return await _repo.GetById(id);
+            return await this.repo.GetByIdAsync<Category>(id);
         }
 
         public Category GetRestaurantCategory(Guid restaurantId)
@@ -51,7 +46,7 @@ namespace FoodLoverGuide.Core.Services
 
         public async Task Update(Category entity)
         {
-             await _repo.Update(entity);
+             await this.repo.UpdateAsync(entity);
         }
     }
 }

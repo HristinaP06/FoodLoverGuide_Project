@@ -1,52 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
 {
     public class RestaurantFeatureService : IRestaurantFeatureService
     {
-        private readonly IRepository<RestaurantFeature> _repo;
+        private readonly IRepository repo;
 
-        public RestaurantFeatureService(IRepository<RestaurantFeature> repo)
+        public RestaurantFeatureService(IRepository repo)
         {
-            _repo = repo;
+            this.repo = repo;
         }
 
         public async Task Add(RestaurantFeature entity)
         {
-            await _repo.Add(entity);
+            await this.repo.AddAsync(entity);
         }
 
         public async Task Delete(Guid id)
         {
-            await _repo.Delete(id);
+            await this.repo.DeleteAsync<RestaurantFeature>(id);
         }
 
         public async Task<List<RestaurantFeature>> Find(Expression<Func<RestaurantFeature, bool>> filter)
         {
-            return await _repo.Find(filter);
+            return await this.repo.FindAsync(filter);
         }
 
         public IQueryable<RestaurantFeature> GetAll()
         {
-            return _repo.GetAll();
+            return this.repo.GetAllAsync<RestaurantFeature>();
         }
 
         public async Task<RestaurantFeature> GetById(Guid id)
         {
-            return await _repo.GetById(id);
+            return await this.repo.GetByIdAsync<RestaurantFeature>(id);
         }
 
         public async Task Update(RestaurantFeature entity)
         {
-            await _repo.Update(entity);
+            await this.repo.UpdateAsync(entity);
         }
     }
 }

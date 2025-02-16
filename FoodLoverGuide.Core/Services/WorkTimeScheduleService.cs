@@ -1,52 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
 {
     public class WorkTimeScheduleService : IWorkTimeScheduleService
     {
-        private readonly IRepository<WorkTimeSchedule> _repo;
+        private readonly IRepository repo;
 
-        public WorkTimeScheduleService(IRepository<WorkTimeSchedule> repo)
+        public WorkTimeScheduleService(IRepository repo)
         {
-            _repo = repo;
+            this.repo = repo;
         }
 
         public async Task Add(WorkTimeSchedule entity)
         {
-            await _repo.Add(entity);
+            await this.repo.AddAsync(entity);
         }
 
         public async Task Delete(Guid id)
         {
-            await _repo.Delete(id);
+            await this.repo.DeleteAsync<WorkTimeSchedule>(id);
         }
 
         public async Task<List<WorkTimeSchedule>> Find(Expression<Func<WorkTimeSchedule, bool>> filter)
         {
-            return await _repo.Find(filter);
+            return await this.repo.FindAsync(filter);
         }
 
         public IQueryable<WorkTimeSchedule> GetAll()
         {
-            return _repo.GetAll();
+            return this.repo.GetAllAsync<WorkTimeSchedule>();
         }
 
         public async Task<WorkTimeSchedule> GetById(Guid id)
         {
-            return await _repo.GetById(id);
+            return await this.repo.GetByIdAsync<WorkTimeSchedule>(id);
         }
 
         public async Task Update(WorkTimeSchedule entity)
         {
-            await _repo.Update(entity);
+            await this.repo.UpdateAsync(entity);
         }
     }
 }

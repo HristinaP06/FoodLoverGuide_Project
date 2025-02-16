@@ -1,52 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
 {
     public class ReservationService : IReservationService
     {
-        private readonly IRepository<Reservation> _repo;
+        private readonly IRepository repo;
 
-        public ReservationService(IRepository<Reservation> repo)
+        public ReservationService(IRepository repo)
         {
-            _repo = repo;
+            this.repo = repo;
         }
 
         public async Task Add(Reservation entity)
         {
-            await _repo.Add(entity);
+            await this.repo.AddAsync(entity);
         }
 
         public async Task Delete(Guid id)
         {
-            await _repo.Delete(id);
+            await this.repo.DeleteAsync<Reservation>(id);
         }
 
         public async Task<List<Reservation>> Find(Expression<Func<Reservation, bool>> filter)
         {
-            return await _repo.Find(filter);
+            return await this.repo.FindAsync(filter);
         }
 
         public IQueryable<Reservation> GetAll()
         {
-            return _repo.GetAll();
+            return this.repo.GetAllAsync<Reservation>();
         }
 
         public async Task<Reservation> GetById(Guid id)
         {
-            return await _repo.GetById(id);
+            return await this.repo.GetByIdAsync<Reservation>(id);
         }
 
         public async Task Update(Reservation entity)
         {
-            await _repo.Update(entity);
+            await this.repo.UpdateAsync(entity);
         }
     }
 }

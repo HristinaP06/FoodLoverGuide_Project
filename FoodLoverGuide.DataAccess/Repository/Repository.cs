@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodLoverGuide.DataAccess.Repository
 {
@@ -29,7 +24,7 @@ namespace FoodLoverGuide.DataAccess.Repository
 
         public async Task DeleteAsync<T>(Guid id) where T : class
         {
-            var entity = DbSet<T>().Find(id);
+            var entity = await DbSet<T>().FindAsync(id);
             if (entity == null) 
             {
                 throw new ArgumentException("id is null");
@@ -51,7 +46,7 @@ namespace FoodLoverGuide.DataAccess.Repository
 
         public async Task<T> GetByIdAsync<T>(Guid id) where T : class
         {
-            var entity = DbSet<T>().Find(id);
+            var entity = await DbSet<T>().FindAsync(id);
             if (entity == null)
             {
                 throw new ArgumentException("id is null");

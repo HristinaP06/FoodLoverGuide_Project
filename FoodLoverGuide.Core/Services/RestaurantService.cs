@@ -8,9 +8,9 @@ namespace FoodLoverGuide.Core.Services
 {
     public class RestaurantService : IRestaurantService
     {
-        private readonly IRepository<Restaurant> _repo;
+        private readonly IRepository _repo;
 
-        public RestaurantService(IRepository<Restaurant> repo)
+        public RestaurantService(IRepository repo)
         {
             _repo = repo;
         }
@@ -34,27 +34,27 @@ namespace FoodLoverGuide.Core.Services
                 WebSite = model.WebSite
             };
 
-            await _repo.Add(restaurant);
+            await _repo.AddAsync(restaurant);
         }
 
         public async Task DeleteRestaurant(Guid id)
         {
-            await _repo.Delete(id);
+            await _repo.DeleteAsync<Restaurant>(id);
         }
 
         public async Task<List<Restaurant>> Find(Expression<Func<Restaurant, bool>> filter)
         {
-            return await _repo.Find(filter);
+            return await _repo.FindAsync(filter);
         }
 
         public IQueryable<Restaurant> GetAllRestaurants()
         {
-            return _repo.GetAll();
+            return _repo.GetAllAsync<Restaurant>();
         }
 
         public async Task<Restaurant> GetById(Guid id)
         {
-            return await _repo.GetById(id);
+            return await _repo.GetByIdAsync<Restaurant>(id);
         }
 
         public async Task Update(RestaurantDetailsVM model)
@@ -75,7 +75,7 @@ namespace FoodLoverGuide.Core.Services
                 WebSite = model.WebSite
             };
 
-            await _repo.Update(restaurant);
+            await _repo.UpdateAsync(restaurant);
         }
     }
 }
