@@ -8,11 +8,11 @@ namespace FoodLoverGuide.Core.Services
 {
     public class RestaurantService : IRestaurantService
     {
-        private readonly IRepository _repo;
+        private readonly IRepository repo;
 
         public RestaurantService(IRepository repo)
         {
-            _repo = repo;
+            this.repo = repo;
         }
 
         public async Task AddRestaurant(RestaurantDetailsVM model)
@@ -34,27 +34,27 @@ namespace FoodLoverGuide.Core.Services
                 WebSite = model.WebSite
             };
 
-            await _repo.AddAsync(restaurant);
+            await this.repo.AddAsync(restaurant);
         }
 
         public async Task DeleteRestaurant(Guid id)
         {
-            await _repo.DeleteAsync<Restaurant>(id);
+            await this.repo.DeleteAsync<Restaurant>(id);
         }
 
         public async Task<List<Restaurant>> Find(Expression<Func<Restaurant, bool>> filter)
         {
-            return await _repo.FindAsync(filter);
+            return await this.repo.FindAsync(filter);
         }
 
         public IQueryable<Restaurant> GetAllRestaurants()
         {
-            return _repo.GetAllAsync<Restaurant>();
+            return this.repo.GetAllAsync<Restaurant>();
         }
 
         public async Task<Restaurant> GetById(Guid id)
         {
-            return await _repo.GetByIdAsync<Restaurant>(id);
+            return await this.repo.GetByIdAsync<Restaurant>(id);
         }
 
         public async Task Update(RestaurantDetailsVM model)
@@ -75,7 +75,7 @@ namespace FoodLoverGuide.Core.Services
                 WebSite = model.WebSite
             };
 
-            await _repo.UpdateAsync(restaurant);
+            await this.repo.UpdateAsync(restaurant);
         }
     }
 }
