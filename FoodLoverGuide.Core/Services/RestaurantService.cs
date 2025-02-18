@@ -15,7 +15,7 @@ namespace FoodLoverGuide.Core.Services
             this.repo = repo;
         }
 
-        public async Task AddRestaurant(RestaurantDetailsVM model)
+        public async Task<Guid> AddRestaurant(RestaurantCreateVM model)
         {
             var restaurant = new Restaurant()
             {
@@ -35,6 +35,8 @@ namespace FoodLoverGuide.Core.Services
             };
 
             await this.repo.AddAsync(restaurant);
+
+            return restaurant.Id;
         }
 
         public async Task DeleteRestaurant(Guid id)
@@ -57,7 +59,7 @@ namespace FoodLoverGuide.Core.Services
             return await this.repo.GetByIdAsync<Restaurant>(id);
         }
 
-        public async Task Update(RestaurantDetailsVM model)
+        public async Task Update(RestaurantCreateVM model)
         {
             var restaurant = new Restaurant()
             {

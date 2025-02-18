@@ -6,7 +6,7 @@ namespace FoodLoverGuide.Core.IServices
 {
     public interface IRestaurantService
     {
-        Task AddRestaurant(RestaurantDetailsVM model);
+        Task<Guid> AddRestaurant(RestaurantCreateVM model);
 
         Task DeleteRestaurant(Guid id);
 
@@ -16,6 +16,6 @@ namespace FoodLoverGuide.Core.IServices
 
         Task<Restaurant> GetById(Guid id);
 
-        Task Update(RestaurantDetailsVM entity);
+        Task Update(RestaurantCreateVM entity);
     }
 }
