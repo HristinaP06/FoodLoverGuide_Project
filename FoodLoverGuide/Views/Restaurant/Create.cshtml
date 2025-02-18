@@ -1,5 +1,5 @@
 ﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
-@model RestaurantDetailsVM
+@model RestaurantCreateVM
 
 @{
     ViewData["Title"] = "Restaurant Details";
@@ -50,24 +50,24 @@
         <div class="form-group-inline">
             <div class="form-group">
                 <label asp-for="PriceRangeFrom">Price range from:</label>
-                <input type="text" asp-for="PriceRangeFrom" class="form-control" />
+                <input type="number" asp-for="PriceRangeFrom" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label asp-for="PriceRangeTo">Price range to:</label>
-                <input type="text" asp-for="PriceRangeTo" class="form-control" />
+                <input type="number" asp-for="PriceRangeTo" class="form-control" />
             </div>
         </div>
 
         <div class="form-group-inline">
             <div class="form-group">
                 <label asp-for="IndoorCapacity">Indoor capacity:</label>
-                <input type="text" asp-for="IndoorCapacity" class="form-control" />
+                <input type="number" asp-for="IndoorCapacity" class="form-control" />
             </div>
 
             <div class="form-group">
                 <label asp-for="OutdoorCapacity">Outdoor capacity:</label>
-                <input type="text" asp-for="OutdoorCapacity" class="form-control" />
+                <input type="number" asp-for="OutdoorCapacity" class="form-control" />
             </div>
         </div>
 

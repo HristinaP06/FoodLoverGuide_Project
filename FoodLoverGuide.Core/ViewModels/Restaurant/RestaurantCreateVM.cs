@@ -1,6 +1,6 @@
 ﻿namespace FoodLoverGuide.Core.ViewModels.Restaurant
 {
-    public class RestaurantDetailsVM
+    public class RestaurantCreateVM
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
