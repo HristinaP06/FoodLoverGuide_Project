@@ -2,6 +2,7 @@
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FoodLoverGuide.Controllers
 {
@@ -28,7 +29,10 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Feature feature)
         {
-            await _service.Add(feature);
+            if (ModelState.IsValid)
+            {
+                await _service.Add(feature);
+            }
             return RedirectToAction("Index");
         }
 

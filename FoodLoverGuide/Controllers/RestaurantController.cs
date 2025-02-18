@@ -17,7 +17,7 @@ namespace FoodLoverGuide.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             var rest = await _rService.GetAllRestaurants().Include(x => x.Features).Include(x => x.RestaurantCategoriesList).ToListAsync();
-            var model = rest.Select(r => new RestaurantDetailsVM
+            var model = rest.Select(r => new RestaurantCreateVM
             {
                 Id = r.Id,
                 Name = r.Name,
@@ -43,18 +43,18 @@ namespace FoodLoverGuide.Controllers
 
         
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(RestaurantDetailsVM model)
+        public async Task<IActionResult> CreateAsync(RestaurantCreateVM model)
         {
-            await _rService.AddRestaurant(model);
+            Guid id = await _rService.AddRestaurant(model);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AssignCategories", new { restaurantId = id });
         }
 
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
             var obj = await _rService.GetById(id);
-            var vm = new RestaurantDetailsVM
+            var vm = new RestaurantCreateVM
             {
                 Name = obj.Name,
                 Description = obj.Description,
@@ -73,7 +73,7 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAsync(RestaurantDetailsVM model)
+        public async Task<IActionResult> EditAsync(RestaurantCreateVM model)
         {
             await _rService.Update(model);
 
@@ -86,6 +86,12 @@ namespace FoodLoverGuide.Controllers
             await _rService.DeleteRestaurant(id);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult AssignCategories(Guid restaurantId)
+        {
+            return View("AssignCategories");
         }
     }
 }

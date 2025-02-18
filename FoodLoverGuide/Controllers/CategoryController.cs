@@ -53,5 +53,11 @@ namespace FoodLoverGuide.Controllers
             await _service.Delete(id);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> RestaurantCreate()
+        {
+            var list = await _service.GetAll().ToListAsync();
+            return RedirectToAction("RestaurantCreate");
+        }
     }
 }
