@@ -1,4 +1,5 @@
-﻿using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Core;
+using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +8,18 @@ namespace FoodLoverGuide.Controllers
 {
     public class RestaurantController : Controller
     {
-        private readonly IRestaurantService _rService;
+        private readonly IRestaurantService rService;
+        private readonly ICategoryService categoryService;
 
-        public RestaurantController(IRestaurantService rService)
+        public RestaurantController(IRestaurantService rService, ICategoryService categoryService)
         {
-            _rService = rService;
+            this.rService = rService;
+            this.categoryService = categoryService;
         }
 
         public async Task<IActionResult> IndexAsync()
         {
-            var rest = await _rService.GetAllRestaurants().Include(x => x.Features).Include(x => x.RestaurantCategoriesList).ToListAsync();
+            var rest = await this.rService.GetAllRestaurants().Include(x => x.Features).Include(x => x.RestaurantCategoriesList).ToListAsync();
             var model = rest.Select(r => new RestaurantCreateVM
             {
                 Id = r.Id,
@@ -45,7 +48,7 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(RestaurantCreateVM model)
         {
-            Guid id = await _rService.AddRestaurant(model);
+            Guid id = await this.rService.AddRestaurant(model);
 
             return RedirectToAction("AssignCategories", new { restaurantId = id });
         }
@@ -53,7 +56,7 @@ namespace FoodLoverGuide.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var obj = await _rService.GetById(id);
+            var obj = await this.rService.GetById(id);
             var vm = new RestaurantCreateVM
             {
                 Name = obj.Name,
@@ -75,7 +78,7 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAsync(RestaurantCreateVM model)
         {
-            await _rService.Update(model);
+            await this.rService.Update(model);
 
             return RedirectToAction("Index");
         }
@@ -83,15 +86,29 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            await _rService.DeleteRestaurant(id);
+            await this.rService.DeleteRestaurant(id);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult AssignCategories(Guid restaurantId)
+        public async Task<IActionResult> AssignCategories(Guid restaurantId)
         {
-            return View("AssignCategories");
+            var categories = this.categoryService.GetAll();
+            var model = new AddCategoryToRestaurantVM
+            {
+                RestaurantId = restaurantId,
+                Restaurant = await this.rService.GetById(restaurantId),
+                CategoriesList = categories.ToList(),
+            };
+
+            return  View("AssignCategories", model);
         }
+
+       /*[HttpPost]
+        public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
+        {
+            await
+        }*/
     }
 }

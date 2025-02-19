@@ -1,15 +1,34 @@
 ﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
-@model RestaurantCreateVM
 
+@model AddCategoryToRestaurantVM
+@* 
 @{
     ViewData["Title"] = "Restaurant Details";
 }
-
+ *@
 <div class="form-container">
-    <h2> Restaurant Categories</h2>
+   <h2>Restaurant Details</h2>
     <form method="post">
-        <div class="form-group">
-            <label asp-for="Name">Name:</label>
-            <input type="text" asp-for="Name" class="form-control" />
-        </div>
-    </form>
+        @foreach(var cat in Model.CategoriesList){
+         <div>
+           <label class="checkbox-label">
+             <input type="checkbox" class="checkbox" name="SelectedCategoriesIds" />
+               <div class="svg-icon">
+                 <svg xmlns="http://www.w3.org/2000/svg"
+                 height="1em"
+                 viewBox="0 0 448 512">
+                 <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path>
+                 </svg>
+               </div>
+               <span class="container"></span>
+                    @cat.CategoryName
+           </label>
+         </div>
+        }
+        <></>
+</form>
+</div>
+
+    @section Styles{
+        <link rel="stylesheet" href="~/css/categoryCheckBox.css" asp-append-version="true"></link>
+    }

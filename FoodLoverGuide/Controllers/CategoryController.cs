@@ -7,15 +7,15 @@ namespace FoodLoverGuide.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryService _service;
+        private readonly ICategoryService service;
 
         public CategoryController(ICategoryService service)
         {
-            _service = service;
+            this.service = service;
         }
         public async Task<IActionResult> Index()
         {
-            var list  = await _service.GetAll().ToListAsync();
+            var list  = await this.service.GetAll().ToListAsync();
             return View(list);
         }
 
@@ -27,7 +27,7 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
-            await _service.Add(category);
+            await this.service.Add(category);
 
             return RedirectToAction("Index");
         }
@@ -35,7 +35,7 @@ namespace FoodLoverGuide.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var obj = await _service.GetById(id);
+            var obj = await this.service.GetById(id);
             return View(obj);
         }
 
@@ -43,21 +43,21 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Category category)
         {
-            await _service.Update(category);
+            await this.service.Update(category);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _service.Delete(id);
+            await this.service.Delete(id);
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> RestaurantCreate()
+        public async Task<IActionResult> AssignCategoriesToRestaurant()
         {
-            var list = await _service.GetAll().ToListAsync();
-            return RedirectToAction("RestaurantCreate");
+            var list = await this.service.GetAll().ToListAsync();
+            return View("AssignCategories");
         }
     }
 }

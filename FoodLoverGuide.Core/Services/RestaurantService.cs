@@ -9,10 +9,12 @@ namespace FoodLoverGuide.Core.Services
     public class RestaurantService : IRestaurantService
     {
         private readonly IRepository repo;
+        private readonly IRestaurantCategoriesService restaurantCategoriesService;
 
-        public RestaurantService(IRepository repo)
+        public RestaurantService(IRepository repo, IRestaurantCategoriesService restaurantCategoriesService)
         {
             this.repo = repo;
+            this.restaurantCategoriesService = restaurantCategoriesService;
         }
 
         public async Task<Guid> AddRestaurant(RestaurantCreateVM model)
@@ -78,6 +80,21 @@ namespace FoodLoverGuide.Core.Services
             };
 
             await this.repo.UpdateAsync(restaurant);
+        }
+
+        public async Task AddRestaurantCategories(AddCategoryToRestaurantVM model)
+        {
+            foreach (var cat in model.SelectedCategoriesIds)
+            {
+                var restCat = new RestaurantCategories()
+                { CategoryId = cat,
+                  //Category = model.CategoriesList.Where(x => x.Id == cat),
+                  RestaurantId = model.RestaurantId,
+                  Restaurant = model.Restaurant
+                };
+
+                await restaurantCategoriesService.Add(restCat);
+            }
         }
     }
 }

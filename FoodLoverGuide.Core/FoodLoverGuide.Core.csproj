@@ -26,4 +26,8 @@
     <ProjectReference Include="..\FoodLoverGuide.Utility\FoodLoverGuide.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Category\" />
+  </ItemGroup>
+
 </Project>
