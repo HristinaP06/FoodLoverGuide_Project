@@ -88,9 +88,7 @@ namespace FoodLoverGuide.Core.Services
             {
                 var restCat = new RestaurantCategories()
                 { CategoryId = cat,
-                  //Category = model.CategoriesList.Where(x => x.Id == cat),
-                  RestaurantId = model.RestaurantId,
-                  Restaurant = model.Restaurant
+                  RestaurantId = model.RestaurantId
                 };
 
                 await restaurantCategoriesService.Add(restCat);

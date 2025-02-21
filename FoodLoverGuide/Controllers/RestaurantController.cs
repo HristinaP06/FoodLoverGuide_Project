@@ -98,17 +98,17 @@ namespace FoodLoverGuide.Controllers
             var model = new AddCategoryToRestaurantVM
             {
                 RestaurantId = restaurantId,
-                Restaurant = await this.rService.GetById(restaurantId),
                 CategoriesList = categories.ToList(),
             };
 
-            return  View("AssignCategories", model);
+            return View("AssignCategories", model);
         }
 
-       /*[HttpPost]
+       [HttpPost]
         public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
         {
-            await
-        }*/
+            await this.rService.AddRestaurantCategories(model);
+            return RedirectToAction("Index");
+        }
     }
 }
