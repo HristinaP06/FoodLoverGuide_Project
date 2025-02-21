@@ -6,71 +6,71 @@
 }
 
 <div class="form-container">
-    <h2>Edit Restaurant</h2>
+    <h2>Редактирай ресторанта</h2>
     <form method="post">
         <div class="form-group">
-            <label asp-for="Name">Name:</label>
+            <label asp-for="Name">Име:</label>
             <input type="text" asp-for="Name" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="Description">Description:</label>
+            <label asp-for="Description">Описание:</label>
             <input type="text" asp-for="Description" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="Location">Location:</label>
+            <label asp-for="Location">Локация:</label>
             <input type="text" asp-for="Location" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="Telephone">Telephone:</label>
+            <label asp-for="Telephone">Телефон:</label>
             <input type="text" asp-for="Telephone" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="Email">Email:</label>
+            <label asp-for="Email">Имейл:</label>
             <input type="text" asp-for="Email" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="Instagram">Instagram:</label>
+            <label asp-for="Instagram">Инстаграм:</label>
             <input type="text" asp-for="Instagram" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="Facebook">Facebook:</label>
+            <label asp-for="Facebook">Фейсбук:</label>
             <input type="text" asp-for="Facebook" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label asp-for="WebSite">Website:</label>
+            <label asp-for="WebSite">Уебсайт:</label>
             <input type="text" asp-for="WebSite" class="form-control" />
         </div>
 
         <div class="form-group-inline">
             <div class="form-group">
-                <label asp-for="PriceRangeFrom">Price range from:</label>
-                <input type="text" asp-for="PriceRangeFrom" class="form-control" />
+                <label asp-for="PriceRangeFrom">Цени от:</label>
+                <input type="number" asp-for="PriceRangeFrom" class="form-control" />
             </div>
 
             <div class="form-group">
-                <label asp-for="PriceRangeTo">Price range to:</label>
-                <input type="text" asp-for="PriceRangeTo" class="form-control" />
+                <label asp-for="PriceRangeTo">Цени до:</label>
+                <input type="number" asp-for="PriceRangeTo" class="form-control" />
             </div>
         </div>
         <div class="form-group-inline">
             <div class="form-group">
-                <label asp-for="IndoorCapacity">Indoor capacity:</label>
-                <input type="text" asp-for="IndoorCapacity" class="form-control" />
+                <label asp-for="IndoorCapacity">Капацитет на заведението вътре:</label>
+                <input type="number" asp-for="IndoorCapacity" class="form-control" />
             </div>
 
             <div class="form-group">
-                <label asp-for="OutdoorCapacity">Outdoor capacity:</label>
-                <input type="text" asp-for="OutdoorCapacity" class="form-control" />
+                <label asp-for="OutdoorCapacity">Капацитета на заведението отвън:</label>
+                <input type="number" asp-for="OutdoorCapacity" class="form-control" />
             </div>
         </div>
 
-        <button class="btn btn-info" type="submit" asp-action="Edit" asp-controller="Restaurant">Submit</button>
+        <button class="btn btn-info" type="submit" asp-action="Edit" asp-controller="Restaurant">Редактирай</button>
     </form>
 </div>
