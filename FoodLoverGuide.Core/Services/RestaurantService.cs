@@ -87,11 +87,12 @@ namespace FoodLoverGuide.Core.Services
             foreach (var cat in model.SelectedCategoriesIds)
             {
                 var restCat = new RestaurantCategories()
-                { CategoryId = cat,
-                  RestaurantId = model.RestaurantId
+                {
+                    CategoryId = cat,
+                    RestaurantId = model.RestaurantId
                 };
 
-                await restaurantCategoriesService.Add(restCat);
+                await this.restaurantCategoriesService.Add(restCat);
             }
         }
     }

@@ -104,7 +104,7 @@ namespace FoodLoverGuide.Controllers
             return View("AssignCategories", model);
         }
 
-       [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
         {
             await this.rService.AddRestaurantCategories(model);
