@@ -92,7 +92,7 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AssignCategories(Guid restaurantId)
+        public IActionResult AssignCategories(Guid restaurantId)
         {
             var categories = this.categoryService.GetAll();
             var model = new AddCategoryToRestaurantVM
