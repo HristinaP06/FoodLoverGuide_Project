@@ -11,12 +11,17 @@ namespace FoodLoverGuide.Controllers
         private readonly IRestaurantService rService;
         private readonly IRestaurantCategoriesService restaurantCategoriesService;
         private readonly ICategoryService categoryService;
+        private readonly IFeatureService featureService;
 
-        public RestaurantController(IRestaurantService rService, IRestaurantCategoriesService restaurantCategoriesService, ICategoryService categoryService)
+        public RestaurantController(IRestaurantService rService, 
+            IRestaurantCategoriesService restaurantCategoriesService,
+            ICategoryService categoryService,
+            IFeatureService featureService)
         {
             this.rService = rService;
             this.restaurantCategoriesService = restaurantCategoriesService;
             this.categoryService = categoryService;
+            this.featureService = featureService;
         }
 
         public async Task<IActionResult> IndexAsync()
@@ -110,7 +115,19 @@ namespace FoodLoverGuide.Controllers
         public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
         {
             await this.restaurantCategoriesService.AddRestaurantCategories(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("AssignFeatures", model.RestaurantId);
+        }
+
+        [HttpGet]
+        public IActionResult AssignFeatures(Guid restaurantId) 
+        {
+            var features = this.featureService.GetAll();
+            var model = new AddFeatureToRestaurantVM
+            {
+                RestaurantId = restaurantId,
+                FeaturesList = features.ToList(),
+            };
+            return View("AssignFeatures", model);
         }
     }
 }
