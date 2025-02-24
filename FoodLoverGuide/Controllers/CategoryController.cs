@@ -53,11 +53,5 @@ namespace FoodLoverGuide.Controllers
             await this.service.Delete(id);
             return RedirectToAction("Index");
         }
-
-        public async Task<IActionResult> AssignCategoriesToRestaurant()
-        {
-            var list = await this.service.GetAll().ToListAsync();
-            return View("AssignCategories");
-        }
     }
 }
