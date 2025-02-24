@@ -1,4 +1,5 @@
 ﻿using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
 using System.Linq.Expressions;
@@ -43,5 +44,19 @@ namespace FoodLoverGuide.Core.Services
         {
             await this.repo.UpdateAsync(entity);
         }
-    }
+
+		public async Task AddRestaurantCategories(AddCategoryToRestaurantVM model)
+		{
+			foreach (var cat in model.SelectedCategoriesIds)
+			{
+				var restCat = new RestaurantCategories()
+				{
+					CategoryId = cat,
+					RestaurantId = model.RestaurantId
+				};
+
+				await this.repo.AddAsync(restCat);
+			}
+		}
+	}
 }

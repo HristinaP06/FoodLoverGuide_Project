@@ -17,7 +17,5 @@ namespace FoodLoverGuide.Core.IServices
         Task<Restaurant> GetById(Guid id);
 
         Task Update(RestaurantCreateVM entity);
-
-        Task AddRestaurantCategories(AddCategoryToRestaurantVM model);
     }
 }

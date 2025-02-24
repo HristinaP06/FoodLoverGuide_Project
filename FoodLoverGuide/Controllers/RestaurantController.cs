@@ -9,11 +9,13 @@ namespace FoodLoverGuide.Controllers
     public class RestaurantController : Controller
     {
         private readonly IRestaurantService rService;
+        private readonly IRestaurantCategoriesService restaurantCategoriesService;
         private readonly ICategoryService categoryService;
 
-        public RestaurantController(IRestaurantService rService, ICategoryService categoryService)
+        public RestaurantController(IRestaurantService rService, IRestaurantCategoriesService restaurantCategoriesService, ICategoryService categoryService)
         {
             this.rService = rService;
+            this.restaurantCategoriesService = restaurantCategoriesService;
             this.categoryService = categoryService;
         }
 
@@ -107,7 +109,7 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
         {
-            await this.rService.AddRestaurantCategories(model);
+            await this.restaurantCategoriesService.AddRestaurantCategories(model);
             return RedirectToAction("Index");
         }
     }

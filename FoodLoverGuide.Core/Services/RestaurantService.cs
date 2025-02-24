@@ -81,19 +81,5 @@ namespace FoodLoverGuide.Core.Services
 
             await this.repo.UpdateAsync(restaurant);
         }
-
-        public async Task AddRestaurantCategories(AddCategoryToRestaurantVM model)
-        {
-            foreach (var cat in model.SelectedCategoriesIds)
-            {
-                var restCat = new RestaurantCategories()
-                {
-                    CategoryId = cat,
-                    RestaurantId = model.RestaurantId
-                };
-
-                await this.restaurantCategoriesService.Add(restCat);
-            }
-        }
     }
 }
