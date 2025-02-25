@@ -7,14 +7,14 @@
 }
  *@
 <div class="form-container">
-    <h2>Добави категории към ресторанта</h2>
+    <h2>Добави харектеристики към ресторанта</h2>
     <form method="post">
         <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
         @foreach (var feat in Model.FeaturesList)
         {
             <div>
                 <label class="checkbox-label" for="@feat.Id">
-                    <input type="checkbox" class="checkbox" name="SelectedCategoriesIds" value="@feat.Id" id="@feat.Id" />
+                    <input type="checkbox" class="checkbox" name="SelectedFeaturesIds" value="@feat.Id" id="@feat.Id" />
                     <div class="svg-icon">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              height="1em"
