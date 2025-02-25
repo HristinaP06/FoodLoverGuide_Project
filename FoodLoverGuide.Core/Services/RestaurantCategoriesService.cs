@@ -45,7 +45,7 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-		public async Task AddRestaurantCategories(AddCategoryToRestaurantVM model)
+		public async Task<Guid> AddRestaurantCategories(AddCategoryToRestaurantVM model)
 		{
 			foreach (var cat in model.SelectedCategoriesIds)
 			{
@@ -57,6 +57,7 @@ namespace FoodLoverGuide.Core.Services
 
 				await this.repo.AddAsync(restCat);
 			}
+            return model.RestaurantId;
 		}
 	}
 }
