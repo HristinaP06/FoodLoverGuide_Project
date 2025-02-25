@@ -5,6 +5,6 @@ namespace FoodLoverGuide.Core.IServices
 {
 	public interface IRestaurantCategoriesService : IService<RestaurantCategories>
     {
-		Task AddRestaurantCategories(AddCategoryToRestaurantVM model);
+		Task<Guid> AddRestaurantCategories(AddCategoryToRestaurantVM model);
 	}
 }
