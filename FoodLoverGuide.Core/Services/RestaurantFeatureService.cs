@@ -1,4 +1,5 @@
 ﻿using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
 using System.Linq.Expressions;
@@ -42,6 +43,21 @@ namespace FoodLoverGuide.Core.Services
         public async Task Update(RestaurantFeature entity)
         {
             await this.repo.UpdateAsync(entity);
+        }
+
+        public async Task<Guid> AddRestaurantFeatures(AddFeatureToRestaurantVM model)
+        {
+            foreach (var feat in model.SelectedFeaturesIds)
+            {
+                var restFeat = new RestaurantFeature()
+                {
+                    FeatureId = feat,
+                    RestaurantId = model.RestaurantId
+                };
+
+                await this.repo.AddAsync(restFeat);
+            }
+            return model.RestaurantId;
         }
     }
 }
