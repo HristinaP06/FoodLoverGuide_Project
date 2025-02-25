@@ -12,16 +12,19 @@ namespace FoodLoverGuide.Controllers
         private readonly IRestaurantCategoriesService restaurantCategoriesService;
         private readonly ICategoryService categoryService;
         private readonly IFeatureService featureService;
+        private readonly IRestaurantFeatureService restaurantFeatureService;
 
         public RestaurantController(IRestaurantService rService, 
             IRestaurantCategoriesService restaurantCategoriesService,
             ICategoryService categoryService,
-            IFeatureService featureService)
+            IFeatureService featureService,
+            IRestaurantFeatureService restaurantFeatureService)
         {
             this.rService = rService;
             this.restaurantCategoriesService = restaurantCategoriesService;
             this.categoryService = categoryService;
             this.featureService = featureService;
+            this.restaurantFeatureService = restaurantFeatureService;
         }
 
         public async Task<IActionResult> IndexAsync()
@@ -114,8 +117,9 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
         {
-            await this.restaurantCategoriesService.AddRestaurantCategories(model);
-            return RedirectToAction("AssignFeatures", model.RestaurantId);
+            Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
+
+            return RedirectToAction("AssignFeatures", new { restaurantId = id });
         }
 
         [HttpGet]
@@ -129,5 +133,18 @@ namespace FoodLoverGuide.Controllers
             };
             return View("AssignFeatures", model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignFeatures(AddFeatureToRestaurantVM model)
+        {
+            await this.restaurantFeatureService.AddRestaurantFeatures(model);
+            return RedirectToAction("AddWorkTimeSchedule", model.RestaurantId);
+        }
+
+       /* [HttpGet]
+        public IActionResult AddWorkTimeSchedule(Guid restaurantId)
+        {
+
+        }*/
     }
 }
