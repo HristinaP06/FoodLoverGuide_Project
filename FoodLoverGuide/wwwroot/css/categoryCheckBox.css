@@ -1,4 +1,4 @@
-﻿.checkbox-label {
+﻿.checkbox-label2 {
     font-size: 22px;
     color: #000000;
     padding: 20px 50px 20px 5px;
@@ -10,7 +10,7 @@
     transition: all 0.3s;
 }
 
-.checkbox {
+.checkbox2 {
     width: 35px;
     height: 35px;
     cursor: pointer;
@@ -22,7 +22,7 @@
     transition: all 0.3s;
 }
 
-.checkContainer {
+.checkContainer2 {
     width: 35px;
     height: 35px;
     position: relative;
@@ -33,25 +33,25 @@
     transition: all 0.3s;
 }
 
-.checkbox:checked::before {
+.checkbox2:checked::before {
     transform: translateX(2em);
     top: 12px;
     transition: ease-out 0.15s;
 }
 
-.checkbox:hover {
+.checkbox2:hover {
     transform: translate(4px, 4px);
     transition: ease-out 0.15s;
     background-color: #ffc8c8;
 }
 
-.checkbox:checked {
+.checkbox2:checked {
     transform: translate(4px, 4px);
     transition: ease-out 0.15s;
     background-color: #ffc8c8;
 }
 
-.svg-icon {
+.svg-icon2 {
     position: absolute;
     width: 25px;
     height: 25px;
@@ -65,7 +65,7 @@
     transition: ease-in 0.2s;
 }
 
-.checkbox:checked ~ .svg-icon {
+.checkbox2:checked ~ .svg-icon {
     transform: rotate(360deg) scale(1);
     transition: ease-in 0.2s;
 }
