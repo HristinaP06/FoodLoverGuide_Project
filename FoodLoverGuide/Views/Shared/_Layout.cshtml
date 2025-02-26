@@ -13,6 +13,7 @@
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -28,15 +29,6 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Create">AddCategory</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Feature" asp-action="Create">AddFeature</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Create">AddRestaurant</a>
-						</li>
 						@if(User.IsInRole(SD.AdminRole))
 						{
 						<li class="nav-item dropdown">
@@ -46,14 +38,14 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-								<a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Create">
-									Add Category
+								<a class="dropdown-item" href="@Url.Action("Create", "CategoryController")">
+									Добави категория
 								</a>
-								<a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Delete">
-									Delete Category
+								<a class="dropdown-item" href="@Url.Action("Create", "FeatureController")">
+									Добави характеристика
 								</a>
-								<a class="dropdown-item" asp-area="" asp-controller="Category" asp-action="Edit">
-									Edit Category
+								<a class="dropdown-item" href="@Url.Action("Create", "RestaurantController")">
+									Добави ресторант
 								</a>
 								
 							</div>
