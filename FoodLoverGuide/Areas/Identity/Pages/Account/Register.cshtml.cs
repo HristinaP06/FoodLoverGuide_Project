@@ -85,6 +85,16 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+            [Required]
+            public string FirstName { get; set; }
+            [Required]
+             public string LastName { get; set; }
+            [Required]
+            public string Address { get; set; }
+            [Required]
+            public string Gender { get; set; }
+            [Required]
+            public int Age { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
