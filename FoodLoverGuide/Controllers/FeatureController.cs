@@ -15,7 +15,7 @@ namespace FoodLoverGuide.Controllers
             this.service = service;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexAsync()
         {
             var list = await this.service.GetAll().ToListAsync();
             return View(list);
@@ -27,7 +27,7 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Feature feature)
+        public async Task<IActionResult> CreateAsync(Feature feature)
         {
             if (ModelState.IsValid)
             {
@@ -37,21 +37,21 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> EditAsync(Guid id)
         {
             var obj = await this.service.GetById(id);
             return View(obj);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Feature feature)
+        public async Task<IActionResult> EditAsync(Feature feature)
         {
             await this.service.Update(feature);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await this.service.Delete(id);
             return RedirectToAction("Index");

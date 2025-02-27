@@ -1,20 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FoodLoverGuide.Core.IServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Host;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Controllers
 {
     public class WorkTimeScheduleController : Controller
     {
-        private readonly IWorkspaceService workspaceService;
+        private readonly IWorkTimeScheduleService workTimeScheduleService;
 
-        public WorkTimeScheduleController(IWorkspaceService workspaceService)
+        public WorkTimeScheduleController(IWorkTimeScheduleService workTimeScheduleService)
         {
-            this.workspaceService = workspaceService;
+            this.workTimeScheduleService = workTimeScheduleService;
         }
 
-        public IActionResult IndexAsync()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var list = this.workTimeScheduleService.GetAll().ToListAsync();
+            return View(list);
         }
     }
 }

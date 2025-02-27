@@ -1,6 +1,7 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Controllers
 {
@@ -13,9 +14,9 @@ namespace FoodLoverGuide.Controllers
             this.restaurantPhotoService = restaurantPhotoService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            var list = this.restaurantPhotoService.GetAll().ToList();
+            var list = await this.restaurantPhotoService.GetAll().ToListAsync();
 
             return View(list);
         }
@@ -25,7 +26,7 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RestaurantPhoto photo)
+        public async Task<IActionResult> CreateAsync(RestaurantPhoto photo)
         {
             await this.restaurantPhotoService.Add(photo);
 
@@ -33,21 +34,21 @@ namespace FoodLoverGuide.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> EditAsync(Guid id)
         {
             var obj = this.restaurantPhotoService.GetById(id);
             return View(obj);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(RestaurantPhoto photo)
+        public async Task<IActionResult> EditAsync(RestaurantPhoto photo)
         {
             await this.restaurantPhotoService.Update(photo);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await this.restaurantPhotoService.Delete(id);
             return RedirectToAction("Index");
