@@ -10,7 +10,7 @@ namespace FoodLoverGuide.Core.ViewModels.Restaurant
     {
         public Guid RestaurantId { get; set; }
 
-        public Dictionary<DayOfWeek, TimeSpan> WorkSchedule { get; set; }
+        public Dictionary<DayOfWeek, List<TimeSpan>> WorkSchedule { get; set; }
 
     }
 }
