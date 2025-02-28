@@ -1,6 +1,9 @@
 ﻿using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using Microsoft.IdentityModel.Abstractions;
+using Microsoft.VisualBasic;
 using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
@@ -42,6 +45,23 @@ namespace FoodLoverGuide.Core.Services
         public async Task Update(WorkTimeSchedule entity)
         {
             await this.repo.UpdateAsync(entity);
+        }
+
+        public async Task<Guid> AddWorkTimeToRestaurant(AddWorkTimeScheduleToRestaurantVM model)
+        {
+            foreach (var wt in model.WorkSchedule)
+            {
+                var workTimeSchedule = new WorkTimeSchedule()
+                {
+                    RestaurantId = model.RestaurantId,
+                    Day = wt.Key,
+                    OpeningTime = wt.Value.FirstOrDefault(),
+                    ClosingTime = wt.Value.Last()
+                };
+
+                await this.repo.AddAsync(workTimeSchedule);
+            }
+            return model.RestaurantId;
         }
     }
 }
