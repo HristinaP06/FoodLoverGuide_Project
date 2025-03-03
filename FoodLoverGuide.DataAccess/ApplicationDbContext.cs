@@ -29,8 +29,6 @@ namespace FoodLoverGuide.DataAccess
 
         public DbSet<WorkTimeSchedule> WorkTimeSchedules { get; set; }
 
-        public DbSet<User> Users {  get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<RestaurantCategories>().HasKey(cr => new { cr.CategoryId, cr.RestaurantId });

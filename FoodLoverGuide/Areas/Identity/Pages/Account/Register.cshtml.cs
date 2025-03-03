@@ -83,16 +83,17 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Имейл")]
             public string Email { get; set; }
+
             [Required]
+            [Display(Name = "Име")]
             public string FirstName { get; set; }
+
             [Required]
-             public string LastName { get; set; }
-            [Required]
-            public string Address { get; set; }
-            [Required]
-            public string Gender { get; set; }
+            [Display(Name = "Фамилия")]
+            public string LastName { get; set; }
+
             [Required]
             public int Age { get; set; }
 
@@ -101,38 +102,35 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            //[DataType(DataType.Password)]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            //[DataType(DataType.Password)]
+            [Display(Name = "Повтори парола")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-
             public string ConfirmPassword { get; set; }
 
-            public string? Role {  get; set; }
+            [Required]
+            public string? Role { get; set; }
 
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; } = new List<SelectListItem>();
 
         }
 
-
-
-
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if(!await _roleManager.RoleExistsAsync(SD.AdminRole))
+            if (!await _roleManager.RoleExistsAsync(SD.AdminRole))
             {
                 await _roleManager.CreateAsync(new IdentityRole(SD.AdminRole));
             }
-            if(!await _roleManager.RoleExistsAsync(SD.UserRole))
+            if (!await _roleManager.RoleExistsAsync(SD.UserRole))
             {
                 await _roleManager.CreateAsync(new IdentityRole(SD.UserRole));
             }
@@ -155,9 +153,17 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var test = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = new User
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Email = Input.Email,
+                    Age = Input.Age,
+                };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -167,17 +173,15 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    //.....
-                    if(!string.IsNullOrEmpty(Input.Role))
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    if (!string.IsNullOrEmpty(Input.Role))
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
                     }
                     else
                     {
-                         await _userManager.AddToRoleAsync(user, SD.UserRole);
+                        await _userManager.AddToRoleAsync(user, SD.UserRole);
                     }
-
-                    var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

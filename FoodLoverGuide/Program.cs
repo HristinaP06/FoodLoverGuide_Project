@@ -1,15 +1,12 @@
-using FoodLoverGuide.DataAccess;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using FoodLoverGuide.DataAccess.Repository;
-using FoodLoverGuide.Core;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.Services;
-using FoodLoverGuide.Utility;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using FoodLoverGuide.DataAccess;
+using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
-using Microsoft.Build.Execution;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using FoodLoverGuide.Utility;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,16 +15,12 @@ builder.Services.AddControllersWithViews();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("FoodLoverGuide.DataAccess")));
 
-
-
-//builder.Services.AddIdentity<User, IdentityRole>()
-//    .AddEntityFrameworkStores<ApplicationDbContext>()
-//    .AddDefaultUI()
-//    .AddDefaultTokenProviders(); 
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped(typeof(IRepository), typeof(Repository));
 
@@ -43,13 +36,6 @@ builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWorkTimeScheduleService, WorkTimeScheduleService>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
-    AddCookie(options => 
-    { options.LoginPath = "/Account/Login"; options.AccessDeniedPath = "/Account/AccessDenied"; });
-
-builder.Services.AddDefaultIdentity<User>
-(options => options.SignIn.RequireConfirmedAccount = true)
- .AddEntityFrameworkStores<ApplicationDbContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
