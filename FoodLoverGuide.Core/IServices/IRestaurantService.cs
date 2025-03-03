@@ -14,7 +14,7 @@ namespace FoodLoverGuide.Core.IServices
 
         IQueryable<Restaurant> GetAllRestaurants();
 
-        Task<Restaurant> GetById(Guid id);
+        Task<Restaurant> GetByIdAsync(Guid id);
 
         Task Update(RestaurantCreateVM entity);
     }

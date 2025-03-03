@@ -69,7 +69,7 @@ namespace FoodLoverGuide.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var obj = await this.rService.GetById(id);
+            var obj = await this.rService.GetByIdAsync(id);
             var vm = new RestaurantCreateVM
             {
                 Name = obj.Name,
@@ -141,7 +141,8 @@ namespace FoodLoverGuide.Controllers
         public async Task<IActionResult> AssignFeatures(AddFeatureToRestaurantVM model)
         {
             await this.restaurantFeatureService.AddRestaurantFeatures(model);
-            return RedirectToAction("AddWorkDays", model.RestaurantId);
+
+            return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = model.RestaurantId });
         }
 
         [HttpGet]

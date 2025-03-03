@@ -56,7 +56,7 @@ namespace FoodLoverGuide.Core.Services
             return this.repo.GetAllAsync<Restaurant>();
         }
 
-        public async Task<Restaurant> GetById(Guid id)
+        public async Task<Restaurant> GetByIdAsync(Guid id)
         {
             return await this.repo.GetByIdAsync<Restaurant>(id);
         }
