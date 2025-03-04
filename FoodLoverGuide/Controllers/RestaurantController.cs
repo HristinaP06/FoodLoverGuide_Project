@@ -145,7 +145,7 @@ namespace FoodLoverGuide.Controllers
             return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = model.RestaurantId });
         }
 
-        [HttpGet]
+       /* [HttpGet]
         public IActionResult AddWorkDays(Guid restaurantId)
         {
             var model = new AddWorkTimeScheduleToRestaurantVM
@@ -183,5 +183,6 @@ namespace FoodLoverGuide.Controllers
             await this.workTimeScheduleService.AddWorkTimeToRestaurant(vm);
             return RedirectToAction();
         }
+       */
     }
 }
