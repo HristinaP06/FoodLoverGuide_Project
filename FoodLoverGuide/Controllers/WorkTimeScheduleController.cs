@@ -28,12 +28,10 @@ namespace FoodLoverGuide.Controllers
                 return NotFound();
             }
 
-            // Get existing schedule for the restaurant
             var workTimeSchedules = this.workTimeScheduleService.GetAll()
                 .Where(w => w.RestaurantId == restaurantId)
                 .ToList();
 
-            // Initialize a list of schedules, filling in missing days
             var weeklySchedule = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
                 .Select(day => new WorkTimeScheduleViewModel
                 {
@@ -61,33 +59,22 @@ namespace FoodLoverGuide.Controllers
             {
                 foreach (var schedule in model.WorkTimeSchedules)
                 {
-                    var existingSchedule = this.workTimeScheduleService.GetAll()
-                        .FirstOrDefault(w => w.RestaurantId == model.RestaurantId && w.Day == schedule.Day);
-
-                    if (existingSchedule == null)
-                    {
-                        // Add new schedule for this day
-                        await this.workTimeScheduleService.Add(new WorkTimeSchedule
+                    
+                        var wTS = new WorkTimeSchedule 
                         {
                             RestaurantId = model.RestaurantId,
                             Day = schedule.Day,
                             OpeningTime = schedule.OpeningTime,
                             ClosingTime = schedule.ClosingTime
-                        });
-                    }
-                    else
-                    {
-                        // Update existing schedule
-                        existingSchedule.OpeningTime = schedule.OpeningTime;
-                        existingSchedule.ClosingTime = schedule.ClosingTime;
-                        await this.workTimeScheduleService.Update(existingSchedule);
-                    }
+                        };
+
+                        await this.workTimeScheduleService.Add(wTS);
                 }
 
-                return RedirectToAction("Index", "Restaurant"); // Redirect to restaurant list or another page
+                return RedirectToAction("Index", "Restaurant"); 
             }
 
-            return View(model); // Return view with validation errors
+            return View(model);
         }
     }
 }

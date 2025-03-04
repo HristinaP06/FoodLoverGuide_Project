@@ -10,6 +10,6 @@ namespace FoodLoverGuide.Core.IServices
 {
     public interface IWorkTimeScheduleService : IService<WorkTimeSchedule>
     {
-        Task<Guid> AddWorkTimeToRestaurant(AddWorkTimeScheduleToRestaurantVM vm);
+        Task<Guid> AddWorkTimeToRestaurant(WeeklyWorkTimeVM vm);
     }
 }

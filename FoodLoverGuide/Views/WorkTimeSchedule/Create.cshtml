@@ -26,9 +26,13 @@
             {
                 <tr>
                     <td>
-                        <!-- Display Day of the Week -->
-                        @Model.WorkTimeSchedules[i].Day
-                        <!-- Don't manually set the hidden input for Day, model binding handles it -->
+                        <div>@Model.WorkTimeSchedules[i].Day</div>
+                        <!-- Include hidden input for Day so it gets submitted with the form -->
+                        <input type="hidden" asp-for="WorkTimeSchedules[i].Day" value="@Model.WorkTimeSchedules[i].Day" />
+
+                        @*<!-- Display Day of the Week -->
+                        <div name="@Model.WorkTimeSchedules[i].Day" id="@i">@Model.WorkTimeSchedules[i].Day</div>
+                        <!-- Don't manually set the hidden input for Day, model binding handles it -->*@
                     </td>
                     <td>
                         <input asp-for="WorkTimeSchedules[i].OpeningTime" class="form-control" type="time" />
@@ -43,7 +47,7 @@
         </tbody>
     </table>
 
-    <button type="submit" class="btn btn-primary">Save Schedule</button>
+    <button type="submit" class="btn btn-primary" asp-action="Create" asp-controller="WorkTimeSchedule">Save Schedule</button>
 </form>
 
 <a href="@Url.Action("Index", "Restaurant")" class="btn btn-secondary mt-2">Back to List</a>

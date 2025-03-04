@@ -47,16 +47,16 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-        public async Task<Guid> AddWorkTimeToRestaurant(AddWorkTimeScheduleToRestaurantVM model)
+        public async Task<Guid> AddWorkTimeToRestaurant(WeeklyWorkTimeVM model)
         {
-            foreach (var wt in model.WorkSchedule)
+            foreach (var wt in model.WorkTimeSchedules)
             {
                 var workTimeSchedule = new WorkTimeSchedule()
                 {
                     RestaurantId = model.RestaurantId,
-                    Day = wt.Key,
-                    OpeningTime = wt.Value.FirstOrDefault(),
-                    ClosingTime = wt.Value.Last()
+                    Day = wt.Day,
+                    OpeningTime = wt.OpeningTime,
+                    ClosingTime = wt.ClosingTime
                 };
 
                 await this.repo.AddAsync(workTimeSchedule);
