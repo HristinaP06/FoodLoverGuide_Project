@@ -57,15 +57,15 @@
     height: 25px;
     display: flex;
     z-index: 3;
-    top: 30px;
-    left: 17px;
+    top: 146px;
+    left: 46px;
     color: #fefefe;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     transform: rotate(0deg) scale(0);
     transition: ease-in 0.2s;
 }
 
-.checkbox2:checked ~ .svg-icon2 {
+.checkbox2:checked ~ .svg-icon {
     transform: rotate(360deg) scale(1);
     transition: ease-in 0.2s;
 }
