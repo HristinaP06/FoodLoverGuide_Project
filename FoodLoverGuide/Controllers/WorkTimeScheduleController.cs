@@ -57,24 +57,14 @@ namespace FoodLoverGuide.Controllers
 
             if (ModelState.IsValid)
             {
-                foreach (var schedule in model.WorkTimeSchedules)
-                {
-                    
-                        var wTS = new WorkTimeSchedule 
-                        {
-                            RestaurantId = model.RestaurantId,
-                            Day = schedule.Day,
-                            OpeningTime = schedule.OpeningTime,
-                            ClosingTime = schedule.ClosingTime
-                        };
-
-                        await this.workTimeScheduleService.Add(wTS);
-                }
-
-                return RedirectToAction("Index", "Restaurant"); 
+                Guid id = await this.workTimeScheduleService.AddWorkTimeToRestaurant(model);
+               
+                return RedirectToAction("Create", "RestaurantPhoto", new {restaurantId = id}); 
             }
 
             return View(model);
         }
+
+
     }
 }

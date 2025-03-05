@@ -72,6 +72,7 @@ namespace FoodLoverGuide.Controllers
             var obj = await this.rService.GetByIdAsync(id);
             var vm = new RestaurantCreateVM
             {
+                Id = obj.Id,
                 Name = obj.Name,
                 Description = obj.Description,
                 Location = obj.Location,
@@ -140,49 +141,9 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignFeatures(AddFeatureToRestaurantVM model)
         {
-            await this.restaurantFeatureService.AddRestaurantFeatures(model);
+            Guid id = await this.restaurantFeatureService.AddRestaurantFeatures(model);
 
-            return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = model.RestaurantId });
+            return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = id });
         }
-
-       /* [HttpGet]
-        public IActionResult AddWorkDays(Guid restaurantId)
-        {
-            var model = new AddWorkTimeScheduleToRestaurantVM
-            {
-                RestaurantId = restaurantId
-            };
-            return View("AddWorkDays", model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddWorkDays(AddWorkTimeScheduleToRestaurantVM model)
-        {
-            var workDaysModel = new AddWorkTimeScheduleToRestaurantVM
-            {
-                RestaurantId = model.RestaurantId,
-                WorkSchedule = model.WorkSchedule
-            };
-            return RedirectToAction("AddWorkTimeSchedule", model);
-        }
-
-        [HttpGet]
-        public IActionResult AddWorkTimeSchedule(AddWorkTimeScheduleToRestaurantVM model)
-        {
-            var vm = new AddWorkTimeScheduleToRestaurantVM
-            {
-                WorkSchedule = model.WorkSchedule,
-                RestaurantId = model.RestaurantId
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddWorkTimeShedule(AddWorkTimeScheduleToRestaurantVM vm)
-        {
-            await this.workTimeScheduleService.AddWorkTimeToRestaurant(vm);
-            return RedirectToAction();
-        }
-       */
     }
 }
