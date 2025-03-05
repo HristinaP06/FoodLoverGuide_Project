@@ -1,3 +1,5 @@
+using CloudinaryDotNet;
+using FoodLoverGuide.Core;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.Services;
 using FoodLoverGuide.DataAccess;
@@ -35,6 +37,19 @@ builder.Services.AddScoped<IRestaurantPhotoService, RestaurantPhotoService>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWorkTimeScheduleService, WorkTimeScheduleService>();
+builder.Services.AddScoped<CloudinaryService>();
+
+// Регистриране на Cloudinary в DI контейнера     
+var cloudinarySettings = builder.Configuration
+                        .GetSection("Cloudinary")
+                        .Get<CloudinarySettings>();
+
+var account = new Account(cloudinarySettings.CloudName,
+cloudinarySettings.ApiKey, cloudinarySettings.ApiSecret);
+
+var cloudinary = new Cloudinary(account);
+builder.Services.AddSingleton(cloudinary);
+
 
 var app = builder.Build();
 
