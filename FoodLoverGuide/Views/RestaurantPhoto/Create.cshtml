@@ -4,11 +4,11 @@
 }
 
 <h2>Upload photo</h2>
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" enctype="multipart/form-data">
 	<input type="hidden" asp-for="RestaurantId" value="@Model.RestaurantId" />
     <div class="form-group">
         <label class="font-weight-bold">Upload Image</label>
-        <input type="file" class="form-control" id="File" name="File" value="@Model.File" accept="image/*" onchange="previewImage(event)" />
+        <input type="file" class="form-control" id="File" name="File" value="@Model.File" accept="image/*" onchange="previewImage(event)" multiple />
         <img id="imagePreview" class="mt-2" style="max-width: 200px; display: none;" />
     </div>
 
@@ -19,3 +19,4 @@
     </div>
     <button type="submit" class="btn btn-primary" asp-action="Create" asp-controller="RestaurantPhoto">Upload</button>
 </form>
+

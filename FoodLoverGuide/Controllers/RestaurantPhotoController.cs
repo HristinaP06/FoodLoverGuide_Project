@@ -45,9 +45,8 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(AddPhotoRestaurantVM model)
         {
-            await this.restaurantPhotoService.AddRestaurantPhoto(model);
-
-            return RedirectToAction("Index", "Restaurant");
+            Guid id = await this.restaurantPhotoService.AddRestaurantPhoto(model);
+            return RedirectToAction("Create", "MenuItem", new {restaurantId = id});
         }
 
         [HttpGet]
