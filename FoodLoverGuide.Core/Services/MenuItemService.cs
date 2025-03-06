@@ -66,7 +66,7 @@ namespace FoodLoverGuide.Core.Services
 
             if (!string.IsNullOrEmpty(uploadedImageUrl))
             {
-                var photo = new RestaurantPhoto
+                var photo = new MenuItem
                 {
                     RestaurantId = restaurantId,
                     Photo = uploadedImageUrl,
