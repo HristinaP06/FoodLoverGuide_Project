@@ -45,8 +45,22 @@ namespace FoodLoverGuide.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(AddPhotoRestaurantVM model)
         {
-            Guid id = await this.restaurantPhotoService.AddRestaurantPhoto(model);
-            return RedirectToAction("Create", "MenuItem", new {restaurantId = id});
+            if (model.Photos != null && model.Photos.Any())
+            {
+                foreach (var url in model.Photos)
+                {
+                    await this.restaurantPhotoService.AddRestaurantPhoto(model.RestaurantId, null, url);
+                }
+            }
+
+            if (model.Files != null && model.Files.Any())
+            {
+                foreach (var file in model.Files)
+                {
+                    await this.restaurantPhotoService.AddRestaurantPhoto(model.RestaurantId, file, null);
+                }
+            }
+            return RedirectToAction("Create", "MenuItem", new { restaurantId = model.RestaurantId});
         }
 
         [HttpGet]

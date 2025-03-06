@@ -11,8 +11,8 @@ namespace FoodLoverGuide.Core.ViewModels.Restaurant
     {
         public Guid RestaurantId { get; set; }
 
-        public string Photo { get; set; }
+        public List<string> Photos { get; set; }
 
-        public IFormFile File { get; set; }
+        public List<IFormFile> Files { get; set; }
     }
 }
