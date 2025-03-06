@@ -3,18 +3,18 @@
     ViewData["Title"] = "Upload photo";
 }
 
-<h2>Upload photo</h2>
+<h2>Upload menu photos</h2>
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="RestaurantId" value="@Model.RestaurantId" />
     <div class="form-group">
         <label class="font-weight-bold">Upload Image</label>
-        <input type="file" class="form-control" id="File" name="File" value="@Model.File" accept="image/*" onchange="previewImage(event)" multiple />
+        <input type="file" class="form-control" id="Files" name="Files" value="@Model.Files" accept="image/*" onchange="previewImage(event)" multiple />
         <img id="imagePreview" class="mt-2" style="max-width: 200px; display: none;" />
     </div>
 
     <div class="form-group">
         <label for="Photo" class="font-weight-bold">Or Enter Image URL</label>
-        <input type="text" class="form-control" asp-for="Photo" placeholder="Enter image URL" multiple />
+        <input type="text" class="form-control" asp-for="Photos" placeholder="Enter image URL" multiple />
 
     </div>
     <button type="submit" class="btn btn-primary" asp-action="Create" asp-controller="MenuItem">Upload</button>

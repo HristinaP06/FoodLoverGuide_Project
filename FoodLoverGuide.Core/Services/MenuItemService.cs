@@ -3,6 +3,7 @@ using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using Microsoft.AspNetCore.Http;
 using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
@@ -48,32 +49,34 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-        public async Task<Guid> AddRestaurantPhoto(AddPhotoRestaurantVM vM)
+        public async Task<Guid> AddRestaurantPhoto(Guid restaurantId, IFormFile file, string url)
         {
-            if (vM.File != null)
-            {
-                var uploadedImageUrl = await cloudinary.UploadImageAsync(vM.File);
+            string uploadedImageUrl = null;
 
-                if (!string.IsNullOrEmpty(uploadedImageUrl))
+            // Handle file upload to Cloudinary
+            if (file != null)
+            {
+                uploadedImageUrl = await cloudinary.UploadImageAsync(file); // Upload to Cloudinary
+            }
+            // Handle URL input from the user
+            else if (!string.IsNullOrEmpty(url))
+            {
+                uploadedImageUrl = url; // Use the provided URL
+            }
+
+            if (!string.IsNullOrEmpty(uploadedImageUrl))
+            {
+                var photo = new RestaurantPhoto
                 {
-                    vM.Photo = uploadedImageUrl;
-                }
-            }
-            else if (!string.IsNullOrEmpty(vM.Photo))
-            // Проверяваме дали е въведен URL
-            {
-                vM.Photo = vM.Photo;
-                // Запазваме URL
+                    RestaurantId = restaurantId,
+                    Photo = uploadedImageUrl,
+                    ImageFile = file // We still store the file even though URL is provided (optional)
+                };
+
+                await this.repo.AddAsync(photo); // Save the photo in the database
             }
 
-            var photo = new MenuItem
-            {
-                RestaurantId = vM.RestaurantId,
-                Photo = vM.Photo,
-                ImageFile = vM.File
-            };
-            await this.repo.AddAsync(photo);
-            return vM.RestaurantId;
+            return restaurantId;
         }
     }
 }
