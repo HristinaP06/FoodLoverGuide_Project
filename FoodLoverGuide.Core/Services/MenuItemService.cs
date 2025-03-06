@@ -1,4 +1,6 @@
-﻿using FoodLoverGuide.Core.IServices;
+﻿using CloudinaryDotNet;
+using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
 using System.Linq.Expressions;
@@ -8,10 +10,12 @@ namespace FoodLoverGuide.Core.Services
     public class MenuItemService : IMenuItemService
     {
         private readonly IRepository repo;
+        private readonly CloudinaryService cloudinary;
 
-        public MenuItemService(IRepository repo)
+        public MenuItemService(IRepository repo, CloudinaryService cloudinary)
         {
             this.repo = repo;
+            this.cloudinary = cloudinary;
         }
 
         public async Task Add(MenuItem entity)
@@ -42,6 +46,34 @@ namespace FoodLoverGuide.Core.Services
         public async Task Update(MenuItem entity)
         {
             await this.repo.UpdateAsync(entity);
+        }
+
+        public async Task<Guid> AddRestaurantPhoto(AddPhotoRestaurantVM vM)
+        {
+            if (vM.File != null)
+            {
+                var uploadedImageUrl = await cloudinary.UploadImageAsync(vM.File);
+
+                if (!string.IsNullOrEmpty(uploadedImageUrl))
+                {
+                    vM.Photo = uploadedImageUrl;
+                }
+            }
+            else if (!string.IsNullOrEmpty(vM.Photo))
+            // Проверяваме дали е въведен URL
+            {
+                vM.Photo = vM.Photo;
+                // Запазваме URL
+            }
+
+            var photo = new MenuItem
+            {
+                RestaurantId = vM.RestaurantId,
+                Photo = vM.Photo,
+                ImageFile = vM.File
+            };
+            await this.repo.AddAsync(photo);
+            return vM.RestaurantId;
         }
     }
 }

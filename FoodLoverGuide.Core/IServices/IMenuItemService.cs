@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.Models;
 
 namespace FoodLoverGuide.Core.IServices
 {
     public interface IMenuItemService : IService<MenuItem>
     {
+        Task<Guid> AddRestaurantPhoto(AddPhotoRestaurantVM model);
     }
 }

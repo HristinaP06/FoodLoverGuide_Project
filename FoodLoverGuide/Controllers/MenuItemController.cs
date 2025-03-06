@@ -1,4 +1,5 @@
 ﻿using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ namespace FoodLoverGuide.Controllers
     public class MenuItemController : Controller
     {
         private readonly IMenuItemService menuItemService;
+        private readonly IRestaurantService restaurantService;
 
-        public MenuItemController(IMenuItemService menuItemService)
+        public MenuItemController(IMenuItemService menuItemService, IRestaurantService restaurantService)
         {
             this.menuItemService = menuItemService;
+            this.restaurantService = restaurantService;
         }
 
         public async Task<IActionResult> IndexAsync()
@@ -20,17 +23,28 @@ namespace FoodLoverGuide.Controllers
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create(Guid restaurantId)
         {
-            return View();
+            var restaurant = await this.restaurantService.GetByIdAsync(restaurantId);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AddPhotoRestaurantVM
+            {
+                RestaurantId = restaurant.Id
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(MenuItem menu)
+        public async Task<IActionResult> CreateAsync(AddPhotoRestaurantVM model)
         {
-            await this.menuItemService.Add(menu);
-
-            return RedirectToAction("Index");
+            await this.menuItemService.AddRestaurantPhoto(model);
+            return RedirectToAction("Index", "Restaurant");
         }
 
         [HttpGet]
