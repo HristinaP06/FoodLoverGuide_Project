@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\Data\**" />
     <Compile Remove="Models\ViewModels\**" />
+    <Content Remove="Areas\Identity\Data\**" />
     <Content Remove="Models\ViewModels\**" />
+    <EmbeddedResource Remove="Areas\Identity\Data\**" />
     <EmbeddedResource Remove="Models\ViewModels\**" />
+    <None Remove="Areas\Identity\Data\**" />
     <None Remove="Models\ViewModels\**" />
   </ItemGroup>
 
@@ -36,10 +40,6 @@
     <ProjectReference Include="..\FoodLoverGuide.DataAccess\FoodLoverGuide.DataAccess.csproj" />
     <ProjectReference Include="..\FoodLoverGuide.Models\FoodLoverGuide.Models.csproj" />
     <ProjectReference Include="..\FoodLoverGuide.Utility\FoodLoverGuide.Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Identity\Data\" />
   </ItemGroup>
 
 </Project>

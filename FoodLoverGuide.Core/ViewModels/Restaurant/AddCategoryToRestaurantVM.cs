@@ -1,6 +1,4 @@
-﻿using FoodLoverGuide.Models;
-
-namespace FoodLoverGuide.Core.ViewModels.Restaurant
+﻿namespace FoodLoverGuide.Core.ViewModels.Restaurant
 {
     public class AddCategoryToRestaurantVM
     {
@@ -8,6 +6,6 @@ namespace FoodLoverGuide.Core.ViewModels.Restaurant
 
         public  List<Guid> SelectedCategoriesIds { get; set; } = new List<Guid>();
 
-        public List<Category> CategoriesList { get; set; } = new List<Category>();
+        public List<FoodLoverGuide.Models.Category> CategoriesList { get; set; } = new List<FoodLoverGuide.Models.Category>();
     }
 }

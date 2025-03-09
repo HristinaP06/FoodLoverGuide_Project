@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using FoodLoverGuide.Models;
+using FoodLoverGuide.Utility;
 
 namespace FoodLoverGuide.Areas.Identity.Pages.Account
 {
@@ -116,6 +117,14 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+
+                    if (await _signInManager.UserManager.IsInRoleAsync(user, SD.AdminRole))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

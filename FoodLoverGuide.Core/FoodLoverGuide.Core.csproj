@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,10 +25,6 @@
     <ProjectReference Include="..\FoodLoverGuide.DataAccess\FoodLoverGuide.DataAccess.csproj" />
     <ProjectReference Include="..\FoodLoverGuide.Models\FoodLoverGuide.Models.csproj" />
     <ProjectReference Include="..\FoodLoverGuide.Utility\FoodLoverGuide.Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Category\" />
   </ItemGroup>
 
 </Project>

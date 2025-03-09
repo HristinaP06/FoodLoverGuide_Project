@@ -1,10 +1,11 @@
 using System.Diagnostics;
+using FoodLoverGuide.Core.Constants;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodLoverGuide.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -15,6 +16,8 @@ namespace FoodLoverGuide.Controllers
 
         public IActionResult Index()
         {
+            ViewData[MessageConstants.SuccessMessage] = "Everything works";
+
             return View();
         }
 
