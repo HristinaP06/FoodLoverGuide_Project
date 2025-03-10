@@ -13,6 +13,6 @@ namespace FoodLoverGuide.Core.ViewModels.Restaurant
 
 		public List<Guid> SelectedFeaturesIds { get; set; } = new List<Guid>();
 
-		public List<Feature> FeaturesList { get; set; } = new List<Feature>();
+		public List<Models.Feature> FeaturesList { get; set; } = new List<Models.Feature>();
 	}
 }

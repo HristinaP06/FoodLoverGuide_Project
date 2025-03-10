@@ -1,28 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<FoodLoverGuide.Models.Category>
 
-@model IEnumerable<FoodLoverGuide.Models.Category>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var cat in Model)
-        {
-        <tr>
-            <td>@cat.CategoryName</td>
-            <td>
-                    <a asp-action="Edit" asp-controller="Category" asp-route-id="@cat.Id" class="btn btn-success">Edit</a>
-               <form method="post" asp-controller="Category" asp-action="Delete">
-                        <button class="btn btn-danger" type="submit" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id">Delete</button>
-               </form>
-                </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Категории</h3>
+            </div>
+
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-wrap">
+                    <thead > 
+                        <tr>
+                            <th style="text-align: center; border-bottom-color: black">Име</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            <tr>
+                                <td style="text-align: center;">@category.CategoryName</td>
+                                <td style="text-align: right;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info">Действия</button>
+                                        <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                        </button>
+                                        <div class="dropdown-menu" role="menu" style="">
+                                            <form method="get">
+                                                <button type="submit" class="dropdown-item" asp-action="Edit" asp-controller="Category" asp-route-id="@category.Id">Редактирай</button>
+                                            </form>
+                                            <form method="post">
+                                                <button type="submit" class="dropdown-item" asp-action="Delete" asp-controller="Category" asp-route-id="@category.Id">Изтрий</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

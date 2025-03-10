@@ -1,14 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using FoodLoverGuide.Core.ViewModels.Feature
+@model NewFeatureVM
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Създай характеристика</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-info" type="submit" asp-action="Create" asp-controller="Feature">Създай</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
-
-@model FoodLoverGuide.Models.Feature;
-
-<form method="post">
-    <lable asp-for="Name">
-        <input type="text" asp-for="Name" />
-    </lable>
-    <button class="btn btn-info" type="submit" asp-action="Create" asp-controller="Feature">Create</button>
-</form>
