@@ -1,32 +1,26 @@
 ﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
 
 @model AddCategoryToRestaurantVM
-@* 
-@{
-    ViewData["Title"] = "Restaurant Details";
-}
- *@
-<div class="form-container">
-   <h2>Добави категории към ресторанта</h2>
-    <form method="post">
-        <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
-        @foreach(var cat in Model.CategoriesList){
-         <div>
-           <label class="checkbox-labe2" for="@cat.Id">
-             <input type="checkbox" class="checkbox2" name="SelectedCategoriesIds" id="@cat.Id"/>
-                <div class="svg-icon2">
-                 <svg xmlns="http://www.w3.org/2000/svg"
-                 height="1em"
-                 viewBox="0 0 448 512">
-                 <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path>
-                 </svg>
-               </div> 
-                    <span class="container">
-                        <div id="@cat.Id" style="padding-left: 30px">@cat.CategoryName</div>
-                    </span>
-           </label>
-         </div>
-        }
-        <button class="btn btn-info" type="submit" asp-action="AssignCategories" asp-controller="Restaurant" asp-route-id="@Model.RestaurantId">Добави</button>
-</form>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Добави категории</h3>
+            </div>
+            <form method="post">
+                <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
+                @foreach (var cat in Model.CategoriesList)
+                {
+                    <div class="custom-control custom-checkbox" style="margin-left: 50px;">
+                        <input type="checkbox" class="checkbox" name="SelectedCategoriesIds" id="@cat.Id" />
+                        <label class="custom-control-label">@cat.CategoryName</label>
+                    </div>
+                }
+                <div class="card-footer">
+                    <button class="btn btn-info" type="submit" asp-action="AssignCategories" asp-controller="Restaurant">Добави</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

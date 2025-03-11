@@ -1,72 +1,119 @@
 ﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
 @model RestaurantCreateVM
 
-<div class="form-container">
-    <h2>Добавяне на ресторант</h2>
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Name">Име:</label>
-            <input type="text" asp-for="Name" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Description">Описание:</label>
-            <input type="text" asp-for="Description" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Location">Локация:</label>
-            <input type="text" asp-for="Location" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Telephone">Телефон:</label>
-            <input type="text" asp-for="Telephone" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Email">Имейл:</label>
-            <input type="text" asp-for="Email" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Instagram">Инстаграм:</label>
-            <input type="text" asp-for="Instagram" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Facebook">Файсбук:</label>
-            <input type="text" asp-for="Facebook" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="WebSite">Уебсайт:</label>
-            <input type="text" asp-for="WebSite" class="form-control" />
-        </div>
-
-        <div class="form-group-inline">
-            <div class="form-group">
-                <label asp-for="PriceRangeFrom">Цени от:</label>
-                <input type="number" asp-for="PriceRangeFrom" class="form-control" />
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Създай ресторант</h3>
             </div>
-
-            <div class="form-group">
-                <label asp-for="PriceRangeTo">Цени до:</label>
-                <input type="number" asp-for="PriceRangeTo" class="form-control" />
-            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="form-label">Име:</label>
+                        <input asp-for="Name" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label">Описание:</label>
+                        <input asp-for="Description" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Location" class="form-label">Локация:</label>
+                        <input asp-for="Location" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Telephone" class="form-label">Телефон:</label>
+                        <input asp-for="Telephone" type="tel" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Telephone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="form-label">Имейл:</label>
+                        <input asp-for="Email" type="email" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Instagram" class="form-label">Инстаграм страница:</label>
+                        <input asp-for="Instagram" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Instagram" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Facebook" class="form-label">Фейсбук страница:</label>
+                        <input asp-for="Facebook" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="Facebook" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="WebSite" class="form-label">Уебсайт:</label>
+                        <input asp-for="WebSite" type="text" class="form-control" aria-required="true" />
+                        <span asp-validation-for="WebSite" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="PriceRangeFrom" class="form-label">Цени от:</label>
+                        <input asp-for="PriceRangeFrom" type="number" class="form-control" aria-required="true" />
+                        <span asp-validation-for="PriceRangeFrom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="PriceRangeTo" class="form-label">Цени до:</label>
+                        <input asp-for="PriceRangeTo" type="number" class="form-control" aria-required="true" />
+                        <span asp-validation-for="PriceRangeTo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="IndoorCapacity" class="form-label">Вътрешен капацитет:</label>
+                        <input asp-for="IndoorCapacity" type="number" class="form-control" aria-required="true" />
+                        <span asp-validation-for="IndoorCapacity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="OutdoorCapacity" class="form-label">Външен капацитет:</label>
+                        <input asp-for="OutdoorCapacity" type="number" class="form-control" aria-required="true" />
+                        <span asp-validation-for="OutdoorCapacity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-info" type="submit" asp-action="Create" asp-controller="Restaurant">Създай</button>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group-inline">
-            <div class="form-group">
-                <label asp-for="IndoorCapacity">Капацитет на заведението вътре:</label>
-                <input type="number" asp-for="IndoorCapacity" class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label asp-for="OutdoorCapacity">Капацитета на заведението отвън:</label>
-                <input type="number" asp-for="OutdoorCapacity" class="form-control" />
-            </div>
-        </div>
-
-        <button class="btn btn-info" type="submit" asp-action="Create" asp-controller="Restaurant">Добави</button>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
