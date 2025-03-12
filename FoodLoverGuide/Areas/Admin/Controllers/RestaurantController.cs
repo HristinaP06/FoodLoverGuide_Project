@@ -1,10 +1,10 @@
-﻿using FoodLoverGuide.Core;
+﻿using FoodLoverGuide.Areas.Admin.Controllers;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodLoverGuide.Areas.Admin.Controllers
+namespace FoodLoverGuide.Areas.Admin.Views
 {
     public class RestaurantController : BaseController
     {
@@ -13,21 +13,21 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
         private readonly ICategoryService categoryService;
         private readonly IFeatureService featureService;
         private readonly IRestaurantFeatureService restaurantFeatureService;
-        private readonly IWorkTimeScheduleService workTimeScheduleService;
+       
 
         public RestaurantController(IRestaurantService rService,
             IRestaurantCategoriesService restaurantCategoriesService,
             ICategoryService categoryService,
             IFeatureService featureService,
-            IRestaurantFeatureService restaurantFeatureService,
-            IWorkTimeScheduleService workTimeScheduleService)
+            IRestaurantFeatureService restaurantFeatureService
+           )
         {
             this.rService = rService;
             this.restaurantCategoriesService = restaurantCategoriesService;
             this.categoryService = categoryService;
             this.featureService = featureService;
             this.restaurantFeatureService = restaurantFeatureService;
-            this.workTimeScheduleService = workTimeScheduleService;
+            
         }
 
         public async Task<IActionResult> IndexAsync()

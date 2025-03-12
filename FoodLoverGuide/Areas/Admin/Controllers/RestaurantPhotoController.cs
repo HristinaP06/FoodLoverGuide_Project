@@ -1,12 +1,13 @@
-﻿using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Areas.Admin.Controllers;
+using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoodLoverGuide.Controllers
+namespace FoodLoverGuide.Areas.Admin.Views
 {
-    public class RestaurantPhotoController : Controller
+    public class RestaurantPhotoController : BaseController
     {
         private readonly IRestaurantPhotoService restaurantPhotoService;
         private readonly IRestaurantService restaurantService;
