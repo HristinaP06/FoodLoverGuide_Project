@@ -114,6 +114,93 @@ namespace FoodLoverGuide.DataAccess
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(builder);
+
+            builder.Entity<Category>().HasData
+                (
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Италианска кухня"
+                },
+                new Category
+                {
+                    Id= Guid.NewGuid(),
+                    CategoryName = "Пицария"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Бързо хранене"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Гръцка кухня"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Българска кухня"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Турска кухня"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Азиатска кухня"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Морска храна"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryName = "Бистро"
+                }
+                );
+
+            builder.Entity<Feature>().HasData(
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Външен детски кът"
+                },
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Градина"
+                },
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Място за пушачи"
+                },
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Вътрешен детски кът"
+                },
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Интерннет"
+                },
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Паркинг"
+                },
+                new Feature
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Достъпност за инвалиди"
+                }
+                );
         }
     }
 }
