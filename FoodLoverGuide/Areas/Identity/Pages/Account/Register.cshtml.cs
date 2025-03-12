@@ -116,9 +116,6 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            public string? Role { get; set; }
-
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; } = new List<SelectListItem>();
 
@@ -174,14 +171,7 @@ namespace FoodLoverGuide.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
-                    if (!string.IsNullOrEmpty(Input.Role))
-                    {
-                        await _userManager.AddToRoleAsync(user, Input.Role);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, SD.UserRole);
-                    }
+                    await _userManager.AddToRoleAsync(user, SD.UserRole);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
