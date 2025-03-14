@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250313121739_AddedSeedData")]
-    partial class AddedSeedData
+    [Migration("20250314134005_InitialSetup")]
+    partial class InitialSetup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,8 +232,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(3000)
+                        .HasColumnType("nvarchar(3000)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -253,8 +253,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<int?>("OutdoorCapacity")
                         .HasColumnType("int");
@@ -279,7 +279,7 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                            Description = "Трябва да се посети не само Исторически музей Искра, но и Marcon Italian Cuisine. Посетителите посочват, че е добре да отидете тук за италианска храна. Този ресторант е за препоръчване за добре приготвени пици, паста и салати. Както твърдят много рецензенти, лимонадата е наистина страхотна.Уютната атмосфера на Marcon Italian Cuisine дава възможност на гостите да релаксират след тежък работен ден. Приятният персонал работи усилено, остава позитивен и прави това място страхотно. Обслужването на това място е нещо, което човек може да нарече бързо. Ще харесате справедливи цени.",
+                            Description = "Трябва да се посети не само Исторически музей Искра, но и Marcon Italian Cuisine. Посетителите посочват, че е добре да отидете тук за италианска храна. Този ресторант е за препоръчване за добре приготвени пици, паста и салати. Както твърдят много рецензенти, лимонадата е наистина страхотна.Уютната атмосфера на Marcon Italian Cuisine дава  възможност на гостите да релаксират след тежък работен ден. Приятният персонал работи усилено, остава позитивен и прави това място страхотно. Обслужването на това място е нещо, което човек може да нарече бързо. Ще харесате справедливи цени.",
                             Email = "marconpizza@gmail.com",
                             Facebook = "Marcon Italian Cuisine",
                             IndoorCapacity = 60,
@@ -429,7 +429,7 @@ namespace FoodLoverGuide.DataAccess.Migrations
                             IndoorCapacity = 60,
                             Instagram = "",
                             Location = "ул. 'Кадемлия' 31, Казанлък",
-                            Name = "",
+                            Name = "Сезони",
                             OutdoorCapacity = 60,
                             PriceRangeFrom = 10.0,
                             PriceRangeTo = 20.0,
@@ -451,6 +451,58 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("e12d1204-3592-4caa-bd6b-3d5e3aca32d6"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            CategoryId = new Guid("7c9975a1-fd38-4495-93d2-38ae09c402c5"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.RestaurantFeature", b =>
@@ -466,6 +518,128 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantFeatures");
+
+                    b.HasData(
+                        new
+                        {
+                            FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                            RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        },
+                        new
+                        {
+                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                            RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001")
+                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.RestaurantPhoto", b =>

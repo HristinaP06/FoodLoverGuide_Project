@@ -9,11 +9,11 @@ namespace FoodLoverGuide.Models
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(120)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(300)]
+        [MaxLength(3000)]
         public string Description { get; set; }
 
         [Required]

@@ -17,9 +17,25 @@ builder.Services.AddControllersWithViews();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("FoodLoverGuide.DataAccess")));
 
-builder.Services.AddDefaultIdentity<User>()
+/*builder.Services.AddDefaultIdentity<User>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>();*/
+
+builder.Services.AddDefaultIdentity<User>(options =>
+{
+
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+})
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
@@ -52,6 +68,63 @@ builder.Services.AddSingleton(cloudinary);
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+
+    //Ensure Roles Exist
+    var roles = new List<string> { "Admin", "User" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    //Ensure Admin User Exists
+    string adminEmail = "admin@gmail.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        User user = new User
+        {
+            UserName = "Admin",
+            FirstName = "Admin",
+            LastName = "Admin",
+            Email = adminEmail,
+            Age = 20,
+            EmailConfirmed = true
+        };
+
+        // Полето за парола нямаше главна буква, затова не запазваше потребителя.
+        await userManager.CreateAsync(user, "@dmIn25");
+        await userManager.AddToRoleAsync(user, "Admin");
+
+    }
+
+    string userEmail = "tina@gmail.com";
+    var userUser = await userManager.FindByEmailAsync(userEmail);
+    if (userUser == null)
+    {
+        var user1 = new User
+        {
+            UserName = "Tina",
+            FirstName = "Hristina",
+            LastName = "Pirinova",
+            Email = userEmail,
+            Age = 19,
+            EmailConfirmed = true
+        };
+
+        // Полето за парола нямаше главна буква, затова не запазваше потребителя.
+        await userManager.CreateAsync(user1, "tiN@0641");
+        await userManager.AddToRoleAsync(user1, "User");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
