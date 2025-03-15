@@ -4,6 +4,7 @@ using FoodLoverGuide.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250315201311_AddedNewFieldInWorkTimeScheduleTable")]
+    partial class AddedNewFieldInWorkTimeScheduleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,8 +181,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("_Rating")
-                        .HasColumnType("float");
+                    b.Property<int?>("_Rating")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -188,29 +191,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Ratings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                            UserId = "bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3",
-                            _Rating = 5.0
-                        },
-                        new
-                        {
-                            Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                            UserId = "bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3",
-                            _Rating = 5.0
-                        },
-                        new
-                        {
-                            Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
-                            UserId = "bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3",
-                            _Rating = 5.0
-                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.Reservation", b =>
@@ -651,197 +631,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("WorkTimeSchedules");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("4e2bbed5-ba4b-44b6-b16a-86de98a63ce0"),
-                            ClosingTime = new TimeSpan(0, 23, 30, 0, 0),
-                            Day = 1,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 11, 30, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("dfe91a02-404b-4d36-8537-b1b82fe28d43"),
-                            ClosingTime = new TimeSpan(0, 23, 30, 0, 0),
-                            Day = 2,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 11, 30, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("64bb2a3b-585c-48dd-9e0b-216ce8524a8c"),
-                            ClosingTime = new TimeSpan(0, 23, 30, 0, 0),
-                            Day = 3,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 11, 30, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("53985eee-46ca-44e1-b457-4c3fc73e60c2"),
-                            ClosingTime = new TimeSpan(0, 23, 30, 0, 0),
-                            Day = 4,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 11, 30, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("16e600d3-5d1d-4f6a-afe0-2a8994f647df"),
-                            ClosingTime = new TimeSpan(0, 23, 30, 0, 0),
-                            Day = 5,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 11, 30, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("f07de646-e32b-4e34-9031-a61d1f5d3437"),
-                            ClosingTime = new TimeSpan(0, 23, 30, 0, 0),
-                            Day = 6,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 11, 30, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("6355f560-db8e-43e5-b36b-1b282950f841"),
-                            ClosingTime = new TimeSpan(0, 17, 30, 0, 0),
-                            Day = 0,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 12, 0, 0, 0),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            Id = new Guid("3c519e19-9696-46a4-be31-1c42d886e1e5"),
-                            ClosingTime = new TimeSpan(0, 0, 0, 0, 0),
-                            Day = 1,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 0, 0, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("acf0156c-7576-42d6-9b11-984d313aea51"),
-                            ClosingTime = new TimeSpan(0, 23, 0, 0, 0),
-                            Day = 2,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 8, 30, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("c0790a6d-08c0-4470-a533-f19f40013672"),
-                            ClosingTime = new TimeSpan(0, 23, 0, 0, 0),
-                            Day = 3,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 8, 30, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("010383fe-ebc4-48e2-b98e-2182e24bce31"),
-                            ClosingTime = new TimeSpan(0, 23, 0, 0, 0),
-                            Day = 4,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 8, 30, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("813f0637-9a00-4612-b5a4-3b2aee6ec6ac"),
-                            ClosingTime = new TimeSpan(0, 23, 0, 0, 0),
-                            Day = 5,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 8, 30, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("b62049ab-ee45-4415-aa0c-690dd5b50ce5"),
-                            ClosingTime = new TimeSpan(0, 23, 0, 0, 0),
-                            Day = 6,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 8, 30, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("93255465-e52f-421c-b0df-ea6ef6696832"),
-                            ClosingTime = new TimeSpan(0, 0, 0, 0, 0),
-                            Day = 0,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 0, 0, 0, 0),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            Id = new Guid("887e6c1a-0629-4ac2-b2fa-0370fbfbf763"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 1,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            Id = new Guid("174bc1fe-a957-41d7-8a38-afb7c1c9a340"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 2,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            Id = new Guid("be5b1bad-fd82-4850-9646-1d8de29532fa"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 3,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            Id = new Guid("7cf04ef9-fd79-40f2-935a-12b0675a6307"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 4,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            Id = new Guid("898454a9-3569-4827-ae31-a6919a56351d"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 5,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            Id = new Guid("357fa35e-6b3c-4c1d-bdfe-2951e0fc3547"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 6,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            Id = new Guid("fbf95d72-3540-414a-94be-0d126b97cceb"),
-                            ClosingTime = new TimeSpan(0, 22, 30, 0, 0),
-                            Day = 0,
-                            IsClosed = false,
-                            OpeningTime = new TimeSpan(0, 6, 0, 0, 0),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

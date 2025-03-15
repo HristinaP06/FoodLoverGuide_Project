@@ -1,5 +1,4 @@
 ﻿using FoodLoverGuide.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -209,7 +208,7 @@ namespace FoodLoverGuide.DataAccess
                     Name = "Възможност за плащане с карта"
                 }
                 );
-
+            
             builder.Entity<Restaurant>().HasData(
                 new Restaurant
                 {
@@ -249,65 +248,6 @@ namespace FoodLoverGuide.DataAccess
                 },
                 new Restaurant
                 {
-                    Id = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    Name = "Bellezza - Bar & Grill",
-                    Description = "Този бар ви осигурява вкусна храна и място за почивка след дълга разходка из Исторически музей Искра. " +
-                    "Яденето на перфектно сготвени спагети карбонара, пиле и салати е това, което редица гости препоръчват. " +
-                    "Свежата атмосфера на това място позволява на клиентите да се отпуснат след тежък работен ден. Симпатичният персонал работи усилено, " +
-                    "остава позитивен и прави това място страхотно. Готиното обслужване е голям плюс на това място." +
-                    " Повечето рецензенти споменават, че цените са разумни за това, което получавате.",
-                    Location = "ул. 'Старозагорска' 2А, Казанлък",
-                    Telephone = "0899322690",
-                    Email = "",
-                    WebSite = "",
-                    Facebook = "Bellezza Bar & Grill",
-                    Instagram = "bellezzabargrill",
-                    PriceRangeFrom = 10,
-                    PriceRangeTo = 30,
-                    IndoorCapacity = 100,
-                    OutdoorCapacity = 30
-                },
-                new Restaurant
-                {
-                    Id = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    Name = "Bellezza",
-                    Description = "Ако дъждът ви изненада по време на разходката около Национален парк-музей Шипка-Бузлужа, отбийте се в този ресторант. " +
-                    "Много хора казват, че тук сервитьорите сервират добра пица, пилешки крилца и свинско. Не пропускайте възможността да поръчате вкусна бира." +
-                    " Тук можете да пиете страхотно кафе. Лесно е да намерите Bellezza поради удобното местоположение. " +
-                    "Компетентният персонал работи усилено, остава позитивен и прави това място страхотно. Приятното обслужване е голямо предимство на това място." +
-                    " От гледна точка на гостите цените са атрактивни. Със сигурност ще се насладите на приятната атмосфера.",
-                    Location = "ул. 'Отец Паисий Хилендарски' 2А, Казанлък",
-                    Telephone = "0894521260",
-                    Email = "bellezzacafebar@gmail.com",
-                    Facebook = "Bellezza Cafe Bar",
-                    Instagram = "",
-                    WebSite = "",
-                    PriceRangeFrom = 18,
-                    PriceRangeTo = 45,
-                    IndoorCapacity = 60,
-                    OutdoorCapacity = 20
-                },
-                new Restaurant
-                {
-                    Id = new Guid("68bde11b-41a4-4f72-8dd1-f9b1b2a16eed"),
-                    Name = "Пицария Искра",
-                    Description = " Да опитате перфектно приготвена пица и хубави салати е наистина добра идея." +
-                    " Удобната локация на Pizza Iskra / Пицария Искра я прави лесно достъпна дори и в пиковите часове. " +
-                    "Повечето посетители твърдят, че служителите са гостоприемни. Ако искате да изпитате страхотно обслужване, трябва да посетите това място." +
-                    " Цените са адекватни тук. Може да обърнете внимание на приятната атмосфера.",
-                    Location = "ул. 'Искра' 18, Казанлък",
-                    Telephone = "043159901",
-                    Email = "",
-                    WebSite = "",
-                    Facebook = "Пицария ИСКРА",
-                    Instagram = "pizzariaiskra",
-                    PriceRangeFrom = 18,
-                    PriceRangeTo = 45,
-                    IndoorCapacity = 40,
-                    OutdoorCapacity = 30
-                },
-                new Restaurant
-                {
                     Id = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
                     Name = "Ресторант Делта",
                     Description = "Гостите казват, че тук харесват италианската и турската кухня." +
@@ -324,130 +264,120 @@ namespace FoodLoverGuide.DataAccess
                     PriceRangeTo = 45,
                     IndoorCapacity = 100,
                     OutdoorCapacity = 0
-                },
-                new Restaurant
-                {
-                    Id = new Guid("fdd8e014-aa7c-4d36-b83e-d00750c552ad"),
-                    Name = "Ресторант Лагуна",
-                    Description = "След като разгледахте Исторически музей Искра, време е да си починете в този ресторант. " +
-                    "Заповядайте в ресторант Лагуна за почивка и опитайте перфектно приготвено американско филе, риба и салати." +
-                    " Време е да дегустирате вкусно вино.Топлата атмосфера на това място кара гостите да се чувстват спокойни и да си прекарват приятно. " +
-                    "Готиният персонал демонстрира високо ниво на гостоприемство на това място. " +
-                    "Невероятното обслужване е нещо, което хората отбелязват в отзивите си. Този ресторант ви предлага добри цени за вкусни ястия.",
-                    Location = "бул. 'Никола Петков' 37А, Казанлък",
-                    Telephone = "043176767",
-                    Email = "",
-                    WebSite = "",
-                    Facebook = "Restorant Laguna",
-                    Instagram = "",
-                    PriceRangeFrom = 18,
-                    PriceRangeTo = 45,
-                    IndoorCapacity = 100,
-                    OutdoorCapacity = 100
-                },
-                new Restaurant
-                {
-                    Id = new Guid("39fbf8da-7b50-4f65-b3c8-3601e9adcd33"),
-                    Name = "Ресторант Опела",
-                    Description = "Минавайки покрай Музея на розите, посетете този ресторант. " +
-                    "Потопете се в прекрасната българска кухня на това място. " +
-                    "Топлата атмосфера на Ресторант Опела кара клиентите да се чувстват спокойни и да си прекарват приятно. " +
-                    "Членовете на персонала са креативни и това прави това място толкова добро. " +
-                    "Доброто обслужване е нещо, което клиентите харесват тук. Според мненията на рецензентите, цените са справедливи.",
-                    Location = "ул. 'Сергей Румянцев' 1А, Казанлък",
-                    Telephone = "043170299",
-                    Email = "",
-                    WebSite = "",
-                    Facebook = "",
-                    Instagram = "restorant_opela",
-                    PriceRangeFrom = 20,
-                    PriceRangeTo = 30,
-                    IndoorCapacity = 75,
-                    OutdoorCapacity = 75
-                },
-                new Restaurant
-                {
-                    Id = new Guid("da5d839b-a421-430b-91df-3bbf866ed69c"),
-                    Name = "Ko Shi Yam",
-                    Description = "Посетете това място и опитайте китайската кухня. Доставката на храна е голям плюс на този ресторант." +
-                    " Успехът на Ko Shi Yam би бил невъзможен без опитния персонал. Доброто обслужване е нещо, което гостите отбелязват в отзивите си." +
-                    " Ще плащате ниски цени за ястия. През повечето време уютната атмосфера се намира тук.",
-                    Location = "ул. 'Цар Петър' 29, Казанлък",
-                    Telephone = "043181320",
-                    Email = "",
-                    WebSite = "ko-shi-iam.com",
-                    Facebook = "Ко Ши Ям (Китайски ресторант) ",
-                    Instagram = "koshiqmkz",
-                    PriceRangeFrom = 15,
-                    PriceRangeTo = 30,
-                    IndoorCapacity = 30,
-                    OutdoorCapacity = 30
-                },
-                new Restaurant
-                {
-                    Id = new Guid("4f3f68d3-3d1b-4dd1-8c7e-3686ee3bdc35"),
-                    Name = "Сезони",
-                    Description = "Елате в този ресторант, за да вечеряте, ако сте гладни, след като сте разгледали Музея на розите. Ресторант \"Сезони\" " +
-                    "предлага добро кафе сред своите напитки. Уютната атмосфера на това място кара гостите да се чувстват спокойни и да си прекарват приятно." +
-                    " Казват, че сервитьорът тук е весел. Страхотното обслужване демонстрира високо ниво на качество в този ресторант. " +
-                    "Много рецензенти отбелязват, че цените са демократични за това, което получавате.",
-                    Location = "ул. 'Кадемлия' 31, Казанлък",
-                    Telephone = "0877300166",
-                    Email = "bistrosezoni@abv.bg",
-                    WebSite = "",
-                    Facebook = "Sezoni",
-                    Instagram = "",
-                    PriceRangeFrom = 10,
-                    PriceRangeTo = 20,
-                    IndoorCapacity = 60,
-                    OutdoorCapacity = 60
                 }
                 );
-
+            
             //Marcon - relation tables
 
             builder.Entity<RestaurantCategories>().HasData(
                 new RestaurantCategories
                 {
+                    CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
                     RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2")
                 });
 
             builder.Entity<RestaurantFeature>().HasData(
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959")
+                    FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38")
+                    FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905")
+                    FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8")
+                    FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59")
+                    FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a")
+                    FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
                 },
                 new RestaurantFeature
                 {
+                    FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
+                });
+
+            builder.Entity<WorkTimeSchedule>().HasData(
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("4e2bbed5-ba4b-44b6-b16a-86de98a63ce0"),
                     RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                    FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057")
+                    Day = DayOfWeek.Monday,
+                    OpeningTime = new TimeSpan(11,30,00),
+                    ClosingTime = new TimeSpan(23,30,00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("dfe91a02-404b-4d36-8537-b1b82fe28d43"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    Day = DayOfWeek.Tuesday,
+                    OpeningTime = new TimeSpan(11, 30, 00),
+                    ClosingTime = new TimeSpan(23, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("64bb2a3b-585c-48dd-9e0b-216ce8524a8c"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    Day = DayOfWeek.Wednesday,
+                    OpeningTime = new TimeSpan(11, 30, 00),
+                    ClosingTime = new TimeSpan(23, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("53985eee-46ca-44e1-b457-4c3fc73e60c2"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    Day = DayOfWeek.Thursday,
+                    OpeningTime = new TimeSpan(11, 30, 00),
+                    ClosingTime = new TimeSpan(23, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("16e600d3-5d1d-4f6a-afe0-2a8994f647df"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    Day = DayOfWeek.Friday,
+                    OpeningTime = new TimeSpan(11, 30, 00),
+                    ClosingTime = new TimeSpan(23, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("f07de646-e32b-4e34-9031-a61d1f5d3437"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    Day = DayOfWeek.Saturday,
+                    OpeningTime = new TimeSpan(11, 30, 00),
+                    ClosingTime = new TimeSpan(23, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("6355f560-db8e-43e5-b36b-1b282950f841"),
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    Day = DayOfWeek.Sunday,
+                    OpeningTime = new TimeSpan(12, 00, 00),
+                    ClosingTime = new TimeSpan(17, 30, 00)
+                });
+
+            builder.Entity<Rating>().HasData(
+                new Rating
+                {
+                    Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"),
+                    _Rating = 5,
+                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
+                    UserId = new Guid("bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3").ToString()
                 });
 
             //Meraki - relation tables
@@ -455,147 +385,226 @@ namespace FoodLoverGuide.DataAccess
             builder.Entity<RestaurantCategories>().HasData(
                 new RestaurantCategories
                 {
-                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                    CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2")
-                },
-                new RestaurantCategories
-                {
-                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                    CategoryId = new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583")
-                },
-                new RestaurantCategories
-                {
-                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                    CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37")
-                });
-
-            builder.Entity<RestaurantFeature>().HasData(
-              new RestaurantFeature
-              {
-                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                  FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959")
-              },
-              new RestaurantFeature
-              {
-                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                  FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59")
-              },
-              new RestaurantFeature
-              {
-                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                  FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905")
-              },
-              new RestaurantFeature
-              {
-                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                  FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a")
-              },
-              new RestaurantFeature
-              {
-                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                  FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057")
-              });
-
-            //Bellezza - Bar & Grill - relation tables
-
-            builder.Entity<RestaurantCategories>().HasData(
-                new RestaurantCategories
-                {
                     CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
-                    RestaurantId= new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+                },
+                new RestaurantCategories
+                {
+                    CategoryId = new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
                 },
                 new RestaurantCategories
                 {
                     CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
-                },
-                new RestaurantCategories
-                {
-                    CategoryId = new Guid("e12d1204-3592-4caa-bd6b-3d5e3aca32d6"),
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6")
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
                 });
 
             builder.Entity<RestaurantFeature>().HasData(
-                new RestaurantFeature
+              new RestaurantFeature
+              {
+                  FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
+                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+              },
+              new RestaurantFeature
+              {
+
+                  FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+              },
+              new RestaurantFeature
+              {
+                  FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+              },
+              new RestaurantFeature
+              {
+                  FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
+                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+              },
+              new RestaurantFeature
+              {
+                  FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                  RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
+              });
+
+            builder.Entity<WorkTimeSchedule>().HasData(
+                new WorkTimeSchedule
                 {
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905")
+                    Id = new Guid("3c519e19-9696-46a4-be31-1c42d886e1e5"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Monday,
+                    IsClosed = false,
                 },
-                new RestaurantFeature
+                new WorkTimeSchedule
                 {
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959")
+                    Id = new Guid("acf0156c-7576-42d6-9b11-984d313aea51"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Tuesday,
+                    OpeningTime = new TimeSpan(8,30,00),
+                    ClosingTime = new TimeSpan(23,00,00)
                 },
-                new RestaurantFeature
+                new WorkTimeSchedule
                 {
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38")
+                    Id = new Guid("c0790a6d-08c0-4470-a533-f19f40013672"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Wednesday,
+                    OpeningTime = new TimeSpan(8,30,00),
+                    ClosingTime = new TimeSpan(23,00,00)
                 },
-                new RestaurantFeature
+                new WorkTimeSchedule
                 {
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8")
+                    Id = new Guid("010383fe-ebc4-48e2-b98e-2182e24bce31"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Thursday,
+                    OpeningTime = new TimeSpan(8,30,00),
+                    ClosingTime = new TimeSpan(23,00,00)
                 },
-                new RestaurantFeature
+                new WorkTimeSchedule
                 {
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59")
+                    Id = new Guid("813f0637-9a00-4612-b5a4-3b2aee6ec6ac"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Friday,
+                    OpeningTime = new TimeSpan(8,30,00),
+                    ClosingTime = new TimeSpan(23,00,00)
                 },
-                new RestaurantFeature
+                new WorkTimeSchedule
                 {
-                    RestaurantId = new Guid("e17f320c-0a7a-4bec-ae33-f736b57391a6"),
-                    FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057")
+                    Id = new Guid("b62049ab-ee45-4415-aa0c-690dd5b50ce5"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Saturday,
+                    OpeningTime = new TimeSpan(8,30,00),
+                    ClosingTime = new TimeSpan(23,00,00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("93255465-e52f-421c-b0df-ea6ef6696832"),
+                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                    Day = DayOfWeek.Sunday,
+                    IsClosed = false,
                 });
 
-            //Bellezza - realtion tables
+            builder.Entity<Rating>().HasData(
+               new Rating
+               {
+                   Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"),
+                   _Rating = 5,
+                   RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
+                   UserId = new Guid("bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3").ToString()
+               });
+
+            //Restaurant Delta - relation tables
 
             builder.Entity<RestaurantCategories>().HasData(
                 new RestaurantCategories
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2")
+                    CategoryId = new Guid("3ce78111-d73b-431b-a52b-96b226fed723"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
                 },
                 new RestaurantCategories
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37")
-                },
-                new RestaurantCategories
-                {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    CategoryId = new Guid("7c9975a1-fd38-4495-93d2-38ae09c402c5")
-                });
+                    CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
+                }
+                );
 
             builder.Entity<RestaurantFeature>().HasData(
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959")
+                    FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38")
+                    FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905")
+                    FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8")
+                    FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
                 },
                 new RestaurantFeature
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59")
-                }, new RestaurantFeature
+                    FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
+                },
+                new RestaurantFeature
                 {
-                    RestaurantId = new Guid("64bf4496-2ffe-41f9-b6e1-8cb6a167b001"),
-                    FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057")
+                    FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
                 });
+
+            builder.Entity<WorkTimeSchedule>().HasData(
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("887e6c1a-0629-4ac2-b2fa-0370fbfbf763"),
+                    RestaurantId= new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Monday,
+                    OpeningTime = new TimeSpan(6,00,00),
+                    ClosingTime = new TimeSpan(22,30,00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("174bc1fe-a957-41d7-8a38-afb7c1c9a340"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Tuesday,
+                    OpeningTime = new TimeSpan(6, 00, 00),
+                    ClosingTime = new TimeSpan(22, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("be5b1bad-fd82-4850-9646-1d8de29532fa"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Wednesday,
+                    OpeningTime = new TimeSpan(6, 00, 00),
+                    ClosingTime = new TimeSpan(22, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("7cf04ef9-fd79-40f2-935a-12b0675a6307"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Thursday,
+                    OpeningTime = new TimeSpan(6, 00, 00),
+                    ClosingTime = new TimeSpan(22, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("898454a9-3569-4827-ae31-a6919a56351d"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Friday,
+                    OpeningTime = new TimeSpan(6, 00, 00),
+                    ClosingTime = new TimeSpan(22, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("357fa35e-6b3c-4c1d-bdfe-2951e0fc3547"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Saturday,
+                    OpeningTime = new TimeSpan(6, 00, 00),
+                    ClosingTime = new TimeSpan(22, 30, 00)
+                },
+                new WorkTimeSchedule
+                {
+                    Id = new Guid("fbf95d72-3540-414a-94be-0d126b97cceb"),
+                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                    Day = DayOfWeek.Sunday,
+                    OpeningTime = new TimeSpan(6, 00, 00),
+                    ClosingTime = new TimeSpan(22, 30, 00)
+                });
+
+            builder.Entity<Rating>().HasData(
+               new Rating
+               {
+                   Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"),
+                   _Rating = 5,
+                   RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
+                   UserId = new Guid("bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3").ToString()
+               });
 
             base.OnModelCreating(builder);
         }

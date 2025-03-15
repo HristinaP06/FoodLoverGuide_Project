@@ -4,6 +4,7 @@ using FoodLoverGuide.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250315215424_AddedSeedForRatingTable")]
+    partial class AddedSeedForRatingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,8 +181,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("_Rating")
-                        .HasColumnType("float");
+                    b.Property<int>("_Rating")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -195,21 +198,21 @@ namespace FoodLoverGuide.DataAccess.Migrations
                             Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"),
                             RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
                             UserId = "bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3",
-                            _Rating = 5.0
+                            _Rating = 5
                         },
                         new
                         {
                             Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"),
                             RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
                             UserId = "bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3",
-                            _Rating = 5.0
+                            _Rating = 5
                         },
                         new
                         {
                             Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"),
                             RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
                             UserId = "bce98f2f-6ebc-4024-ab7b-b3c1245bb6e3",
-                            _Rating = 5.0
+                            _Rating = 5
                         });
                 });
 
