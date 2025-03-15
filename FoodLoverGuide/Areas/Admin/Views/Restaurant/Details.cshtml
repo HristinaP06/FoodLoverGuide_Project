@@ -1,0 +1,132 @@
+﻿@model FoodLoverGuide.Models.Restaurant
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>@Model.Name</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active">@Model.Name</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center mb-3">
+                                <!-- If you have restaurant images, you can add them here -->
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="/images/restaurant-default.jpg"
+                                     alt="Restaurant logo"
+                                     style="width: 100px; height: 100px; object-fit: cover;">
+                            </div>
+
+                            <h3 class="profile-username text-center">@Model.Name</h3>
+                            <p class="text-muted text-center">
+                                @for (int i = 1; i < 5; i++)
+                                {
+                                    if (i < (Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count()))
+                                    {
+                                        <i class="fas fa-star text-warning"></i>
+                                    }
+                                    else if (i - (Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count()) > 0 && i - (Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count()) < 1)
+                                    {
+                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-star text-warning"></i>
+                                    }
+                                }
+                                <span class="badge bg-primary ml-2">@(Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count())</span>
+                            </p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <i class="fas fa-map-marker-alt mr-2 text-danger"></i> <b>Location</b> <span class="float-right">@Model.Location</span>
+                                </li>
+                                @if (!string.IsNullOrEmpty(Model.Telephone))
+                                {
+                                    <li class="list-group-item">
+                                        <i class="fas fa-phone mr-2 text-primary"></i> <b>Telephone</b> <span class="float-right">@Model.Telephone</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Email))
+                                {
+                                    <li class="list-group-item">
+                                        <i class="fas fa-envelope mr-2 text-warning"></i> <b>Email</b> <span class="float-right">@Model.Email</span>
+                                    </li>
+                                }
+                                <li class="list-group-item">
+                                    <i class="fas fa-money-bill-wave mr-2 text-success"></i> <b>Price Range</b> <span class="float-right">@Model.PriceRangeFrom - @Model.PriceRangeTo лв.</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-users mr-2 text-info"></i> <b>Capacity</b>
+                                    <span class="float-right">
+                                        Indoor: @Model.IndoorCapacity
+                                        @if (Model.OutdoorCapacity > 0)
+                                        {
+                                            <span>, Outdoor: @Model.OutdoorCapacity</span>
+                                        }
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <div class="mb-3">
+                                @if (!string.IsNullOrEmpty(Model.WebSite))
+                                {
+                                    <a href="@(Model.WebSite.StartsWith("http") ? Model.WebSite : "http://" + Model.WebSite)" class="btn btn-primary mr-2" target="_blank">
+                                        <i class="fas fa-globe"></i> Website
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Facebook))
+                                {
+                                    <a href="https://facebook.com/@Model.Facebook" class="btn btn-primary mr-2" target="_blank">
+                                        <i class="fab fa-facebook"></i> Facebook
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Instagram))
+                                {
+                                    <a href="https://instagram.com/@Model.Instagram" class="btn btn-danger" target="_blank">
+                                        <i class="fab fa-instagram"></i> Instagram
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Description</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>@Model.Description</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3 mb-4">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left mr-1"></i> Back to Restaurants
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

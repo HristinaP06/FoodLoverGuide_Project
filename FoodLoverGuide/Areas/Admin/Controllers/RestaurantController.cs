@@ -52,6 +52,24 @@ namespace FoodLoverGuide.Areas.Admin.Views
             return View(model);
         }
 
+        public async Task<IActionResult> Details(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await rService.GetAllRestaurants().Include(r => r.RatingList)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return View(restaurant);
+        }
+ 
         public IActionResult Create()
         {
             return View();
