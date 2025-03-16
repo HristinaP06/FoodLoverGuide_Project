@@ -55,6 +55,7 @@ namespace FoodLoverGuide.Core.Services
                 {
                     RestaurantId = model.RestaurantId,
                     Day = wt.Day,
+                    IsClosed = wt.IsClosed,
                     OpeningTime = wt.OpeningTime,
                     ClosingTime = wt.ClosingTime
                 };

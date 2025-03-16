@@ -8,6 +8,8 @@ namespace FoodLoverGuide.Core.ViewModels.Restaurant
 
         public Guid RestaurantId { get; set; }
 
+        public bool IsClosed { get; set; }
+
         public DayOfWeek Day { get; set; }
 
         [Required]

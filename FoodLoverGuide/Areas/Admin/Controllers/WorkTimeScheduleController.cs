@@ -32,10 +32,13 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
                 .Where(w => w.RestaurantId == restaurantId)
                 .ToList();
 
-            var weeklySchedule = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
+            var weeklySchedule = Enum.GetValues(typeof(DayOfWeek))
+                .Cast<DayOfWeek>()
+                .OrderBy(d => (d == DayOfWeek.Sunday) ? 7 : (int)d)
                 .Select(day => new WorkTimeScheduleViewModel
                 {
                     RestaurantId = restaurantId,
+                    IsClosed = false,
                     Day = day,
                     OpeningTime = workTimeSchedules.FirstOrDefault(w => w.Day == day)?.OpeningTime ?? TimeSpan.Zero,
                     ClosingTime = workTimeSchedules.FirstOrDefault(w => w.Day == day)?.ClosingTime ?? TimeSpan.Zero
@@ -53,8 +56,6 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(WeeklyWorkTimeVM model)
         {
-            var json = JsonSerializer.Serialize(model);
-
             if (ModelState.IsValid)
             {
                 Guid id = await workTimeScheduleService.AddWorkTimeToRestaurant(model);
