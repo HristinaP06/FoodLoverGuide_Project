@@ -16,7 +16,7 @@ namespace FoodLoverGuide.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var list = this.reviewService.GetAll().ToListAsync();
+            var list = await this.reviewService.GetAll().ToListAsync();
             return View(list);
         }
 

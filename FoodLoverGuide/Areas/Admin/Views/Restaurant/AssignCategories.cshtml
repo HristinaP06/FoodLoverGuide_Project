@@ -3,22 +3,27 @@
 @model AddCategoryToRestaurantVM
 
 <div class="row d-flex justify-content-center">
-    <div class="col-6">
-        <div class="card card-info">
+    <div class="col-8">
+        <div class="card card-success">
             <div class="card-header">
-                <h3 class="card-title">Добави категории</h3>
+                <h3 class="card-title">Стъпка 2 - Добави категории</h3>
             </div>
             <form method="post">
-                <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
-                @foreach (var cat in Model.CategoriesList)
-                {
-                    <div class="custom-control custom-checkbox" style="margin-left: 50px;">
-                        <input type="checkbox" class="checkbox" name="SelectedCategoriesIds" id="@cat.Id" />
-                        <label class="custom-control-label">@cat.CategoryName</label>
-                    </div>
-                }
+                <div class="card-body">
+                    <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
+
+                    @foreach (var cat in Model.CategoriesList)
+                    {
+                        <div class="form-check mb-2 ml-2">
+                            <input type="checkbox" class="form-check-input" name="SelectedCategoriesIds" id="category-@cat.Id" value="@cat.Id" />
+                            <label class="form-check-label" for="category-@cat.Id">@cat.CategoryName</label>
+                        </div>
+                    }
+                </div>
                 <div class="card-footer">
-                    <button class="btn btn-info" type="submit" asp-action="AssignCategories" asp-controller="Restaurant">Добави</button>
+                    <button class="btn btn-success float-right" type="submit" asp-action="AssignCategories" asp-controller="Restaurant">
+                        <i class="fas fa-plus-circle mr-1"></i>Добави
+                    </button>
                 </div>
             </form>
         </div>

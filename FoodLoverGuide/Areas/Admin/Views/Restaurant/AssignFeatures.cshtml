@@ -2,19 +2,30 @@
 
 @model AddFeatureToRestaurantVM
 
-<div class="card card-info">
-    <div class="card-header">
-        <h3 class="card-title">Добави категории</h3>
-    </div>
-    <form method="post">
-        <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
-        @foreach(var feat in Model.FeaturesList){
-         <div style="align-items">
-             <input type="checkbox" class="checkbox" name="SelectedCategoriesIds" id="@feat.Id"/>
-                        @feat.Name
-         </div>
-        }<div class="card-footer">
-            <button class="btn btn-info" type="submit" asp-action="AssignFeatures" asp-controller="Restaurant">Добави</button>
+<div class="row d-flex justify-content-center">
+    <div class="col-8">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Стъпка 3 - Добави характеристики</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
+
+                    @foreach (var feat in Model.FeaturesList)
+                    {
+                        <div class="form-check mb-2 ml-2">
+                            <input type="checkbox" class="form-check-input" name="SelectedFeaturesIds" id="feature-@feat.Id" value="@feat.Id" />
+                            <label class="form-check-label" for="feature-@feat.Id">@feat.Name</label>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-success float-right" type="submit" asp-action="AssignFeatures" asp-controller="Restaurant">
+                        <i class="fas fa-plus-circle mr-1"></i>Добави
+                    </button>
+                </div>
+            </form>
         </div>
-</form>
+    </div>
 </div>

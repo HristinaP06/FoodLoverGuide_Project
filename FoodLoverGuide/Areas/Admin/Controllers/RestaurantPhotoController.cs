@@ -67,7 +67,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var obj = this.restaurantPhotoService.GetById(id);
+            var obj = await this.restaurantPhotoService.GetById(id);
             return View(obj);
         }
 

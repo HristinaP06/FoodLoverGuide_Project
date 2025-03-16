@@ -1,61 +1,92 @@
-﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
-@model IEnumerable<RestaurantCreateVM>
+﻿@model IEnumerable<FoodLoverGuide.Models.Restaurant>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Ресторанти</h3>
-            </div>
+@{
+    ViewData["Title"] = "Home";
+}
 
-            <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-wrap">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th style="text-align: center;">Име</th>
-                            <th style="text-align: center;">Локация</th>
-                            <th style="text-align: center;">Телефон</th>
-                            <th style="text-align: center;">Имейл</th>
-                            <th style="text-align: center;">Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var restaurant in Model)
-                        {
-                            <tr>
-                                <td class="py-0 align-middle" style="text-align: center;">
-                                    <form method="post">
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Restaurant" asp-route-id="@restaurant.Id">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </td>
-                                <td style="text-align: center;">@restaurant.Name</td>
-                                <td style="text-align: center;">@restaurant.Location</td>
-                                <td style="text-align: center;">@restaurant.Telephone</td>
-                                <td style="text-align: center;">@restaurant.Email</td>
-                                <td style="text-align: center;">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-info">Действия</button>
-                                        <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                        </button>
-                                        <div class="dropdown-menu" role="menu" style="">
-                                            <a class="dropdown-item" asp-action="edit" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редакция</a>
-                                            <form method="post">
-                                                <button type="submit" class="dropdown-item" asp-action="editCategories" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай категории</button>
-                                                <button type="submit" class="dropdown-item" asp-action="editFeatures" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай характеристики</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Ресторанти</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Име</th>
+                                    <th>Локация</th>
+                                    <th>Оценка</th>
+                                    <th>Ценови диапазон</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var restaurant in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id">
+                                                @restaurant.Name
+                                            </a>
+                                        </td>
+                                        <td>@restaurant.Location</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                @{
+                                                    var avgRating = restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count();
+                                                }
+                                                <span class="badge bg-primary mr-2">@(double.IsNaN(avgRating) ? 0 : avgRating)</span>
+                                                <div>
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= (restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count()))
+                                                        {
+                                                            <i class="fas fa-star text-warning"></i>
+                                                        }
+                                                        else if (i - (restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count()) > 0 && i - (restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count()) < 1)
+                                                        {
+                                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="far fa-star text-warning"></i>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>@restaurant.PriceRangeFrom - @restaurant.PriceRangeTo лв.</td>
+                                        <td>
+                                            <div class="btn-group-sm">
+                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Действия</button>
+                                                <div class="dropdown-menu" role="menu" style="">
+                                                    <a class="dropdown-item" asp-action="edit" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редакция</a>
+                                                    <form method="post">
+                                                        <button type="submit" class="dropdown-item" asp-action="editCategories" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай категории</button>
+                                                        <button type="submit" class="dropdown-item" asp-action="editFeatures" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай характеристики</button>
+                                                        <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="WorkTimeSchedule" asp-route-id="@restaurant.Id">Редактирай график</button>
+                                                        <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="RestaurantPhoto" asp-route-id="@restaurant.Id">Редактирай снимки</button>
+                                                        <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="MenuItem" asp-route-id="@restaurant.Id">Редактирай меню</button>
+                                                        <button type="submit" class="dropdown-item" asp-action="delete" asp-controller="restaurant" asp-route-id="@restaurant.Id">Изтрий</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
             </div>
         </div>
+        <!-- /.row -->
     </div>
-</div>
+</section>

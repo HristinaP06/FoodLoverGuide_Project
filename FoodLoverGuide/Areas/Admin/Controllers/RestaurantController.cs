@@ -30,26 +30,11 @@ namespace FoodLoverGuide.Areas.Admin.Views
             
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public IActionResult IndexAsync()
         {
-            var rest = await rService.GetAllRestaurants().Include(x => x.Features).Include(x => x.RestaurantCategoriesList).ToListAsync();
-            var model = rest.Select(r => new RestaurantCreateVM
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Description = r.Description,
-                Location = r.Location,
-                PriceRangeFrom = r.PriceRangeFrom,
-                PriceRangeTo = r.PriceRangeTo,
-                IndoorCapacity = r.IndoorCapacity,
-                OutdoorCapacity = r.OutdoorCapacity,
-                Telephone = r.Telephone,
-                Email = r.Email,
-                Instagram = r.Instagram,
-                Facebook = r.Facebook,
-                WebSite = r.WebSite
-            });
-            return View(model);
+            var restaurants = this.rService.GetAllRestaurants().Include(r => r.RatingList).ToList();
+
+            return View(restaurants);
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -59,7 +44,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
                 return NotFound();
             }
 
-            var restaurant = await rService.GetAllRestaurants().Include(r => r.RatingList)
+            var restaurant = await this.rService.GetAllRestaurants().Include(r => r.RatingList)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (restaurant == null)
@@ -79,7 +64,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpPost]
         public async Task<IActionResult> CreateAsync(RestaurantCreateVM model)
         {
-            Guid id = await rService.AddRestaurant(model);
+            Guid id = await this.rService.AddRestaurant(model);
 
             return RedirectToAction("AssignCategories", new { restaurantId = id });
         }
@@ -87,7 +72,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var obj = await rService.GetByIdAsync(id);
+            var obj = await this.rService.GetByIdAsync(id);
             var vm = new RestaurantCreateVM
             {
                 Id = obj.Id,
@@ -110,7 +95,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpPost]
         public async Task<IActionResult> EditAsync(RestaurantCreateVM model)
         {
-            await rService.Update(model);
+            await this.rService.Update(model);
 
             return RedirectToAction("Index");
         }
@@ -118,7 +103,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpPost]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            await rService.DeleteRestaurant(id);
+            await this.rService.DeleteRestaurant(id);
 
             return RedirectToAction("Index");
         }
@@ -126,7 +111,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public IActionResult AssignCategories(Guid restaurantId)
         {
-            var categories = categoryService.GetAll();
+            var categories = this.categoryService.GetAll();
             var model = new AddCategoryToRestaurantVM
             {
                 RestaurantId = restaurantId,
@@ -139,7 +124,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpPost]
         public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
         {
-            Guid id = await restaurantCategoriesService.AddRestaurantCategories(model);
+            Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
 
             return RedirectToAction("AssignFeatures", new { restaurantId = id });
         }
@@ -147,7 +132,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public IActionResult AssignFeatures(Guid restaurantId)
         {
-            var features = featureService.GetAll();
+            var features = this.featureService.GetAll();
             var model = new AddFeatureToRestaurantVM
             {
                 RestaurantId = restaurantId,
@@ -159,7 +144,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpPost]
         public async Task<IActionResult> AssignFeatures(AddFeatureToRestaurantVM model)
         {
-            Guid id = await restaurantFeatureService.AddRestaurantFeatures(model);
+            Guid id = await this.restaurantFeatureService.AddRestaurantFeatures(model);
 
             return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = id });
         }
