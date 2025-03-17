@@ -21,7 +21,7 @@ namespace FoodLoverGuide.Core.Services
         {
             var restaurant = new Restaurant()
             {
-                Id = model.Id,
+                Id = new Guid(),
                 Name = model.Name,
                 Description = model.Description,
                 Location = model.Location,
@@ -65,7 +65,7 @@ namespace FoodLoverGuide.Core.Services
         {
             var restaurant = new Restaurant()
             {
-                Id = model.Id,
+                Id = model.Id.Value,
                 Name = model.Name,
                 Description = model.Description,
                 Location = model.Location,

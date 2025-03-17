@@ -24,6 +24,9 @@
                     <button class="btn btn-success float-right" type="submit" asp-action="AssignCategories" asp-controller="Restaurant">
                         <i class="fas fa-plus-circle mr-1"></i>Добави
                     </button>
+                    <a asp-action="Edit" asp-controller="restaurant" asp-route-id="@Model.RestaurantId" asp-route-step="1" class="btn btn-default">
+                        <i class="fas fa-arrow-left mr-1"></i> Назад
+                    </a>
                 </div>
             </form>
         </div>

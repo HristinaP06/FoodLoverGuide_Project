@@ -47,10 +47,7 @@ namespace FoodLoverGuide.DataAccess.Repository
         public async Task<T> GetByIdAsync<T>(Guid id) where T : class
         {
             var entity = await DbSet<T>().FindAsync(id);
-            if (entity == null)
-            {
-                throw new ArgumentException("id is null");
-            }
+
             return entity;
         }
 

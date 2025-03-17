@@ -1,6 +1,7 @@
 ﻿using FoodLoverGuide.Areas.Admin.Controllers;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
+using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
             
         }
 
+        [HttpGet]
         public IActionResult IndexAsync()
         {
             var restaurants = this.rService.GetAllRestaurants().Include(r => r.RatingList).ToList();
@@ -37,6 +39,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
             return View(restaurants);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
             if (id == Guid.Empty)
@@ -54,7 +57,8 @@ namespace FoodLoverGuide.Areas.Admin.Views
 
             return View(restaurant);
         }
- 
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -70,32 +74,38 @@ namespace FoodLoverGuide.Areas.Admin.Views
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAsync(Guid id)
+        public async Task<IActionResult> EditAsync(Guid id, int? step)
         {
-            var obj = await this.rService.GetByIdAsync(id);
+            var restaurant = await this.rService.GetByIdAsync(id);
             var vm = new RestaurantCreateVM
             {
-                Id = obj.Id,
-                Name = obj.Name,
-                Description = obj.Description,
-                Location = obj.Location,
-                PriceRangeFrom = obj.PriceRangeFrom,
-                PriceRangeTo = obj.PriceRangeTo,
-                IndoorCapacity = obj.IndoorCapacity,
-                OutdoorCapacity = obj.OutdoorCapacity,
-                Telephone = obj.Telephone,
-                Email = obj.Email,
-                Instagram = obj.Instagram,
-                Facebook = obj.Facebook,
-                WebSite = obj.WebSite
+                Id = restaurant.Id,
+                Name = restaurant.Name,
+                Description = restaurant.Description,
+                Location = restaurant.Location,
+                PriceRangeFrom = restaurant.PriceRangeFrom,
+                PriceRangeTo = restaurant.PriceRangeTo,
+                IndoorCapacity = restaurant.IndoorCapacity,
+                OutdoorCapacity = restaurant.OutdoorCapacity,
+                Telephone = restaurant.Telephone,
+                Email = restaurant.Email,
+                Instagram = restaurant.Instagram,
+                Facebook = restaurant.Facebook,
+                WebSite = restaurant.WebSite
             };
+
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAsync(RestaurantCreateVM model)
+        public async Task<IActionResult> EditAsync(RestaurantCreateVM model, string step)
         {
             await this.rService.Update(model);
+
+            if (string.IsNullOrEmpty(step))
+            {
+                return RedirectToAction("AssignCategories");
+            }
 
             return RedirectToAction("Index");
         }

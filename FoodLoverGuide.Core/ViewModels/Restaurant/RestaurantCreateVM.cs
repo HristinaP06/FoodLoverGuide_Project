@@ -2,7 +2,7 @@
 {
     public class RestaurantCreateVM
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid? Id { get; set; }
 
         public string Name { get; set; }
 
@@ -10,15 +10,15 @@
 
         public string Location { get; set; }
 
-        public string? Telephone { get; set; }
+        public string Telephone { get; set; }
 
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
-        public string? Instagram { get; set; }
+        public string Instagram { get; set; }
 
-        public string? Facebook { get; set; }
+        public string Facebook { get; set; }
 
-        public string? WebSite { get; set; }
+        public string WebSite { get; set; }
 
         public double? PriceRangeFrom { get; set; }
 
