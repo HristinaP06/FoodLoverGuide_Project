@@ -100,7 +100,6 @@ using (var scope = app.Services.CreateScope())
             EmailConfirmed = true
         };
 
-        // Полето за парола нямаше главна буква, затова не запазваше потребителя.
         await userManager.CreateAsync(user, "@dmIn25");
         await userManager.AddToRoleAsync(user, "Admin");
 
@@ -120,7 +119,6 @@ using (var scope = app.Services.CreateScope())
             EmailConfirmed = true
         };
 
-        // Полето за парола нямаше главна буква, затова не запазваше потребителя.
         await userManager.CreateAsync(user1, "tiN@0641");
         await userManager.AddToRoleAsync(user1, "User");
     }

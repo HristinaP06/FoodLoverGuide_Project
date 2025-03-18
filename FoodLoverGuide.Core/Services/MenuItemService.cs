@@ -32,7 +32,7 @@ namespace FoodLoverGuide.Core.Services
         public async Task<List<MenuItem>> Find(Expression<Func<MenuItem, bool>> filter)
         {
             return await this.repo.FindAsync(filter);
-        }
+        } 
 
         public IQueryable<MenuItem> GetAll()
         {
