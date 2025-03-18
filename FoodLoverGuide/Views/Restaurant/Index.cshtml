@@ -1,0 +1,238 @@
+﻿@model FoodLoverGuide.Core.ViewModels.User.RestaurantIndexVM
+@{
+    ViewData["Title"] = "Restaurants";
+}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h2 mb-0">Explore Restaurants</h1>
+            <p class="text-muted">Find your next favorite place to eat</p>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search restaurants...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="mb-4">
+        <div class="card">
+            <div class="card-body py-3">
+                <div class="row">
+                    <!-- Category Filter -->
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <div class="form-group mb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle w-100 text-left border" type="button" id="categoryDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    Категории
+                                </button>
+                                <div class="dropdown-menu w-100" aria-labelledby="categoryDropdown">
+                                    @foreach (var cat in Model.Categories)
+                                    {
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="categoryIds[]" value="@cat.Id" style="margin-right: 8px;">
+                                            @cat.CategoryName
+                                        </label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Range Filter -->
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <div class="form-group mb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle w-100 text-left border" type="button" id="priceRangeDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    Ценови диапазон
+                                </button>
+                                <div class="dropdown-menu w-100" aria-labelledby="priceRangeDropdown">
+                                    <label class="dropdown-item">
+                                        <input type="checkbox" name="priceRange" value="budget" style="margin-right: 8px;">
+                                        Под 20 лв.
+                                    </label>
+                                    <label class="dropdown-item">
+                                        <input type="checkbox" name="priceRange" value="middle" style="margin-right: 8px;">
+                                        Между 20-50 лв.
+                                    </label>
+                                    <label class="dropdown-item">
+                                        <input type="checkbox" name="priceRange" value="premium" style="margin-right: 8px;">
+                                        Над 50 лв.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating Filter -->
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <div class="form-group mb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle w-100 text-left border" type="button" id="ratingDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    Оценка
+                                </button>
+                                <div class="dropdown-menu w-100" aria-labelledby="ratingDropdown">
+                                    <label class="dropdown-item">
+                                        <input type="checkbox" name="rating" value="4.5" style="margin-right: 8px;">
+                                        4.5+ <i class="fas fa-star text-warning"></i>
+                                    </label>
+                                    <label class="dropdown-item">
+                                        <input type="checkbox" name="rating" value="4" style="margin-right: 8px;">
+                                        4+ <i class="fas fa-star text-warning"></i>
+                                    </label>
+                                    <label class="dropdown-item">
+                                        <input type="checkbox" name="rating" value="3" style="margin-right: 8px;">
+                                        3+ <i class="fas fa-star text-warning"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-md-3 mb-2 mb-md-0 d-flex align-items-center justify-content-end">
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-sliders-h mr-1"></i> More Filters
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm ml-2">
+                            <i class="fas fa-times mr-1"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restaurant Cards -->
+    <div class="row" id="restaurantContainer">
+        @if (Model.Restaurants.Any())
+        {
+            @foreach (var restaurant in Model.Restaurants)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm restaurant-card">
+                        <div class="position-relative">
+                            @if (restaurant.Photos != null && restaurant.Photos.Any())
+                            {
+                                <img src="@restaurant.Photos.FirstOrDefault()?.Photo" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@restaurant.Name">
+                            }
+                            else
+                            {
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="fas fa-utensils fa-3x text-secondary"></i>
+                                </div>
+                            }
+
+                            @if (restaurant.RatingList != null && restaurant.RatingList.Any())
+                            {
+                                var avgRating = restaurant.RatingList.Average(r => r._Rating);
+                                <div class="position-absolute" style="top: 10px; right: 10px;">
+                                    <span class="badge badge-pill badge-primary px-2 py-1">
+                                        @avgRating.ToString("0.0") <i class="fas fa-star text-warning ml-1"></i>
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title mb-1">@restaurant.Name</h5>
+                            <p class="card-text text-muted small mb-2">
+                                <i class="fas fa-map-marker-alt mr-1"></i> @restaurant.Location
+                            </p>
+
+                            @if (restaurant.RestaurantCategoriesList != null)
+                            {
+                                if (restaurant.RestaurantCategoriesList.Any())
+                                {
+                                    <div class="mb-2">
+                                        @foreach (var category in restaurant.RestaurantCategoriesList)
+                                        {
+                                            <span class="badge badge-dark mr-1">@category.Category.CategoryName</span>
+                                        }
+                                    </div>
+                                }
+                                
+                            }
+
+                            <p class="card-text small mb-0">
+                                @if (!string.IsNullOrEmpty(restaurant.Description) && restaurant.Description.Length > 100)
+                                {
+                                    @(restaurant.Description.Substring(0, 100) + "...")
+                                }
+                                else
+                                {
+                                    @restaurant.Description
+                                }
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 pt-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    @if (restaurant.PriceRangeFrom.HasValue && restaurant.PriceRangeTo.HasValue)
+                                    {
+                                        <small class="text-muted">
+                                            @(restaurant.PriceRangeFrom.Value.ToString("0") + "-" + restaurant.PriceRangeTo.Value.ToString("0") + " лв.")
+                                        </small>
+                                    }
+                                </div>
+                                <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-sm btn-outline-primary">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle mr-2"></i> No restaurants found. Please try a different search or check back later.
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Restaurant pagination">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Search functionality
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#restaurantContainer .restaurant-card").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            $('.dropdown-menu').on('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+}
