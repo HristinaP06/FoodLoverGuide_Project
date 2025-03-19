@@ -4,21 +4,27 @@
     ViewData["Title"] = Model.Name;
 }
 
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-success card-outline">
-                    <div class="card-body box-profile">
-                        <h3 class="profile-username text-center">@Model.Name</h3>
-                        <div class="text-center mb-3">
+<div class="container py-5">
+    @*<div class="row">*@
+        <div class="col-lg-8">
+            <div class="content">
+    
+        <!-- Основна колона с информация -->
+        
+            <!-- Main Restaurant Info Card -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h1 class="h2 mb-0">@Model.Name</h1>
+                        <div>
                             @if (Model.RatingList != null && Model.RatingList.Any())
                             {
-                                // Calculate average rating once
                                 var avgRating = Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count();
+                                <span class="badge badge-pill badge-success px-3 py-2 mr-2">
+                                    @avgRating.ToString("0.0")
+                                </span>
 
-                                <div class="d-inline-block">
+                                <div class="d-inline-block align-middle">
                                     @for (int i = 1; i <= 5; i++)
                                     {
                                         if (i <= Math.Floor(avgRating))
@@ -34,10 +40,8 @@
                                             <i class="far fa-star text-warning"></i>
                                         }
                                     }
+                                    <small class="text-muted ml-1">(@Model.RatingList.Count() оценки)</small>
                                 </div>
-
-                                <span class="badge bg-primary ml-2">@avgRating.ToString("0.0")</span>
-                                <span class="text-muted ml-1">(@Model.RatingList.Count() оценки)</span>
                             }
                             else
                             {
@@ -47,80 +51,268 @@
                                     <i class="far fa-star text-secondary"></i>
                                     <i class="far fa-star text-secondary"></i>
                                     <i class="far fa-star text-secondary"></i>
-                                    <span class="ml-2">No ratings yet</span>
+                                    <small class="ml-1">Все още няма оценки</small>
                                 </div>
                             }
                         </div>
+                    </div>
 
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <i class="fas fa-map-marker-alt mr-2 text-danger"></i> <b>Локация</b> <span class="float-right">@Model.Location</span>
-                            </li>
+                    <p class="text-muted mb-3">
+                        <i class="fas fa-map-marker-alt text-danger mr-2"></i>@Model.Location
+                    </p>
+
+                    <div class="mb-4">
+                        <h5 class="border-bottom pb-2">Описание</h5>
+                        <p class="text-justify">@Model.Description</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-light p-2 rounded mr-3">
+                                    <i class="fas fa-money-bill-wave text-success"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Ценови диапазон</h6>
+                                    <p class="mb-0">@Model.PriceRangeFrom - @Model.PriceRangeTo лв.</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-light p-2 rounded mr-3">
+                                    <i class="fas fa-users text-info"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Капацитет</h6>
+                                    <p class="mb-0">
+                                        Вътрешен: @Model.IndoorCapacity
+                                        @if (Model.OutdoorCapacity > 0)
+                                        {
+                                            <span>, Външен: @Model.OutdoorCapacity</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
                             @if (!string.IsNullOrEmpty(Model.Telephone))
                             {
-                                <li class="list-group-item">
-                                    <i class="fas fa-phone mr-2 text-primary"></i> <b>Телефон</b> <span class="float-right">@Model.Telephone</span>
-                                </li>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-light p-2 rounded mr-3">
+                                        <i class="fas fa-phone text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">Телефон</h6>
+                                        <p class="mb-0">@Model.Telephone</p>
+                                    </div>
+                                </div>
                             }
+
                             @if (!string.IsNullOrEmpty(Model.Email))
                             {
-                                <li class="list-group-item">
-                                    <i class="fas fa-envelope mr-2 text-warning"></i> <b>Имейл</b> <span class="float-right">@Model.Email</span>
-                                </li>
-                            }
-                            <li class="list-group-item">
-                                <i class="fas fa-money-bill-wave mr-2 text-success"></i> <b>Ценови диапазон</b> <span class="float-right">@Model.PriceRangeFrom - @Model.PriceRangeTo лв.</span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-users mr-2 text-info"></i> <b>Капацитет</b>
-                                <span class="float-right">
-                                    Вътрешен: @Model.IndoorCapacity
-                                    @if (Model.OutdoorCapacity > 0)
-                                    {
-                                        <span>, Външен: @Model.OutdoorCapacity</span>
-                                    }
-                                </span>
-                            </li>
-                        </ul>
-
-                        <div class="mb-3">
-                            @if (!string.IsNullOrEmpty(Model.WebSite))
-                            {
-                                <a href="@(Model.WebSite.StartsWith("http") ? Model.WebSite : "http://" + Model.WebSite)" class="btn btn-primary mr-2" target="_blank">
-                                    <i class="fas fa-globe"></i> Website
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Facebook))
-                            {
-                                <a href="https://facebook.com/@Model.Facebook" class="btn btn-primary mr-2" target="_blank">
-                                    <i class="fab fa-facebook"></i> Facebook
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Instagram))
-                            {
-                                <a href="https://instagram.com/@Model.Instagram" class="btn btn-danger" target="_blank">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </a>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-light p-2 rounded mr-3">
+                                        <i class="fas fa-envelope text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">Имейл</h6>
+                                        <p class="mb-0">@Model.Email</p>
+                                    </div>
+                                </div>
                             }
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Описание</h3>
+            <!-- Photos Carousel -->
+            @if (Model.Photos != null && Model.Photos.Any())
+            {
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Снимки</h5>
                     </div>
-                    <div class="card-body">
-                        <p>@Model.Description</p>
+                    <div class="card-body p-0">
+                        <div id="restaurantCarousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                @for (int i = 0; i < Model.Photos.Count(); i++)
+                                {
+                                    <li data-target="#restaurantCarousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                                }
+                            </ol>
+                            <div class="carousel-inner">
+                                @{
+                                    var firstPhoto = true;
+                                }
+                                @foreach (var photo in Model.Photos)
+                                {
+                                    <div class="carousel-item @(firstPhoto ? "active" : "")">
+                                        <img src="@photo.Photo" class="d-block w-100" alt="@Model.Name" style="height: 400px; object-fit: cover;">
+                                    </div>
+                                    firstPhoto = false;
+                                }
+                            </div>
+                            <a class="carousel-control-prev" href="#restaurantCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#restaurantCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+            }
 
-                <div class="text-center mt-3 mb-4">
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left mr-1"></i> Назад
-                    </a>
+            @if (Model.Menu != null && Model.Menu.Any())
+            {
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Меню</h5>
+                        <a href="#" class="text-primary" id="showMoreMenu">Виж всички</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @{
+                                int visibleCount = 3; // Брой първоначално видими снимки
+                                int index = 0;
+                            }
+                            @foreach (var menuPhoto in Model.Menu)
+                            {
+                                <div class="col-md-4 col-sm-6 mb-3 menu-photo @(index >= visibleCount ? "d-none" : "")">
+                                    <a href="@menuPhoto.Photo" data-lightbox="menu-gallery">
+                                        <img src="@menuPhoto.Photo" class="img-fluid rounded shadow-sm" alt="Меню на @Model.Name" style="width: 100%; height: 200px; object-fit: cover;">
+                                    </a>
+                                </div>
+                                index++;
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+            <!-- Дясна странична лента -->
+            <div class="col-lg-4 ml-auto">
+                <div class="sticky-sidebar">
+                    <!-- Контакти -->
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Свържи се</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-column">
+                                @if (!string.IsNullOrEmpty(Model.WebSite))
+                                {
+                                    <a href="@(Model.WebSite.StartsWith("http") ? Model.WebSite : "http://" + Model.WebSite)"
+                                       class="btn btn-outline-primary btn-block mb-2" target="_blank">
+                                        <i class="fas fa-globe mr-2"></i> Уебсайт
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Facebook))
+                                {
+                                    <a href="https://facebook.com/@Model.Facebook"
+                                       class="btn btn-outline-primary btn-block mb-2" target="_blank">
+                                        <i class="fab fa-facebook mr-2"></i> Facebook
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Instagram))
+                                {
+                                    <a href="https://instagram.com/@Model.Instagram"
+                                       class="btn btn-outline-danger btn-block mb-2" target="_blank">
+                                        <i class="fab fa-instagram mr-2"></i> Instagram
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Telephone))
+                                {
+                                    <a href="tel:@Model.Telephone" class="btn btn-success btn-block">
+                                        <i class="fas fa-phone-alt mr-2"></i> Обади се сега
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Работно време -->
+                    @if (Model.WorkTime != null && Model.WorkTime.Any())
+                    {
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Работно време</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var workTime in Model.WorkTime.OrderBy(w => (int)w.Day))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>@GetDayName(workTime.Day)</span>
+                                            @if (workTime.IsClosed)
+                                            {
+                                                <span class="text-danger">Затворено</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@workTime.OpeningTime.ToString(@"hh\:mm") - @workTime.ClosingTime.ToString(@"hh\:mm")</span>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Карта -->
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Местоположение</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div style="height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center;">
+                                <p class="text-muted">Карта</p>
+                                <!-- Тук ще бъде реалната карта -->
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <a href="https://maps.google.com/?q=@Model.Location" target="_blank" class="btn btn-sm btn-outline-secondary btn-block">
+                                <i class="fas fa-directions mr-2"></i> Упътвания
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left mr-1"></i> Назад към всички ресторанти
+            </a>
+        </div>
+    @*</div>*@
+
+    @functions {
+        public string GetDayName(DayOfWeek day)
+        {
+            switch (day)
+            {
+                case DayOfWeek.Monday: return "Понеделник";
+                case DayOfWeek.Tuesday: return "Вторник";
+                case DayOfWeek.Wednesday: return "Сряда";
+                case DayOfWeek.Thursday: return "Четвъртък";
+                case DayOfWeek.Friday: return "Петък";
+                case DayOfWeek.Saturday: return "Събота";
+                case DayOfWeek.Sunday: return "Неделя";
+                default: return day.ToString();
+            }
+        }
+    }
+
+    <script>
+        document.getElementById("showMoreMenu").addEventListener("click", function (event) {
+            event.preventDefault();
+            document.querySelectorAll(".menu-photo.d-none").forEach(photo => {
+                photo.classList.remove("d-none");
+            });
+            this.style.display = "none"; // Скриваме бутона след клик
+        });
+    </script>

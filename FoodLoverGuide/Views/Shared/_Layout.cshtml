@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="~/css/adminlte.min.css" />
     <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @await RenderSectionAsync("Head", false)
@@ -64,6 +65,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="~/js/adminlte.min.js"></script>
     <script src="~/plugins/toastr/toastr.min.js"></script>
     <partial name="_UserMessages" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

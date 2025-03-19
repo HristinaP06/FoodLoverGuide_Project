@@ -22,7 +22,11 @@ namespace FoodLoverGuide.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var list = await this.restaurantService.GetAllRestaurants().Include(c => c.RestaurantCategoriesList).Include(f => f.Features).Include(r => r.RatingList)
+            var list = await this.restaurantService.GetAllRestaurants()
+                .Include(c => c.RestaurantCategoriesList)
+                .Include(f => f.Features)
+                .Include(r => r.RatingList)
+                .Include(p => p.Photos)
                 .ToListAsync();
             var catList = await this.categoryService.GetAll().ToListAsync();
             var featList = await this.featureService.GetAll().ToListAsync();
@@ -38,7 +42,13 @@ namespace FoodLoverGuide.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-            var restaurant = this.restaurantService.GetAllRestaurants().Include(c => c.RestaurantCategoriesList).Include(f => f.Features).Where(r => r.Id == id);
+            var restaurants = this.restaurantService.GetAllRestaurants()
+                .Include(r => r.RatingList)
+                .Include(p => p.Photos)
+                .Include(f => f.Features)
+                .Include(c => c.RestaurantCategoriesList)
+                .Include(m => m.Menu);
+           var restaurant = restaurants.Where(r => r.Id == id).FirstOrDefault();
             return View(restaurant);
         }
 
