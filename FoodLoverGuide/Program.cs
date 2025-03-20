@@ -72,56 +72,11 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var context = services.GetRequiredService<ApplicationDbContext>();
     var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-    //Ensure Roles Exist
-    var roles = new List<string> { "Admin", "User" };
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-
-    //Ensure Admin User Exists
-    string adminEmail = "admin@gmail.com";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
-    {
-        User user = new User
-        {
-            UserName = "Admin",
-            FirstName = "Admin",
-            LastName = "Admin",
-            Email = adminEmail,
-            Age = 20,
-            EmailConfirmed = true
-        };
-
-        await userManager.CreateAsync(user, "@dmIn25");
-        await userManager.AddToRoleAsync(user, "Admin");
-
-    }
-
-    string userEmail = "tina@gmail.com";
-    var userUser = await userManager.FindByEmailAsync(userEmail);
-    if (userUser == null)
-    {
-        var user1 = new User
-        {
-            UserName = "Tina",
-            FirstName = "Hristina",
-            LastName = "Pirinova",
-            Email = userEmail,
-            Age = 19,
-            EmailConfirmed = true
-        };
-
-        await userManager.CreateAsync(user1, "tiN@0641");
-        await userManager.AddToRoleAsync(user1, "User");
-    }
+    await DbInitializer.InitializeAsync(context, userManager, roleManager);
 }
 
 // Configure the HTTP request pipeline.

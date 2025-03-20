@@ -121,7 +121,7 @@
                         <div class="position-relative">
                             @if (restaurant.Photos != null && restaurant.Photos.Any())
                             {
-                                <img src="@restaurant.Photos.FirstOrDefault()?.Photo" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@restaurant.Name">
+                                <img src="@restaurant.Photos.Where(p => p.Photo.EndsWith("1.png")).FirstOrDefault()?.Photo" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@restaurant.Name">
                             }
                             else
                             {
