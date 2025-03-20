@@ -15,7 +15,6 @@ namespace FoodLoverGuide.DataAccess
         {
             context.Database.EnsureCreated();
 
-
             var roles = new List<string> { "Admin", "User" };
             foreach (var role in roles)
             {
@@ -254,7 +253,7 @@ namespace FoodLoverGuide.DataAccess
                 await context.SaveChangesAsync();
             }
 
-            if (!context.RestaurantFeatures.Any()) 
+            if (!context.RestaurantFeatures.Any())
             {
                 var restaurantFeatures = new List<RestaurantFeature>
                 {
@@ -332,19 +331,25 @@ namespace FoodLoverGuide.DataAccess
 
             if (!context.Ratings.Any())
             {
-                var ratings = new List<Rating>
-                {
-                    new Rating { Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"), _Rating = 5,
-                    RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"), UserId = new Guid(context.Users.Where(u => u.Email == "tina@gmail.com").First().Id).ToString() },
-                    new Rating { Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"), _Rating = 5,
-                    RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"), UserId = new Guid(context.Users.Where(u => u.Email == "tina@gmail.com").First().Id).ToString() },
-                    new Rating { Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"), _Rating = 5,
-                    RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"), UserId =  new Guid(context.Users.Where(u => u.Email == "tina@gmail.com").First().Id).ToString() }
-                };
+                var user = await userManager.FindByEmailAsync("tina@gmail.com"); // Use UserManager instead of direct query
 
-                context.Ratings.AddRange(ratings);
-                await context.SaveChangesAsync();
+                if (user != null)
+                {
+                    var ratings = new List<Rating>
+                    {
+                        new Rating { Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"), _Rating = 5,
+                        RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"), UserId = user.Id },
+                        new Rating { Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"), _Rating = 5,
+                        RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"), UserId = user.Id },
+                        new Rating { Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"), _Rating = 5,
+                        RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"), UserId = user.Id }
+                    };
+
+                    context.Ratings.AddRange(ratings);
+                    await context.SaveChangesAsync();
+                }
             }
+
         }
     }
 }

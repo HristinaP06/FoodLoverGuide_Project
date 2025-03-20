@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialSetupAndSeedData : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,8 +30,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -232,9 +230,9 @@ namespace FoodLoverGuide.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    _Rating = table.Column<int>(type: "int", nullable: true),
+                    _Rating = table.Column<double>(type: "float", nullable: false),
                     RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -262,7 +260,7 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     Adults = table.Column<int>(type: "int", nullable: true),
                     Children = table.Column<int>(type: "int", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -353,10 +351,10 @@ namespace FoodLoverGuide.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -383,7 +381,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Day = table.Column<int>(type: "int", nullable: false),
                     OpeningTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    ClosingTime = table.Column<TimeSpan>(type: "time", nullable: false)
+                    ClosingTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -394,86 +393,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         principalTable: "Restaurants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "CategoryName" },
-                values: new object[,]
-                {
-                    { new Guid("0068eb45-f381-4a34-8385-cec0e483df37"), "Българска кухня" },
-                    { new Guid("04ae13cb-8755-4f52-a6b0-53a8e05c3200"), "Азиатска кухня" },
-                    { new Guid("1b0f88fb-a91d-446e-8f5e-7a8602d2b901"), "Бистро" },
-                    { new Guid("2f2a0aa4-ef02-4ffa-ad36-f6abcb5cad3e"), "Бързо хранене" },
-                    { new Guid("3ce78111-d73b-431b-a52b-96b226fed723"), "Турска кухня" },
-                    { new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"), "Италианска кухня" },
-                    { new Guid("7c9975a1-fd38-4495-93d2-38ae09c402c5"), "Пицария" },
-                    { new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583"), "Гръцка кухня" },
-                    { new Guid("e12d1204-3592-4caa-bd6b-3d5e3aca32d6"), "Морска храна" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Features",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"), "Достъпност за инвалиди" },
-                    { new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"), "Градина" },
-                    { new Guid("5c9469f1-1b5c-4089-91e9-f8241fa4a805"), "Вътрешен детски кът" },
-                    { new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"), "Доставка" },
-                    { new Guid("63d4971a-893f-4271-8412-52a924f99905"), "Интерннет" },
-                    { new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"), "Място за пушачи" },
-                    { new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"), "Паркинг" },
-                    { new Guid("a43a3f1e-02d6-45a9-86a9-06cd2522a9cc"), "Външен детски кът" },
-                    { new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"), "Възможност за плащане с карта" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Restaurants",
-                columns: new[] { "Id", "Description", "Email", "Facebook", "IndoorCapacity", "Instagram", "Location", "Name", "OutdoorCapacity", "PriceRangeFrom", "PriceRangeTo", "Telephone", "WebSite" },
-                values: new object[,]
-                {
-                    { new Guid("8670fecf-265e-4743-be6a-6477389cc15e"), "Гостите казват, че тук харесват италианската и турската кухня. Ресторант Делта осигурява доставка на храна за удобство на своите клиенти. Внимателният персонал работи усилено, остава позитивен и прави това място страхотно. Доброто обслужване показва високо ниво на качество на това място. Според мненията на рецензентите цените са средни. Със сигурност ще оцените спокойната атмосфера", "delta.restaurant.pizza@gmail.com", "Ресторант Делта", 100, "delta.restaurant.pizza", "ул. 'Бачо Киро' 2, Казанлък", "Ресторант Делта", 0, 18.0, 45.0, "0888655655", "" },
-                    { new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"), "Исторически музей Искра може да бъде на вашия маршрут по подразбиране, съветът на клиентите е да посетите този ресторант. Потопете се в прекрасната гръцка и италианска кухня на това място. Заслужава си да посетите Meraki Urban Gastro Lounge за добри бургери, салати капрезе и свинско. Тук можете да поръчате вкусно вино. Уютната атмосфера на това място кара гостите да се чувстват спокойни и да си прекарват приятно. Успехът на това място не би бил възможен без любезния персонал. Доброто обслужване е нещо, което посетителите отбелязват в отзивите си. В този ресторант се очакват адекватни цени.", "", "Meraki Urban Gastro Lounge ", 30, "meraki_alldayfoodexperience", "ул. 'Чудомир' 6, Казанлък", "Meraki Urban Gastro Lounge", 30, 18.0, 45.0, "0898909098", "" },
-                    { new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"), "Трябва да се посети не само Исторически музей Искра, но и Marcon Italian Cuisine. Посетителите посочват, че е добре да отидете тук за италианска храна. Този ресторант е за препоръчване за добре приготвени пици, паста и салати. Както твърдят много рецензенти, лимонадата е наистина страхотна.Уютната атмосфера на Marcon Italian Cuisine дава  възможност на гостите да релаксират след тежък работен ден. Приятният персонал работи усилено, остава позитивен и прави това място страхотно. Обслужването на това място е нещо, което човек може да нарече бързо. Ще харесате справедливи цени.", "marconpizza@gmail.com", "Marcon Italian Cuisine", 60, "marcon_italian_cuisine", "ул. 'Любен Каравелов' 3, Казанлък", "Marcon Italian Cuisine", 60, 18.0, 45.0, "0883530101", "" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "RestaurantCategories",
-                columns: new[] { "CategoryId", "RestaurantId" },
-                values: new object[,]
-                {
-                    { new Guid("0068eb45-f381-4a34-8385-cec0e483df37"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("0068eb45-f381-4a34-8385-cec0e483df37"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("3ce78111-d73b-431b-a52b-96b226fed723"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") }
-                });
-
-            migrationBuilder.InsertData(
-                table: "RestaurantFeatures",
-                columns: new[] { "FeatureId", "RestaurantId" },
-                values: new object[,]
-                {
-                    { new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("63d4971a-893f-4271-8412-52a924f99905"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("63d4971a-893f-4271-8412-52a924f99905"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("63d4971a-893f-4271-8412-52a924f99905"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") },
-                    { new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"), new Guid("8670fecf-265e-4743-be6a-6477389cc15e") },
-                    { new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"), new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342") },
-                    { new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"), new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b") }
                 });
 
             migrationBuilder.CreateIndex(

@@ -14,6 +14,7 @@ namespace FoodLoverGuide.Models
         public Restaurant Restaurant { get; set; }
 
         public string UserId { get; set; }
+
         public User User { get; set; }
     }
 }

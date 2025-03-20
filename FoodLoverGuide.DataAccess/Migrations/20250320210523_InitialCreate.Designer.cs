@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250315201311_AddedNewFieldInWorkTimeScheduleTable")]
-    partial class AddedNewFieldInWorkTimeScheduleTable
+    [Migration("20250320210523_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,53 +38,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
-                            CategoryName = "Италианска кухня"
-                        },
-                        new
-                        {
-                            Id = new Guid("7c9975a1-fd38-4495-93d2-38ae09c402c5"),
-                            CategoryName = "Пицария"
-                        },
-                        new
-                        {
-                            Id = new Guid("2f2a0aa4-ef02-4ffa-ad36-f6abcb5cad3e"),
-                            CategoryName = "Бързо хранене"
-                        },
-                        new
-                        {
-                            Id = new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583"),
-                            CategoryName = "Гръцка кухня"
-                        },
-                        new
-                        {
-                            Id = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
-                            CategoryName = "Българска кухня"
-                        },
-                        new
-                        {
-                            Id = new Guid("3ce78111-d73b-431b-a52b-96b226fed723"),
-                            CategoryName = "Турска кухня"
-                        },
-                        new
-                        {
-                            Id = new Guid("04ae13cb-8755-4f52-a6b0-53a8e05c3200"),
-                            CategoryName = "Азиатска кухня"
-                        },
-                        new
-                        {
-                            Id = new Guid("e12d1204-3592-4caa-bd6b-3d5e3aca32d6"),
-                            CategoryName = "Морска храна"
-                        },
-                        new
-                        {
-                            Id = new Guid("1b0f88fb-a91d-446e-8f5e-7a8602d2b901"),
-                            CategoryName = "Бистро"
-                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.Feature", b =>
@@ -100,53 +53,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Features");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a43a3f1e-02d6-45a9-86a9-06cd2522a9cc"),
-                            Name = "Външен детски кът"
-                        },
-                        new
-                        {
-                            Id = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
-                            Name = "Градина"
-                        },
-                        new
-                        {
-                            Id = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
-                            Name = "Място за пушачи"
-                        },
-                        new
-                        {
-                            Id = new Guid("5c9469f1-1b5c-4089-91e9-f8241fa4a805"),
-                            Name = "Вътрешен детски кът"
-                        },
-                        new
-                        {
-                            Id = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
-                            Name = "Интерннет"
-                        },
-                        new
-                        {
-                            Id = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
-                            Name = "Паркинг"
-                        },
-                        new
-                        {
-                            Id = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
-                            Name = "Достъпност за инвалиди"
-                        },
-                        new
-                        {
-                            Id = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
-                            Name = "Доставка"
-                        },
-                        new
-                        {
-                            Id = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
-                            Name = "Възможност за плащане с карта"
-                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.MenuItem", b =>
@@ -178,11 +84,10 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("_Rating")
-                        .HasColumnType("int");
+                    b.Property<double>("_Rating")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -212,7 +117,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -274,56 +178,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Restaurants");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"),
-                            Description = "Трябва да се посети не само Исторически музей Искра, но и Marcon Italian Cuisine. Посетителите посочват, че е добре да отидете тук за италианска храна. Този ресторант е за препоръчване за добре приготвени пици, паста и салати. Както твърдят много рецензенти, лимонадата е наистина страхотна.Уютната атмосфера на Marcon Italian Cuisine дава  възможност на гостите да релаксират след тежък работен ден. Приятният персонал работи усилено, остава позитивен и прави това място страхотно. Обслужването на това място е нещо, което човек може да нарече бързо. Ще харесате справедливи цени.",
-                            Email = "marconpizza@gmail.com",
-                            Facebook = "Marcon Italian Cuisine",
-                            IndoorCapacity = 60,
-                            Instagram = "marcon_italian_cuisine",
-                            Location = "ул. 'Любен Каравелов' 3, Казанлък",
-                            Name = "Marcon Italian Cuisine",
-                            OutdoorCapacity = 60,
-                            PriceRangeFrom = 18.0,
-                            PriceRangeTo = 45.0,
-                            Telephone = "0883530101",
-                            WebSite = ""
-                        },
-                        new
-                        {
-                            Id = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                            Description = "Исторически музей Искра може да бъде на вашия маршрут по подразбиране, съветът на клиентите е да посетите този ресторант. Потопете се в прекрасната гръцка и италианска кухня на това място. Заслужава си да посетите Meraki Urban Gastro Lounge за добри бургери, салати капрезе и свинско. Тук можете да поръчате вкусно вино. Уютната атмосфера на това място кара гостите да се чувстват спокойни и да си прекарват приятно. Успехът на това място не би бил възможен без любезния персонал. Доброто обслужване е нещо, което посетителите отбелязват в отзивите си. В този ресторант се очакват адекватни цени.",
-                            Email = "",
-                            Facebook = "Meraki Urban Gastro Lounge ",
-                            IndoorCapacity = 30,
-                            Instagram = "meraki_alldayfoodexperience",
-                            Location = "ул. 'Чудомир' 6, Казанлък",
-                            Name = "Meraki Urban Gastro Lounge",
-                            OutdoorCapacity = 30,
-                            PriceRangeFrom = 18.0,
-                            PriceRangeTo = 45.0,
-                            Telephone = "0898909098",
-                            WebSite = ""
-                        },
-                        new
-                        {
-                            Id = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
-                            Description = "Гостите казват, че тук харесват италианската и турската кухня. Ресторант Делта осигурява доставка на храна за удобство на своите клиенти. Внимателният персонал работи усилено, остава позитивен и прави това място страхотно. Доброто обслужване показва високо ниво на качество на това място. Според мненията на рецензентите цените са средни. Със сигурност ще оцените спокойната атмосфера",
-                            Email = "delta.restaurant.pizza@gmail.com",
-                            Facebook = "Ресторант Делта",
-                            IndoorCapacity = 100,
-                            Instagram = "delta.restaurant.pizza",
-                            Location = "ул. 'Бачо Киро' 2, Казанлък",
-                            Name = "Ресторант Делта",
-                            OutdoorCapacity = 0,
-                            PriceRangeFrom = 18.0,
-                            PriceRangeTo = 45.0,
-                            Telephone = "0888655655",
-                            WebSite = ""
-                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.RestaurantCategories", b =>
@@ -339,38 +193,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("4d8d411a-a288-4d94-a040-6d98126e7ed2"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("a3730467-ed8f-47d3-903e-cf6cb8aea583"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("3ce78111-d73b-431b-a52b-96b226fed723"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("0068eb45-f381-4a34-8385-cec0e483df37"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.RestaurantFeature", b =>
@@ -386,98 +208,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantFeatures");
-
-                    b.HasData(
-                        new
-                        {
-                            FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
-                            RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
-                            RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("63d4971a-893f-4271-8412-52a924f99905"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        },
-                        new
-                        {
-                            FeatureId = new Guid("d68c6e75-bf22-4fd2-bf84-dd66a4073057"),
-                            RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e")
-                        });
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.RestaurantPhoto", b =>
@@ -506,18 +236,15 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RestaurantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -552,11 +279,9 @@ namespace FoodLoverGuide.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -792,8 +517,7 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasOne("FoodLoverGuide.Models.User", "User")
                         .WithMany("Ratings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Restaurant");
 
@@ -811,8 +535,7 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasOne("FoodLoverGuide.Models.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Restaurant");
 
@@ -879,8 +602,7 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasOne("FoodLoverGuide.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Restaurant");
 
