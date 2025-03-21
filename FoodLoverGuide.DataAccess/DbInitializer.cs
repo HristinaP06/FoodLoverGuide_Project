@@ -190,7 +190,7 @@ namespace FoodLoverGuide.DataAccess
                        Day = DayOfWeek.Sunday, OpeningTime = new TimeSpan(12, 00, 00), ClosingTime = new TimeSpan(17, 30, 00)
                     },
                     new WorkTimeSchedule { Id = new Guid("3c519e19-9696-46a4-be31-1c42d886e1e5"), RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                       Day = DayOfWeek.Monday, IsClosed = false,
+                       Day = DayOfWeek.Monday, IsClosed = true,
                     },
                     new WorkTimeSchedule { Id = new Guid("acf0156c-7576-42d6-9b11-984d313aea51"), RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
                        Day = DayOfWeek.Tuesday, OpeningTime = new TimeSpan(8,30,00), ClosingTime = new TimeSpan(23,00,00)
@@ -208,7 +208,7 @@ namespace FoodLoverGuide.DataAccess
                        Day = DayOfWeek.Saturday, OpeningTime = new TimeSpan(8,30,00), ClosingTime = new TimeSpan(23,00,00)
                     },
                     new WorkTimeSchedule { Id = new Guid("93255465-e52f-421c-b0df-ea6ef6696832"), RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"),
-                       Day = DayOfWeek.Sunday, IsClosed = false
+                       Day = DayOfWeek.Sunday, IsClosed = true
                     },
                     new WorkTimeSchedule { Id = new Guid("887e6c1a-0629-4ac2-b2fa-0370fbfbf763"), RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"),
                        Day = DayOfWeek.Monday, OpeningTime = new TimeSpan(6, 00, 00), ClosingTime = new TimeSpan(22, 30, 00)
