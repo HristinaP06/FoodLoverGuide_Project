@@ -47,6 +47,7 @@ namespace FoodLoverGuide.Controllers
                 .Include(p => p.Photos)
                 .Include(f => f.Features)
                 .Include(c => c.RestaurantCategoriesList)
+                .Include(w => w.WorkTime)
                 .Include(m => m.Menu);
            var restaurant = restaurants.Where(r => r.Id == id).FirstOrDefault();
             return View(restaurant);
