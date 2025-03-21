@@ -1,16 +1,18 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+
+
 
 .form-container {
     width: 100%;
@@ -19,6 +21,8 @@ html {
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1; /* Осигурява, че съдържанието е над фона */
 }
 
     .form-container h2 {
@@ -81,8 +85,8 @@ html {
     }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 .custom-checkbox .custom-control-input-danger:disabled:checked ~ .custom-control-label::before {
@@ -106,4 +110,195 @@ html {
 .sticky-sidebar {
     position: sticky;
     top: 20px;
+}
+
+body {
+    background-color: #f5f5e9; /* Бежав фон */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    height: 100vh;
+}
+
+.wrapper{
+    position: relative;
+    z-index: 1;
+}
+
+.main-header.navbar.navbar-expand {
+    background-color: rgba(255, 243, 224, 0.95) !important; /* Полупрозрачно оранжево */
+    border-bottom: 2px solid #e67e22 !important; /* Оранжева рамка отдолу */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; /* Лека сянка */
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.navbar-brand {
+    color: #d35400 !important; /* Тъмно оранжево */
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+    .navbar-brand:hover {
+        color: #f39c12 !important; /* Жълто при ховер */
+    }
+
+.navbar-nav .nav-link {
+    color: #7d6608 !important; /* Тъмно жълт текст */
+    transition: color 0.3s ease;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #e67e22 !important; /* Оранжево при ховер */
+    }
+
+.navbar-toggler {
+    border-color: #e67e22 !important; /* Оранжева рамка */
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23d35400' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; /* Оранжеви линии */
+}
+
+.navbar-collapse {
+    justify-content: flex-start !important; /* Подравняване вляво */
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+    color: #7d6608 !important;
+}
+
+    .navbar-nav .dropdown-menu .dropdown-item:hover {
+        background-color: #f39c12 !important; /* Жълт фон при ховер */
+        color: white !important;
+    }
+
+.navbar-nav .btn-link {
+    color: #27ae60; /* Зелено за бутона за изход */
+}
+
+    .navbar-nav .btn-link:hover {
+        color: #219653; /* По-тъмно зелено при ховер */
+    }
+
+.navbar-nav i {
+    color: #d35400; /* Тъмно оранжево за иконите */
+}
+
+    .navbar-nav i:hover {
+        color: #f39c12; /* Жълто при ховер */
+    }
+
+.main-sidebar {
+    background-color: #fef9e7; /* Светло бежаво */
+}
+
+.brand-link {
+    background-color: #fff3e0; /* Светло оранжево */
+    color: #7d6608; /* Тъмно жълт текст */
+    border-bottom: 1px solid #e67e22;
+}
+
+.brand-text {
+    color: #d35400; /* Тъмно оранжево */
+}
+
+.sidebar-dark-primary .nav-link {
+    color: #7d6608; /* Тъмно жълт текст */
+}
+
+    .sidebar-dark-primary .nav-link:hover {
+        color: #e67e22; /* Оранжево при ховер */
+        background-color: rgba(241, 196, 15, 0.2); /* Лек жълт фон */
+    }
+
+.welcome-section {
+    background-color: rgba(255, 243, 224, 0.77); /* Полупрозрачно оранжево */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .welcome-section h1 {
+        color: #e67e22; /* Оранжев заглавие */
+    }
+
+    .welcome-section p {
+        color: #7d6608; /* Тъмно жълт текст */
+    }
+
+.btn-primary {
+    background-color: #27ae60; /* Зелено за бутона */
+    border-color: #27ae60;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #219653; /* По-тъмно зелено при ховер */
+        border-color: #219653;
+    }
+
+.btn-outline-primary {
+    color: #e67e22; /* Оранжев текст */
+    border-color: #e67e22;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #f39c12; /* Жълто при ховер */
+        color: white;
+        border-color: #f39c12;
+    }
+
+.restaurant-count-container {
+    background-color: rgba(241, 196, 15, 0.77); /* Жълт полупрозрачен фон */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 300px;
+}
+
+.restaurant-count h4 {
+    color: #2c3e50; /* Тъмен цвят за контраст */
+    font-size: 1.5rem; /* По-голям шрифт */
+}
+
+.restaurant-count .badge {
+    background-color: #27ae60; /* Зелено за баджа */
+    color: white;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+}
+
+.top-restaurants-container {
+    background-color: rgba(254, 249, 231, 0.77); /* Бежав полупрозрачен фон */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.top-restaurants h2 {
+    color: #27ae60;
+    font-size: 2rem; /* По-голямо заглавие */
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.95); /* Леко по-плътен бял фон за картите */
+    border: 2px solid #e67e22; /* Оранжева рамка */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Анимация при ховер */
+}
+
+
+.card-title {
+    color: #d35400; /* Тъмно оранжево */
+}
+
+.card-text {
+    color: #7d6608; /* Тъмно жълт текст */
+}
+
+.text-warning {
+    color: #f1c40f !important; /* Ярко жълти звезди */
 }

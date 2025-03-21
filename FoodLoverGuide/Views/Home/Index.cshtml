@@ -1,8 +1,87 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model FoodLoverGuide.Core.ViewModels.User.HomeVM
+
+@{
+    ViewBag.Title = "Добре дошли в Ресторантския Каталог";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<html lang="en" style="height: auto;">
+<head>
+    <title>FoodLoverGuide</title>
+</head>
+<body class="sidebar-mini" style="height:auto; background-image: url('/img/foodLover.png'); backdrop-filter:blur(1px)">
+    <div class="container">
+        <!-- Послание -->
+        <div class="welcome-section text-center mt-5">
+            <h1>Открий своя перфектен ресторант!</h1>
+            <p class="lead">
+                Добре дошли в Food Lover Guide – мястото, където кулинарните приключения започват!
+                Разгледай внимателно подбрана селекция от ресторанти, които предлагат уникални вкусове, уютна атмосфера и незабравими моменти.
+                Независимо дали търсиш място за романтична вечеря, семейно събиране или просто бързо хапване с приятели,
+                тук ще намериш идеалния избор за всеки повод. Направи резервация с лекота и сподели своето мнение,
+                за да помогнеш на други любители на храната да открият своите фаворити!!
+            </p>
+        </div>
+
+        <!-- Бутон към списъка с ресторанти -->
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Index", "Restaurant")" class="btn btn-primary btn-lg">
+                Виж всички ресторанти
+            </a>
+        </div>
+
+        <!-- Брой на ресторантите -->
+        <div class="restaurant-count-container text-center">
+            <div class="restaurant-count">
+                <h4>Общо ресторанти в каталога: <span class="badge">@Model.RestaurantsCount</span></h4>
+            </div>
+        </div>
+        <!-- Топ 3 ресторанта -->
+        <div class="top-restaurants-container">
+            <div class="top-restaurants">
+                <h2 class="text-center mb-4">Топ 3 ресторанта</h2>
+                <div class="row">
+                    @foreach (var restaurant in Model.Restaurants)
+                    {
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">@restaurant.Name</h5>
+                                    <p class="card-text">
+                                        @{
+                                            var avgRating = restaurant.RatingList.Any() ? restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count() : 0;
+                                            <div>Рейтинг: @avgRating</div>
+                                            <span class="text-warning">
+                                                @for (int i = 0; i < Math.Floor(avgRating); i++)
+                                                {
+                                                    <i class="fas fa-star"></i>
+                                                }
+                                            </span>
+                                        }
+                                    </p>
+                                    <a href="@Url.Action("Details", "Restaurant", new { id = restaurant.Id })"
+                                       class="btn btn-outline-primary">Виж повече</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@section Scripts {
+    <!-- Добавяне на Font Awesome за звездичките -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+}
+
+<style>
+    body {
+        /* Път до снимката */
+        background-size: cover; /* Изображението покрива цялата страница */
+        background-position: center; /* Центрира изображението */
+        background-repeat: no-repeat; /* Без повторение */
+        font-family: 'Arial', sans-serif;
+    }
+</style>

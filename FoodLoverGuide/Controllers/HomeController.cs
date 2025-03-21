@@ -1,24 +1,34 @@
 using System.Diagnostics;
 using FoodLoverGuide.Core.Constants;
+using FoodLoverGuide.Core.IServices;
+using FoodLoverGuide.Core.ViewModels.User;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRestaurantService restaurantService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRestaurantService restaurantService)
         {
             _logger = logger;
+            this.restaurantService = restaurantService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewData[MessageConstants.SuccessMessage] = "Everything works";
+            var restaurants = await this.restaurantService.GetAllRestaurants().Include(r => r.RatingList).ToListAsync();
+            var model = new HomeVM
+            {
+                Restaurants = restaurants.Where(r => (r.RatingList.Select(x => x._Rating).Sum() / r.RatingList.Count) <= 5).Take(3).ToList(),
+                RestaurantsCount = restaurants.Count()
+            };
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Privacy()
