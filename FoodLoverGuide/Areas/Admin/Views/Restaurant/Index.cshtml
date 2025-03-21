@@ -30,7 +30,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id">
+                                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="name-label">
                                                 @restaurant.Name
                                             </a>
                                         </td>
@@ -90,3 +90,14 @@
         <!-- /.row -->
     </div>
 </section>
+
+<style>
+    .name-label{
+        text-decoration: none; 
+        color: black;
+    }   
+        .name-label:hover{
+            text-decoration:underline;
+            color: black;
+        }
+</style>
