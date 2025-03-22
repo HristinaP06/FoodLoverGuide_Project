@@ -24,7 +24,9 @@ namespace FoodLoverGuide.Controllers
         {
             var list = await this.restaurantService.GetAllRestaurants()
                 .Include(c => c.RestaurantCategoriesList)
+                .ThenInclude(y => y.Category)
                 .Include(f => f.Features)
+                .ThenInclude(x => x.Features)
                 .Include(r => r.RatingList)
                 .Include(p => p.Photos)
                 .ToListAsync();
@@ -46,7 +48,9 @@ namespace FoodLoverGuide.Controllers
                 .Include(r => r.RatingList)
                 .Include(p => p.Photos)
                 .Include(f => f.Features)
+                .ThenInclude(x => x.Features)
                 .Include(c => c.RestaurantCategoriesList)
+                .ThenInclude(y => y.Category)
                 .Include(w => w.WorkTime)
                 .Include(m => m.Menu);
            var restaurant = restaurants.Where(r => r.Id == id).FirstOrDefault();

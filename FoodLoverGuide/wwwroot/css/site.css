@@ -192,6 +192,47 @@ body {
     background-color: #fef9e7; /* Светло бежаво */
 }
 
+.nav-sidebar .nav-item .nav-link {
+    background-color: #fff3e0; /* Светло оранжево за основните елементи */
+    color: #7d6608; /* Тъмно жълт текст */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .nav-sidebar .nav-item .nav-link:hover {
+        background-color: #f39c12; /* Жълто при ховер */
+        color: white;
+    }
+
+.nav-sidebar .nav-icon {
+    color: #e67e22; /* Оранжево за иконите */
+}
+
+.nav-sidebar .nav-link .right {
+    color: #d35400; /* Тъмно оранжево за стрелките */
+}
+
+.nav-treeview {
+    background-color: #fef9e7; /* Бежав фон за подменюто */
+}
+
+    .nav-treeview .nav-link {
+        background-color: transparent; /* Прозрачен фон за подменюто */
+        color: #7d6608;
+    }
+
+        .nav-treeview .nav-link:hover {
+            background-color: #f1c40f; /* Жълто при ховер */
+            color: #2c3e50; /* Тъмен цвят за контраст */
+        }
+
+    .nav-treeview .nav-icon.fa-eye {
+        color: #27ae60; /* Зелено за иконата "Виж всички" */
+    }
+
+    .nav-treeview .nav-icon.fa-plus {
+        color: #f39c12; /* Жълто за иконата "Добави" */
+    }
+
 .brand-link {
     background-color: #fff3e0; /* Светло оранжево */
     color: #7d6608; /* Тъмно жълт текст */
@@ -224,28 +265,6 @@ body {
 
     .welcome-section p {
         color: #7d6608; /* Тъмно жълт текст */
-    }
-
-.btn-primary {
-    background-color: #27ae60; /* Зелено за бутона */
-    border-color: #27ae60;
-    transition: background-color 0.3s ease;
-}
-
-    .btn-primary:hover {
-        background-color: #219653; /* По-тъмно зелено при ховер */
-        border-color: #219653;
-    }
-
-.btn-outline-primary {
-    color: #e67e22; /* Оранжев текст */
-    border-color: #e67e22;
-}
-
-    .btn-outline-primary:hover {
-        background-color: #f39c12; /* Жълто при ховер */
-        color: white;
-        border-color: #f39c12;
     }
 
 .restaurant-count-container {
@@ -285,7 +304,7 @@ body {
 .card {
     background-color: rgba(255, 255, 255, 0.95); /* Леко по-плътен бял фон за картите */
     border: 2px solid #e67e22; /* Оранжева рамка */
-    border-radius: 10px;
+    border-radius: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease; /* Анимация при ховер */
 }
@@ -302,3 +321,45 @@ body {
 .text-warning {
     color: #f1c40f !important; /* Ярко жълти звезди */
 }
+
+.btn-primary {
+    background-color: #27ae60; /* Зелено за бутона */
+    border-color: #27ae60;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #219653; /* По-тъмно зелено при ховер */
+        border-color: #219653;
+    }
+
+.btn-outline-primary {
+    color: #e67e22; /* Оранжев текст */
+    border-color: #e67e22;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #f39c12;
+        color: white;
+        border-color: #f39c12;
+    }
+
+.btn-outline-secondary {
+    color: #7d6608;
+    border-color: #7d6608;
+}
+
+    .btn-outline-secondary:hover {
+        background-color: #f1c40f;
+        color: white;
+    }
+
+.btn-outline-danger {
+    color: #d35400;
+    border-color: #d35400;
+}
+
+    .btn-outline-danger:hover {
+        background-color: #e67e22;
+        color: white;
+    }
