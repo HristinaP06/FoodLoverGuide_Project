@@ -89,7 +89,7 @@ namespace FoodLoverGuide.DataAccess
                      new Feature { Id = new Guid("55b7cb27-7913-474a-bf44-5ddff365f959"), Name = "Градина" },
                      new Feature { Id = new Guid("977f158f-77d1-420a-9fcf-6fa6ea75bb38"), Name = "Място за пушачи" },
                      new Feature { Id = new Guid("5c9469f1-1b5c-4089-91e9-f8241fa4a805"), Name = "Вътрешен детски кът" },
-                     new Feature { Id = new Guid("63d4971a-893f-4271-8412-52a924f99905"), Name = "Интерннет" },
+                     new Feature { Id = new Guid("63d4971a-893f-4271-8412-52a924f99905"), Name = "Интернет" },
                      new Feature { Id = new Guid("9a4bf8ac-700f-4348-a70d-c91b992e48b8"), Name = "Паркинг" },
                      new Feature { Id = new Guid("4555dc2e-7693-4544-92c4-9ab807373a59"), Name = "Достъпност за инвалиди" },
                      new Feature { Id = new Guid("62f341ac-7dd5-4339-88e6-77c26954cb9a"), Name = "Доставка" },
@@ -237,7 +237,7 @@ namespace FoodLoverGuide.DataAccess
                 await context.SaveChangesAsync();
             }
 
-            if (!context.Categories.Any())
+            if (!context.RestaurantCategories.Any())
             {
                 var restaurantCategories = new List<RestaurantCategories>
                 {
