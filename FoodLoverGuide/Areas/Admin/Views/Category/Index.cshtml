@@ -1,18 +1,15 @@
 ﻿@model IEnumerable<FoodLoverGuide.Models.Category>
 
 <div class="row">
+    <h2 style="text-align: center; color: #e67e22">Категории</h2>
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Категории</h3>
-            </div>
-
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-wrap">
                     <thead>
                         <tr>
-                            <th style="text-align: center; border-bottom-color: black">Име</th>
-                            <th></th>
+                            <th style="text-align: center; border-bottom-color: #e67e22">Име</th>
+                            <th style="text-align: center; border-bottom-color: #e67e22"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,7 +19,7 @@
                                 <td style="text-align: center;">@category.CategoryName</td>
                                 <td style="text-align: right;">
                                     <div class="btn-group-sm">
-                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Действия</button>
+                                        <button type="button" class="btn dropdown-toggle" style="background-color: #27ae60; color: white" data-toggle="dropdown">Действия</button>
                                         <div class="dropdown-menu" role="menu" style="">
                                             <a class="dropdown-item" asp-action="edit" asp-controller="category" asp-route-id="@category.Id">Редакция</a>
                                             <form method="post">
