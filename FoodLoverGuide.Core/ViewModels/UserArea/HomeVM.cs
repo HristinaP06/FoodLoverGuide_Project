@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodLoverGuide.Core.ViewModels.User
+namespace FoodLoverGuide.Core.ViewModels.UserArea
 {
     public class HomeVM
     {
