@@ -47,7 +47,14 @@ namespace FoodLoverGuide.Areas.Admin.Views
                 return NotFound();
             }
 
-            var restaurant = await this.rService.GetAllRestaurants().Include(r => r.RatingList)
+            var restaurant = await this.rService.GetAllRestaurants()
+                .Include(rc => rc.RestaurantCategoriesList)
+                .ThenInclude(c => c.Category)
+                .Include(f => f.Features)
+                .ThenInclude(x => x.Features)
+                .Include(p => p.Photos)
+                .Include(m => m.Menu)
+                .Include(r => r.RatingList)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (restaurant == null)
