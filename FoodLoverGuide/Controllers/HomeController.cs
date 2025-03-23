@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using FoodLoverGuide.Core.Constants;
 using FoodLoverGuide.Core.IServices;
-using FoodLoverGuide.Core.ViewModels.User;
+using FoodLoverGuide.Core.ViewModels.UserArea;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
-using FoodLoverGuide.Core.ViewModels.User;
+using FoodLoverGuide.Core.ViewModels.UserArea;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
