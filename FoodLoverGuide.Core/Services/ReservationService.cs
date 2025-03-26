@@ -102,7 +102,7 @@ namespace FoodLoverGuide.Core.Services
 
             var availableTimes = new List<DateTime>();
             var startTime = date.Date + workTime.OpeningTime;
-            var endTime = date.Date + workTime.ClosingTime - TimeSpan.FromHours(2); // Резервации до 2 часа преди затваряне
+            var endTime = date.Date + workTime.ClosingTime - TimeSpan.FromHours(1); // Резервации до 2 часа преди затваряне
 
             var currentTime = startTime;
             while (currentTime <= endTime)

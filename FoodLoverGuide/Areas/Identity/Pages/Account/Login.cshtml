@@ -3,107 +3,107 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Вход";
-    Layout = null;
+	ViewData["Title"] = "Вход";
+	Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewData["Title"]</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>@ViewData["Title"]</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css" />
-    <link rel="stylesheet" href="~/css/adminlte.min.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="~/plugins/toastr/toastr.min.css" />
+	<link rel="stylesheet" href="~/css/adminlte.min.css">
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <img src="~/img/FoodLoverGuideLogo.png" class="brand-image img-circle elevation-3 auth-logo">
-        </div>
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="auth-paragraph" style="font-size: 20px">FoodLoverGuide</p>
-                <p class="auth-paragraph">Влезте в профила си, за да намерите хубави места за хапване</p>
+	<div class="login-box">
+		<div class="login-logo">
+			<img src="~/img/FoodLoverGuideLogo.png" class="brand-image img-circle elevation-3 auth-logo">
+		</div>
+		<div class="card">
+			<div class="card-body login-card-body">
+				<p class="auth-paragraph" style="font-size: 20px">FoodLoverGuide</p>
+				<p class="auth-paragraph">Влезте в профила си, за да намерите хубави места за хапване</p>
 
-                <form id="account" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-floating" style="margin-bottom: 10px;">
-                        <label asp-for="Input.Email" class="form-label"></label>
-                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating">
-                        <label asp-for="Input.Password" class="form-label"></label>
-                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <div class="row" style="margin-top: 15px; margin-bottom: 10px;">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <label asp-for="Input.RememberMe" class="form-label">
-                                    <input class="form-check-input" asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <button id="login-submit" type="submit" class="btn btn-info btn-block">Вход</button>
-                        </div>
-                    </div>
-                </form>
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) != 0)
-                    {
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            <div>
-                                <p>
-                                <p class="text-center">- ИЛИ -</p>
-                                    @foreach (var provider in Model.ExternalLogins)
-                                    {
-                                    <div class="social-auth-links text-center mb-3">
-                                            @if (provider.Name == "Facebook")
-                                            {
-                                            <button href="#" class="btn btn-block btn-primary" name="provider" value="@provider.Name">
-                                                <i class="fab fa-facebook mr-2"></i> Вход с Facebook
-                                            </button>
-                                            }
-                                            @if (provider.Name == "Google")
-                                            {
-                                            <button href="#" class="btn btn-block btn-outline-secondary" name="provider" value="@provider.Name">
-                                                <img src="/img/search.png" style="margin-right: 8px; margin-bottom: 4px"></img> Вход с Google
-                                            </button>
-                                            }
-                                    </div>
-                                    }
-                                </p>
-                            </div>
-                        </form>
-                    }
-                }
-                <p class="mb-0">
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистриране на потребител</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <script src="~/plugins/jquery/jquery.min.js"></script>
-    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/adminlte.min.js"></script>
-    <script src="~/plugins/toastr/toastr.min.js"></script>
-    <partial name="_ValidationScriptsPartial" />
-    @if (TempData[MessageConstants.SuccessMessage] != null)
-    {
-        <script>
-            $(function () {
-                toastr.success('@TempData[MessageConstants.SuccessMessage]?.ToString()');
-            });
-        </script>
-    }
+				<form id="account" method="post">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-floating" style="margin-bottom: 10px;">
+						<label asp-for="Input.Email" class="form-label"></label>
+						<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+						<span asp-validation-for="Input.Email" class="text-danger"></span>
+					</div>
+					<div class="form-floating">
+						<label asp-for="Input.Password" class="form-label"></label>
+						<input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+						<span asp-validation-for="Input.Password" class="text-danger"></span>
+					</div>
+					<div class="row" style="margin-top: 15px; margin-bottom: 10px;">
+						<div class="col-8">
+							<div class="icheck-primary">
+								<label asp-for="Input.RememberMe" class="form-label">
+									<input class="form-check-input" asp-for="Input.RememberMe" style="margin-left: 0 !important"/>
+									<div style="margin-left: 1rem;">@Html.DisplayNameFor(m => m.Input.RememberMe)</div>
+								</label>
+							</div>
+						</div>
+						<div class="col-4">
+							<button id="login-submit" type="submit" class="btn btn-info btn-block">Вход</button>
+						</div>
+					</div>
+				</form>
+				@{
+					if ((Model.ExternalLogins?.Count ?? 0) != 0)
+					{
+						<form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+							<div>
+								<p>
+								<p class="text-center">- ИЛИ -</p>
+									@foreach (var provider in Model.ExternalLogins)
+									{
+									<div class="social-auth-links text-center mb-3">
+											@if (provider.Name == "Facebook")
+											{
+											<button href="#" class="btn btn-block btn-primary" name="provider" value="@provider.Name">
+												<i class="fab fa-facebook mr-2"></i> Вход с Facebook
+											</button>
+											}
+											@if (provider.Name == "Google")
+											{
+											<button href="#" class="btn btn-block btn-outline-secondary" name="provider" value="@provider.Name">
+												<img src="/img/search.png" style="margin-right: 8px; margin-bottom: 4px"></img> Вход с Google
+											</button>
+											}
+									</div>
+									}
+								</p>
+							</div>
+						</form>
+					}
+				}
+				<p class="mb-0">
+					<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистриране на потребител</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<script src="~/plugins/jquery/jquery.min.js"></script>
+	<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/adminlte.min.js"></script>
+	<script src="~/plugins/toastr/toastr.min.js"></script>
+	<partial name="_ValidationScriptsPartial" />
+	@if (TempData[MessageConstants.SuccessMessage] != null)
+	{
+		<script>
+			$(function () {
+				toastr.success('@TempData[MessageConstants.SuccessMessage]?.ToString()');
+			});
+		</script>
+	}
 </body>
 </html>

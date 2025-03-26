@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250322180317_InitialSetup")]
+    [Migration("20250326075328_InitialSetup")]
     partial class InitialSetup
     {
         /// <inheritdoc />

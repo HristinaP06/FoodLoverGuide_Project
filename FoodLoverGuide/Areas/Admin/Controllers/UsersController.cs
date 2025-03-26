@@ -10,12 +10,12 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
     public class UsersController : BaseController
     {
         private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IReservationService reservationService;
 
-        public UsersController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<User> userManager, IReservationService reservationService)
         {
             this.userManager = userManager;
-            this.roleManager = roleManager;
+            this.reservationService = reservationService;
         }
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 Age = user.Age,
-                Reservations = user.Reservations,
+                Reservations = await reservationService.GetAll().Include(r => r.Restaurant).Where(u => u.UserId == id.ToString()).ToListAsync(),
             };
 
             return View(model);
