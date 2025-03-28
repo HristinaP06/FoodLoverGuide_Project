@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <!-- Profile Header -->
-            <div class="card shadow-lg border-0 mb-4">
+            <div class="card" style="border-radius: 15px 15px 0 0; border: 0">
                 <div class="card-header bg-gradient" style="background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border-radius: 15px 15px 0 0;">
                     <div class="d-flex align-items-center p-3">
                         <div class="rounded-circle bg-white text-center me-3" style="width: 80px; height: 80px; line-height: 80px; font-size: 2.5rem; color: #27ae60;">
@@ -56,7 +56,7 @@
             <!-- Reservations Section -->
             @if (Model.Reservations != null && Model.Reservations.Any())
             {
-                <div class="card shadow-lg border-0">
+                <div class="card" style="border-radius: 15px 15px 0 0; border: 0">
                     <div class="card-header" style="background-color: #e67e22; color: white; border-radius: 15px 15px 0 0;">
                         <h4 class="mb-0 py-2">Моите резервации</h4>
                     </div>
@@ -72,7 +72,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var reservation in Model.Reservations)
+                                    @{var reservatins = Model.Reservations.OrderByDescending(x => x.Date >= DateTime.Now);}
+                                    @foreach (var reservation in reservatins)
                                     {
                                         var now = DateTime.Now;
                                         var isActive = reservation.Date > now;
@@ -102,7 +103,7 @@
 
             <!-- Back Button -->
             <div class="mt-4 text-center">
-                <a asp-action="Index" class="btn btn-lg" style="background-color: #e67e22; color: white; border-radius: 25px; padding: 10px 30px;">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-lg" style="background-color: #e67e22; color: white; border-radius: 25px; padding: 10px 30px;">
                     Назад
                 </a>
             </div>

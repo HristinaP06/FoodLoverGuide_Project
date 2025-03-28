@@ -161,9 +161,9 @@
                             }
 
                             <p class="card-text small mb-0" style="color: #7d6608;">
-                                @if (!string.IsNullOrEmpty(restaurant.Description) && restaurant.Description.Length > 100)
+                                @if (!string.IsNullOrEmpty(restaurant.Description) && restaurant.Description.Length > 90)
                                 {
-                                    @(restaurant.Description.Substring(0, 100) + "...")
+                                    @(restaurant.Description.Substring(0, 90) + "...")
                                 }
                                 else
                                 {
@@ -181,7 +181,7 @@
                                         </small>
                                     }
                                 </div>
-                                <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-sm btn-outline-primary">
+                                <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-sm btn-outline-primary" style="border-radius: 25px;">
                                     Виж повече
                                 </a>
                             </div>

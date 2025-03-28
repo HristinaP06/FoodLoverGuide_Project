@@ -230,34 +230,34 @@
                     <div class="card-body">
                         <div class="d-flex flex-column">
                             <a asp-controller="Reservation" asp-action="Create" asp-route-restaurantId="@Model.Id"
-                               class="btn btn-primary btn-block mb-2">
+                               class="btn btn-primary btn-block mb-2" style="border-radius: 25px;">
                                 <i class="fas fa-calendar-check mr-2"></i> Направи резервация
                             </a>
 
                             @if (!string.IsNullOrEmpty(Model.WebSite))
                             {
                                 <a href="@(Model.WebSite.StartsWith("http") ? Model.WebSite : "http://" + Model.WebSite)"
-                                   class="btn btn-outline-primary btn-block mb-2" target="_blank">
+                                   class="btn btn-outline-primary btn-block mb-2" target="_blank" style="border-radius: 25px;">
                                     <i class="fas fa-globe mr-2"></i> Уебсайт
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.Facebook))
                             {
                                 <a href="https://facebook.com/@Model.Facebook"
-                                   class="btn btn-outline-primary btn-block mb-2" target="_blank" style="color: blue">
+                                   class="btn btn-outline-primary btn-block mb-2" target="_blank" style="color: blue; border-radius: 25px;">
                                     <i class="fab fa-facebook mr-2"></i> Facebook
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.Instagram))
                             {
                                 <a href="https://instagram.com/@Model.Instagram"
-                                   class="btn btn-outline-danger btn-block mb-2" target="_blank">
+                                   class="btn btn-outline-danger btn-block mb-2" target="_blank" style="border-radius: 25px;">
                                     <i class="fab fa-instagram mr-2"></i> Instagram
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.Telephone))
                             {
-                                <a href="tel:@Model.Telephone" class="btn btn-success btn-block">
+                                <a href="tel:@Model.Telephone" class="btn btn-success btn-block" style="border-radius: 25px;">
                                     <i class="fas fa-phone-alt mr-2"></i> Обади се сега
                                 </a>
                             }
@@ -303,7 +303,7 @@
                         </div>
                     </div>
                     <div class="card-footer bg-white">
-                        <a href="https://maps.google.com/?q=@Model.Location" target="_blank" class="btn btn-sm btn-outline-primary btn-block">
+                        <a href="https://maps.google.com/?q=@Model.Location" target="_blank" class="btn btn-sm btn-outline-primary btn-block" style="border-radius: 25px;">
                             <i class="fas fa-directions mr-2"></i> Упътвания
                         </a>
                     </div>
@@ -312,7 +312,7 @@
         </div>
 
         <div class="text-center mt-3">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary" style="border-radius: 25px;">
                 <i class="fas fa-arrow-left mr-1"></i> Назад към всички ресторанти
             </a>
         </div>
