@@ -46,7 +46,9 @@
                                     <tr>
                                         <td>@reservation.Date.ToString("dd.MM.yyyy HH:mm")</td>
                                         <td>@reservation.Restaurant.Name</td>
-                                        @{var people = reservation.Adults + reservation.Children;}
+                                        @{
+                                            var people = reservation.Adults + reservation.Children;
+                                        }
                                         <td>@people</td>
                                         @{
                                             var now = DateTime.Now;
@@ -71,8 +73,8 @@
                     <p class="text-muted">Няма направени резервации</p>
                 }
             </div>
-            <div class="card-footer">
-                <a asp-action="Index" class="btn" style="background-color: #e67e22; color: white">Назад към списъка</a>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+                <a asp-action="Index" class="btn btn-secondary" style="background-color: #e67e22; color: white;">Назад към списъка</a>
             </div>
         </div>
     </div>
