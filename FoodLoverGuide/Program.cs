@@ -45,7 +45,6 @@ builder.Services.AddScoped(typeof(IRepository), typeof(Repository));
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IFeatureService, FeatureService>();
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
-builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IRestaurantCategoriesService, RestaurantCategoriesService>();
 builder.Services.AddScoped<IRestaurantFeatureService, RestaurantFeatureService>();

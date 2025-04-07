@@ -13,10 +13,10 @@
                     <div class="card-body box-profile">
                         <h3 class="profile-username text-center">@Model.Name</h3>
                         <div class="text-center mb-3">
-                            @if (Model.RatingList != null && Model.RatingList.Any())
+                            @if (Model.Reviews != null && Model.Reviews.Any())
                             {
                                 // Calculate average rating once
-                                var avgRating = Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count();
+                                var avgRating = Model.Reviews.Select(r => r.Rating).Sum() / Model.Reviews.Count();
 
                                 <div class="d-inline-block">
                                     @for (int i = 1; i <= 5; i++)
@@ -37,7 +37,7 @@
                                 </div>
 
                                 <span class="badge bg-primary ml-2">@avgRating.ToString("0.0")</span>
-                                <span class="text-muted ml-1">(@Model.RatingList.Count() оценки)</span>
+                                <span class="text-muted ml-1">(@Model.Reviews.Count() оценки)</span>
                             }
                             else
                             {
@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="text-center mt-3 mb-4">
-                    <a asp-controller="Restaurant" asp-action="Index" class="btn btn-secondary">
+                    <a asp-controller="Restaurant" asp-action="Index" class="btn btn-secondary" style="background-color: #e67e22; color: white;">
                         <i class="fas fa-arrow-left mr-1"></i> Назад
                     </a>
                 </div>

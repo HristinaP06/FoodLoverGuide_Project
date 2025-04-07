@@ -12,8 +12,6 @@ namespace FoodLoverGuide.Models
 
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
-        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
-
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

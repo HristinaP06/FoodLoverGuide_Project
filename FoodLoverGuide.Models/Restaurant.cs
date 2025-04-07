@@ -37,8 +37,6 @@ namespace FoodLoverGuide.Models
 
         public ICollection<Review>? Reviews { get; set; }
 
-        public ICollection<Rating>? RatingList { get; set; }
-
         public int? IndoorCapacity { get; set; }
 
         public int? OutdoorCapacity { get; set; }

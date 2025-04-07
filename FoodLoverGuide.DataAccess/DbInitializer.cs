@@ -329,23 +329,23 @@ namespace FoodLoverGuide.DataAccess
                 await context.SaveChangesAsync();
             }
 
-            if (!context.Ratings.Any())
+            if (!context.Reviews.Any())
             {
                 var user = await userManager.FindByEmailAsync("tina@gmail.com"); // Use UserManager instead of direct query
 
                 if (user != null)
                 {
-                    var ratings = new List<Rating>
+                    var reviews = new List<Review>
                     {
-                        new Rating { Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"), _Rating = 5,
+                        new Review { Id = new Guid("2e2038e6-181b-4808-8184-c38afb5a2ddc"), Rating = 5,
                         RestaurantId = new Guid("e9d28cb7-8e75-4b36-b5f9-63a36b435c8b"), UserId = user.Id },
-                        new Rating { Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"), _Rating = 5,
+                        new Review { Id = new Guid("cdbded6f-d5d8-408b-a87c-b66f564e47af"), Rating = 5,
                         RestaurantId = new Guid("b7b8ab2e-d671-4829-b35d-9814918f8342"), UserId = user.Id },
-                        new Rating { Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"), _Rating = 5,
+                        new Review { Id = new Guid("84e5975b-ad32-426f-93d5-03fa0545e802"), Rating = 5,
                         RestaurantId = new Guid("8670fecf-265e-4743-be6a-6477389cc15e"), UserId = user.Id }
                     };
 
-                    context.Ratings.AddRange(ratings);
+                    context.Reviews.AddRange(reviews);
                     await context.SaveChangesAsync();
                 }
             }

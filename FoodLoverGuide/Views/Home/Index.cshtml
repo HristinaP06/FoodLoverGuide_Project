@@ -49,7 +49,7 @@
                                     <h5 class="card-title">@restaurant.Name</h5>
                                     <p class="card-text">
                                         @{
-                                            var avgRating = restaurant.RatingList.Any() ? restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count() : 0;
+                                            var avgRating = restaurant.Reviews.Any() ? restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count() : 0;
                                             <div>Рейтинг: @avgRating</div>
                                             <span class="text-warning">
                                                 @for (int i = 0; i < Math.Floor(avgRating); i++)

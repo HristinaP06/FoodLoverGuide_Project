@@ -35,17 +35,17 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 @{
-                                                    var avgRating = restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count();
+                                                    var avgRating = restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count();
                                                 }
                                                 <span class="badge bg-primary mr-2">@(double.IsNaN(avgRating) ? 0 : avgRating)</span>
                                                 <div>
                                                     @for (int i = 1; i <= 5; i++)
                                                     {
-                                                        if (i <= (restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count()))
+                                                        if (i <= (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()))
                                                         {
                                                             <i class="fas fa-star text-warning"></i>
                                                         }
-                                                        else if (i - (restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count()) > 0 && i - (restaurant.RatingList.Select(r => r._Rating).Sum() / restaurant.RatingList.Count()) < 1)
+                                                        else if (i - (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()) > 0 && i - (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()) < 1)
                                                         {
                                                             <i class="fas fa-star-half-alt text-warning"></i>
                                                         }
@@ -63,12 +63,12 @@
                                                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="background-color: #27ae60; color: white">Действия</button>
                                                 <div class="dropdown-menu" role="menu" style="">
                                                     <a class="dropdown-item" asp-action="edit" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редакция</a>
+                                                    <a type="submit" class="dropdown-item" asp-action="editCategories" asp-controller="restaurant" asp-route-restaurantId="@restaurant.Id">Редактирай категории</a>
+                                                    <button type="submit" class="dropdown-item" asp-action="editFeatures" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай характеристики</button>
+                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="WorkTimeSchedule" asp-route-id="@restaurant.Id">Редактирай график</button>
+                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="RestaurantPhoto" asp-route-id="@restaurant.Id">Редактирай снимки</button>
+                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="MenuItem" asp-route-id="@restaurant.Id">Редактирай меню</button>
                                                     <form method="post">
-                                                        <button type="submit" class="dropdown-item" asp-action="editCategories" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай категории</button>
-                                                        <button type="submit" class="dropdown-item" asp-action="editFeatures" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай характеристики</button>
-                                                        <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="WorkTimeSchedule" asp-route-id="@restaurant.Id">Редактирай график</button>
-                                                        <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="RestaurantPhoto" asp-route-id="@restaurant.Id">Редактирай снимки</button>
-                                                        <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="MenuItem" asp-route-id="@restaurant.Id">Редактирай меню</button>
                                                         <button type="submit" class="dropdown-item" asp-action="delete" asp-controller="restaurant" asp-route-id="@restaurant.Id">Изтрий</button>
                                                     </form>
                                                 </div>

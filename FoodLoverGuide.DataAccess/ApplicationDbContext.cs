@@ -16,8 +16,6 @@ namespace FoodLoverGuide.DataAccess
 
         public DbSet<MenuItem> MenuItems { get; set; }
 
-        public DbSet<Rating> Ratings { get; set; }
-
         public DbSet<Reservation> Reservations { get; set; }
 
         public DbSet<Restaurant> Restaurants { get; set; }
@@ -70,12 +68,6 @@ namespace FoodLoverGuide.DataAccess
                 .HasForeignKey(f => f.RestaurantId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Rating>()
-                .HasOne(res => res.Restaurant)
-                .WithMany(r => r.RatingList)
-                .HasForeignKey(f => f.RestaurantId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Entity<Review>()
                 .HasOne(res => res.Restaurant)
                 .WithMany(r => r.Reviews)
@@ -103,12 +95,6 @@ namespace FoodLoverGuide.DataAccess
             builder.Entity<Reservation>()
                 .HasOne(u => u.User)
                 .WithMany(r => r.Reservations)
-                .HasForeignKey(f => f.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Rating>()
-                .HasOne(u => u.User)
-                .WithMany(r => r.Ratings)
                 .HasForeignKey(f => f.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 

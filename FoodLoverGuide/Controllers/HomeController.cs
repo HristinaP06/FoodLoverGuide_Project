@@ -21,10 +21,10 @@ namespace FoodLoverGuide.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var restaurants = await this.restaurantService.GetAllRestaurants().Include(r => r.RatingList).ToListAsync();
+            var restaurants = await this.restaurantService.GetAllRestaurants().Include(r => r.Reviews).ToListAsync();
             var model = new HomeVM
             {
-                Restaurants = restaurants.Where(r => (r.RatingList.Select(x => x._Rating).Sum() / r.RatingList.Count) <= 5).Take(3).ToList(),
+                Restaurants = restaurants.Where(r => (r.Reviews.Select(x => x.Rating).Sum() / r.Reviews.Count) <= 5).Take(3).ToList(),
                 RestaurantsCount = restaurants.Count()
             };
 

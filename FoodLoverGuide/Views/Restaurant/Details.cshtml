@@ -14,9 +14,9 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h1 class="h2 mb-0">@Model.Name</h1>
                             <div>
-                                @if (Model.RatingList != null && Model.RatingList.Any())
+                                @if (Model.Reviews != null && Model.Reviews.Any())
                                 {
-                                    var avgRating = Model.RatingList.Select(r => r._Rating).Sum() / Model.RatingList.Count();
+                                    var avgRating = Model.Reviews.Select(r => r.Rating).Average();
                                     <span class="badge badge-pill badge-success px-3 py-2 mr-2">
                                         @avgRating.ToString("0.0")
                                     </span>
@@ -36,7 +36,7 @@
                                                 <i class="far fa-star text-warning"></i>
                                             }
                                         }
-                                        <small class="text-muted ml-1">(@Model.RatingList.Count() оценки)</small>
+                                        <small class="text-muted ml-1">(@Model.Reviews.Count() оценки)</small>
                                     </div>
                                 }
                                 else

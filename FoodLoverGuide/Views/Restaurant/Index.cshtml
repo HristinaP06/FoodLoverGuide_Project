@@ -130,9 +130,9 @@
                                 </div>
                             }
 
-                            @if (restaurant.RatingList != null && restaurant.RatingList.Any())
+                            @if (restaurant.Reviews != null && restaurant.Reviews.Any())
                             {
-                                var avgRating = restaurant.RatingList.Average(r => r._Rating);
+                                var avgRating = restaurant.Reviews.Average(r => r.Rating);
                                 <div class="position-absolute" style="top: 10px; right: 10px;">
                                     <span class="badge px-2 py-1" style="background-color: #27ae60; color: white;">
                                         @avgRating.ToString("0.0") <i class="fas fa-star text-warning ml-1"></i>

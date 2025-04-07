@@ -1,4 +1,5 @@
 ﻿using FoodLoverGuide.Areas.Admin.Controllers;
+using FoodLoverGuide.Core;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.Models;
@@ -34,7 +35,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public IActionResult IndexAsync()
         {
-            var restaurants = this.rService.GetAllRestaurants().Include(r => r.RatingList).ToList();
+            var restaurants = this.rService.GetAllRestaurants().Include(r => r.Reviews).ToList();
 
             return View(restaurants);
         }
@@ -54,7 +55,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
                 .ThenInclude(x => x.Features)
                 .Include(p => p.Photos)
                 .Include(m => m.Menu)
-                .Include(r => r.RatingList)
+                .Include(r => r.Reviews)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (restaurant == null)
@@ -77,7 +78,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         {
             Guid id = await this.rService.AddRestaurant(model);
 
-            return RedirectToAction("AssignCategories", new { restaurantId = id });
+            return RedirectToAction("AssignCategories", new { restaurantId = id, step = 2 });
         }
 
         [HttpGet]
@@ -109,7 +110,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         {
             await this.rService.Update(model);
 
-            if (string.IsNullOrEmpty(step))
+            if (!string.IsNullOrEmpty(step))
             {
                 return RedirectToAction("AssignCategories");
             }
@@ -126,7 +127,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         }
 
         [HttpGet]
-        public IActionResult AssignCategories(Guid restaurantId)
+        public IActionResult AssignCategories(Guid restaurantId, int? step = null)
         {
             var categories = this.categoryService.GetAll();
             var model = new AddCategoryToRestaurantVM
@@ -143,8 +144,46 @@ namespace FoodLoverGuide.Areas.Admin.Views
         {
             Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
 
-            return RedirectToAction("AssignFeatures", new { restaurantId = id });
+            return RedirectToAction("AssignFeatures", new { restaurantId = id, step = 3 });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditCategoriesAsync(Guid restaurantId, int? step = null)
+        {
+            var allCategories = this.categoryService.GetAll();
+            var selectedCategoryIds = await this.restaurantCategoriesService.GetCategoryIdsForRestaurantAsync(restaurantId);
+
+            var vm = new AddCategoryToRestaurantVM
+            {
+                RestaurantId = restaurantId,
+                CategoriesList = allCategories.ToList(),
+                SelectedCategoriesIds = selectedCategoryIds
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAssignedCategories(AddCategoryToRestaurantVM model)
+        {
+            Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
+
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> EditCategoriesAsync(AddCategoryToRestaurantVM model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        // repopulate the list if validation fails
+        //        model.CategoriesList = await cService.GetAllAsync();
+        //        return View(model);
+        //    }
+
+        //    await cService.AssignCategoriesAsync(model.RestaurantId, model.SelectedCategoriesIds);
+        //    return RedirectToAction("Edit", new { id = model.RestaurantId, step = 3 }); // or wherever Step 3 is
+        //}
 
         [HttpGet]
         public IActionResult AssignFeatures(Guid restaurantId)

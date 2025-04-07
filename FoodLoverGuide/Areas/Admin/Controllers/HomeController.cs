@@ -21,7 +21,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var restaurants = rService.GetAllRestaurants().Include(r => r.RatingList).ToList();
+            var restaurants = rService.GetAllRestaurants().Include(r => r.Reviews).ToList();
             
             ViewData[MessageConstants.SuccessMessage] = "Everything works";
             return View(restaurants);

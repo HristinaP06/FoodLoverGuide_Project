@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250326075328_InitialSetup")]
+    [Migration("20250407121819_InitialSetup")]
     partial class InitialSetup
     {
         /// <inheritdoc />
@@ -72,30 +72,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("MenuItems");
-                });
-
-            modelBuilder.Entity("FoodLoverGuide.Models.Rating", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RestaurantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<double>("_Rating")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("FoodLoverGuide.Models.Reservation", b =>
@@ -238,8 +214,8 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.Property<Guid>("RestaurantId")
                         .HasColumnType("uniqueidentifier");
@@ -506,24 +482,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("FoodLoverGuide.Models.Rating", b =>
-                {
-                    b.HasOne("FoodLoverGuide.Models.Restaurant", "Restaurant")
-                        .WithMany("RatingList")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FoodLoverGuide.Models.User", "User")
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Restaurant");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FoodLoverGuide.Models.Reservation", b =>
                 {
                     b.HasOne("FoodLoverGuide.Models.Restaurant", "Restaurant")
@@ -689,8 +647,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
 
                     b.Navigation("Photos");
 
-                    b.Navigation("RatingList");
-
                     b.Navigation("Reservation");
 
                     b.Navigation("RestaurantCategoriesList");
@@ -702,8 +658,6 @@ namespace FoodLoverGuide.DataAccess.Migrations
 
             modelBuilder.Entity("FoodLoverGuide.Models.User", b =>
                 {
-                    b.Navigation("Ratings");
-
                     b.Navigation("Reservations");
 
                     b.Navigation("Reviews");
