@@ -1,4 +1,4 @@
-html {
+п»їhtml {
     font-size: 14px;
 }
 
@@ -22,7 +22,7 @@ html {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: relative;
-    z-index: 1; /* Осигурява, че съдържанието е над фона */
+    z-index: 1; /* РћСЃРёРіСѓСЂСЏРІР°, С‡Рµ СЃСЉРґСЉСЂР¶Р°РЅРёРµС‚Рѕ Рµ РЅР°Рґ С„РѕРЅР° */
 }
 
     .form-container h2 {
@@ -99,7 +99,7 @@ html {
 
 .row {
     display: flex;
-    align-items: start; /* Подравнява колоните */
+    align-items: start; /* РџРѕРґСЂР°РІРЅСЏРІР° РєРѕР»РѕРЅРёС‚Рµ */
 }
 
 .col-lg-4 {
@@ -113,54 +113,65 @@ html {
 }
 
 body {
-    background-color: #f5f5e9; /* Бежав фон */
+    background-color: #f5f5e9; /* Р‘РµР¶Р°РІ С„РѕРЅ */
     font-family: 'Arial', sans-serif;
     margin: 0;
     height: 100vh;
 }
 
-.wrapper{
+.wrapper {
     position: relative;
     z-index: 1;
 }
 
 .main-header.navbar.navbar-expand {
-    background-color: rgba(255, 243, 224, 0.95) !important; /* Полупрозрачно оранжево */
-    border-bottom: 2px solid #e67e22 !important; /* Оранжева рамка отдолу */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; /* Лека сянка */
-    margin-left: 0px !important;
+    background-color: rgba(255, 243, 224, 0.95) !important;  /*РџРѕР»СѓРїСЂРѕР·СЂР°С‡РЅРѕ РѕСЂР°РЅР¶РµРІРѕ */
+    border-bottom: 2px solid #e67e22 !important;  /*РћСЂР°РЅР¶РµРІР° СЂР°РјРєР° РѕС‚РґРѕР»Сѓ*/ 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;  /*Р›РµРєР° СЃСЏРЅРєР° */
     margin-right: 0px !important;
+    z-index: 1030 !important;
+    position:relative;
 }
-
+        
+.navbar-brand-container {
+    z-index: 1040 !important;
+}
 .navbar-brand {
-    color: #d35400 !important; /* Тъмно оранжево */
+    color: #d35400 !important;
     font-weight: bold;
     font-size: 1.5rem;
     transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
     .navbar-brand:hover {
-        color: #f39c12 !important; /* Жълто при ховер */
+        color: #f39c12 !important;  /*Р–СЉР»С‚Рѕ РїСЂРё С…РѕРІРµСЂ */
+    }
+
+    .navbar-brand .brand-image {
+        margin-right: 10px;  /*Р Р°Р·СЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ Р»РѕРіРѕС‚Рѕ Рё С‚РµРєСЃС‚Р° */
     }
 
 .navbar-nav .nav-link {
-    color: #7d6608 !important; /* Тъмно жълт текст */
+    color: #7d6608 !important;  /*РўСЉРјРЅРѕ Р¶СЉР»С‚ С‚РµРєСЃС‚ */
     transition: color 0.3s ease;
 }
 
     .navbar-nav .nav-link:hover {
-        color: #e67e22 !important; /* Оранжево при ховер */
+        color: #e67e22 !important;  /*РћСЂР°РЅР¶РµРІРѕ РїСЂРё С…РѕРІРµСЂ */
     }
 
 .navbar-toggler {
-    border-color: #e67e22 !important; /* Оранжева рамка */
+    border-color: #e67e22 !important;  /*РћСЂР°РЅР¶РµРІР° СЂР°РјРєР°*/ 
 }
+
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23d35400' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; /* Оранжеви линии */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23d35400' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;  /*РћСЂР°РЅР¶РµРІРё Р»РёРЅРёРё */
 }
 
 .navbar-collapse {
-    justify-content: flex-start !important; /* Подравняване вляво */
+    justify-content: flex-start !important;  /*РџРѕРґСЂР°РІРЅСЏРІР°РЅРµ РІР»СЏРІРѕ */
 }
 
 .navbar-nav .dropdown-menu .dropdown-item {
@@ -168,107 +179,106 @@ body {
 }
 
     .navbar-nav .dropdown-menu .dropdown-item:hover {
-        background-color: #f39c12 !important; /* Жълт фон при ховер */
+        background-color: #f39c12 !important;  /*Р–СЉР»С‚ С„РѕРЅ РїСЂРё С…РѕРІРµСЂ */
         color: white !important;
     }
 
 .navbar-nav .btn-link {
-    color: #27ae60; /* Зелено за бутона за изход */
+    color: #27ae60;  /*Р—РµР»РµРЅРѕ Р·Р° Р±СѓС‚РѕРЅР° Р·Р° РёР·С…РѕРґ */
 }
 
     .navbar-nav .btn-link:hover {
-        color: #219653; /* По-тъмно зелено при ховер */
+        color: #219653;  /*РџРѕ-С‚СЉРјРЅРѕ Р·РµР»РµРЅРѕ РїСЂРё С…РѕРІРµСЂ */
     }
 
 .navbar-nav i {
-    color: #d35400; /* Тъмно оранжево за иконите */
+    color: #d35400;  /*РўСЉРјРЅРѕ РѕСЂР°РЅР¶РµРІРѕ Р·Р° РёРєРѕРЅРёС‚Рµ */
 }
 
     .navbar-nav i:hover {
-        color: #f39c12; /* Жълто при ховер */
+        color: #f39c12;  /*Р–СЉР»С‚Рѕ РїСЂРё С…РѕРІРµСЂ */
     }
 
 .main-sidebar {
-    background-color: #fef9e7; /* Светло бежаво */
+    background-color: #fef9e7;  /*РЎРІРµС‚Р»Рѕ Р±РµР¶Р°РІРѕ */
 }
 
 .nav-sidebar .nav-item .nav-link {
-    background-color: #fff3e0; /* Светло оранжево за основните елементи */
-    color: #7d6608; /* Тъмно жълт текст */
+    background-color: #fff3e0;  /*РЎРІРµС‚Р»Рѕ РѕСЂР°РЅР¶РµРІРѕ Р·Р° РѕСЃРЅРѕРІРЅРёС‚Рµ РµР»РµРјРµРЅС‚Рё */
+    color: #7d6608;  /*РўСЉРјРЅРѕ Р¶СЉР»С‚ С‚РµРєСЃС‚ */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
     .nav-sidebar .nav-item .nav-link:hover {
-        background-color: #f39c12; /* Жълто при ховер */
+        background-color: #f39c12;  /*Р–СЉР»С‚Рѕ РїСЂРё С…РѕРІРµСЂ */
         color: white;
     }
 
 .nav-sidebar .nav-icon {
-    color: #e67e22; /* Оранжево за иконите */
+    color: #e67e22;  /*РћСЂР°РЅР¶РµРІРѕ Р·Р° РёРєРѕРЅРёС‚Рµ */
 }
 
 .nav-sidebar .nav-link .right {
-    color: #d35400; /* Тъмно оранжево за стрелките */
+    color: #d35400;  /*РўСЉРјРЅРѕ РѕСЂР°РЅР¶РµРІРѕ Р·Р° СЃС‚СЂРµР»РєРёС‚Рµ */
 }
 
 .nav-treeview {
-    background-color: #fef9e7; /* Бежав фон за подменюто */
+    background-color: #fef9e7;  /*Р‘РµР¶Р°РІ С„РѕРЅ Р·Р° РїРѕРґРјРµРЅСЋС‚Рѕ */
 }
 
     .nav-treeview .nav-link {
-        background-color: transparent; /* Прозрачен фон за подменюто */
+        background-color: transparent;  /*РџСЂРѕР·СЂР°С‡РµРЅ С„РѕРЅ Р·Р° РїРѕРґРјРµРЅСЋС‚Рѕ */
         color: #7d6608;
     }
 
         .nav-treeview .nav-link:hover {
-            background-color: #f1c40f; /* Жълто при ховер */
-            color: #2c3e50; /* Тъмен цвят за контраст */
+            background-color: #f1c40f;  /*Р–СЉР»С‚Рѕ РїСЂРё С…РѕРІРµСЂ */
+            color: #2c3e50;  /*РўСЉРјРµРЅ С†РІСЏС‚ Р·Р° РєРѕРЅС‚СЂР°СЃС‚ */
         }
 
     .nav-treeview .nav-icon.fa-eye {
-        color: #27ae60; /* Зелено за иконата "Виж всички" */
+        color: #27ae60;  /*Р—РµР»РµРЅРѕ Р·Р° РёРєРѕРЅР°С‚Р° "Р’РёР¶ РІСЃРёС‡РєРё" */
     }
 
     .nav-treeview .nav-icon.fa-plus {
-        color: #f39c12; /* Жълто за иконата "Добави" */
+        color: #f39c12;  /*Р–СЉР»С‚Рѕ Р·Р° РёРєРѕРЅР°С‚Р° "Р”РѕР±Р°РІРё"*/ 
     }
 
 .brand-link {
-    background-color: #fff3e0; /* Светло оранжево */
-    color: #7d6608; /* Тъмно жълт текст */
-    border-bottom: 1px solid #e67e22;
+    background-color: #fff3e0; /* РЎРІРµС‚Р»Рѕ РѕСЂР°РЅР¶РµРІРѕ */
+    color: #7d6608; /* РўСЉРјРЅРѕ Р¶СЉР»С‚ С‚РµРєСЃС‚ */
 }
 
 .brand-text {
-    color: #d35400; /* Тъмно оранжево */
+    color: #d35400; /* РўСЉРјРЅРѕ РѕСЂР°РЅР¶РµРІРѕ */
 }
 
 .sidebar-dark-primary .nav-link {
-    color: #7d6608; /* Тъмно жълт текст */
+    color: #7d6608; /* РўСЉРјРЅРѕ Р¶СЉР»С‚ С‚РµРєСЃС‚ */
 }
 
     .sidebar-dark-primary .nav-link:hover {
-        color: #e67e22; /* Оранжево при ховер */
-        background-color: rgba(241, 196, 15, 0.2); /* Лек жълт фон */
+        color: #e67e22; /* РћСЂР°РЅР¶РµРІРѕ РїСЂРё С…РѕРІРµСЂ */
+        background-color: rgba(241, 196, 15, 0.2); /* Р›РµРє Р¶СЉР»С‚ С„РѕРЅ */
     }
 
 .welcome-section {
-    background-color: rgba(255, 243, 224, 0.77); /* Полупрозрачно оранжево */
+    background-color: rgba(255, 243, 224, 0.77); /* РџРѕР»СѓРїСЂРѕР·СЂР°С‡РЅРѕ РѕСЂР°РЅР¶РµРІРѕ */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
     .welcome-section h1 {
-        color: #e67e22; /* Оранжев заглавие */
+        color: #e67e22; /* РћСЂР°РЅР¶РµРІ Р·Р°РіР»Р°РІРёРµ */
     }
 
     .welcome-section p {
-        color: #7d6608; /* Тъмно жълт текст */
+        color: #7d6608; /* РўСЉРјРЅРѕ Р¶СЉР»С‚ С‚РµРєСЃС‚ */
     }
 
 .restaurant-count-container {
-    background-color: rgba(241, 196, 15, 0.77); /* Жълт полупрозрачен фон */
+    background-color: rgba(241, 196, 15, 0.77); /* Р–СЉР»С‚ РїРѕР»СѓРїСЂРѕР·СЂР°С‡РµРЅ С„РѕРЅ */
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -276,19 +286,19 @@ body {
 }
 
 .restaurant-count h4 {
-    color: #2c3e50; /* Тъмен цвят за контраст */
-    font-size: 1.5rem; /* По-голям шрифт */
+    color: #2c3e50; /* РўСЉРјРµРЅ С†РІСЏС‚ Р·Р° РєРѕРЅС‚СЂР°СЃС‚ */
+    font-size: 1.5rem; /* РџРѕ-РіРѕР»СЏРј С€СЂРёС„С‚ */
 }
 
 .restaurant-count .badge {
-    background-color: #27ae60; /* Зелено за баджа */
+    background-color: #27ae60; /* Р—РµР»РµРЅРѕ Р·Р° Р±Р°РґР¶Р° */
     color: white;
     font-size: 1.2rem;
     padding: 5px 10px;
 }
 
 .top-restaurants-container {
-    background-color: rgba(254, 249, 231, 0.77); /* Бежав полупрозрачен фон */
+    background-color: rgba(254, 249, 231, 0.77); /* Р‘РµР¶Р°РІ РїРѕР»СѓРїСЂРѕР·СЂР°С‡РµРЅ С„РѕРЅ */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -297,45 +307,45 @@ body {
 
 .top-restaurants h2 {
     color: #27ae60;
-    font-size: 2rem; /* По-голямо заглавие */
+    font-size: 2rem; /* РџРѕ-РіРѕР»СЏРјРѕ Р·Р°РіР»Р°РІРёРµ */
     margin-bottom: 20px;
 }
 
 .card {
-    background-color: rgba(255, 255, 255, 0.95); /* Леко по-плътен бял фон за картите */
-    border: 2px solid #e67e22; /* Оранжева рамка */
+    background-color: rgba(255, 255, 255, 0.95); /* Р›РµРєРѕ РїРѕ-РїР»СЉС‚РµРЅ Р±СЏР» С„РѕРЅ Р·Р° РєР°СЂС‚РёС‚Рµ */
+    border: 2px solid #e67e22; /* РћСЂР°РЅР¶РµРІР° СЂР°РјРєР° */
     border-radius: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease; /* Анимация при ховер */
+    transition: transform 0.3s ease; /* РђРЅРёРјР°С†РёСЏ РїСЂРё С…РѕРІРµСЂ */
 }
 
 
 .card-title {
-    color: #d35400; /* Тъмно оранжево */
+    color: #d35400; /* РўСЉРјРЅРѕ РѕСЂР°РЅР¶РµРІРѕ */
     text-align: center !important;
 }
 
 .card-text {
-    color: #7d6608; /* Тъмно жълт текст */
+    color: #7d6608; /* РўСЉРјРЅРѕ Р¶СЉР»С‚ С‚РµРєСЃС‚ */
 }
 
 .text-warning {
-    color: #f1c40f !important; /* Ярко жълти звезди */
+    color: #f1c40f !important; /* РЇСЂРєРѕ Р¶СЉР»С‚Рё Р·РІРµР·РґРё */
 }
 
 .btn-primary {
-    background-color: #27ae60; /* Зелено за бутона */
+    background-color: #27ae60; /* Р—РµР»РµРЅРѕ Р·Р° Р±СѓС‚РѕРЅР° */
     border-color: #27ae60;
     transition: background-color 0.3s ease;
 }
 
     .btn-primary:hover {
-        background-color: #219653; /* По-тъмно зелено при ховер */
+        background-color: #219653; /* РџРѕ-С‚СЉРјРЅРѕ Р·РµР»РµРЅРѕ РїСЂРё С…РѕРІРµСЂ */
         border-color: #219653;
     }
 
 .btn-outline-primary {
-    color: #e67e22; /* Оранжев текст */
+    color: #e67e22; /* РћСЂР°РЅР¶РµРІ С‚РµРєСЃС‚ */
     border-color: #e67e22;
 }
 
@@ -364,3 +374,15 @@ body {
         background-color: #e67e22;
         color: white;
     }
+
+.select2-selection__rendered {
+    line-height: 36px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 48px !important;
+}
+
+.select2-selection__arrow {
+    height: 48px !important;
+}
