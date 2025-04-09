@@ -9,103 +9,82 @@
             <h1 class="h2 mb-0" style="color: #e67e22;">Разгледай нашите ресторанти!</h1>
             <p class="text-muted">Открий следващото си любимо място за хапване.</p>
         </div>
-        <div class="col-md-4">
-            <div class="input-group">
-                <input type="text" id="searchInput" class="form-control" placeholder="Потърси ресторант..." style="border-color: #e67e22; color: #7d6608;">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Filters -->
     <div class="mb-4">
         <div class="card" style="background-color: rgba(254, 249, 231, 0.9); border: none;">
             <div class="card-body py-3">
-                <div class="row">
-                    <!-- Category Filter -->
-                    <div class="col-md-3 mb-2 mb-md-0">
-                        <div class="form-group mb-0">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle w-100 text-left border" type="button" id="categoryDropdown" data-toggle="dropdown" aria-expanded="false" style="background-color: #fef9e7; border-color: #e67e22; color: #7d6608;">
-                                    Категории
-                                </button>
-                                <div class="dropdown-menu w-100" aria-labelledby="categoryDropdown" style="background-color: #fef9e7;">
-                                    @foreach (var cat in Model.Categories)
-                                    {
-                                        <label class="dropdown-item" style="color: #7d6608;">
-                                            <input type="checkbox" name="categoryIds[]" value="@cat.Id" style="margin-right: 8px;">
-                                            @cat.CategoryName
-                                        </label>
-                                    }
+                <form id="filterForm" asp-controller="Restaurant" asp-action="Index" method="get">
+                    <div class="row justify-content-center">
+                        <div class="col-md-13">
+                            <div class="row align-items-end">
+                                <!-- Филтър с категории -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="categoryIds" style="color: #7d6608;">Категории</label>
+                                        <select class="select2 form-control" id="categoryIds" name="categoryIds" multiple="multiple" data-placeholder="Всички категории" style="width: 100%; height: 45px; background-color: #fef9e7; border-color: #e67e22; color: #7d6608;">
+                                            @foreach (var cat in Model.Categories)
+                                            {
+                                                <option value="@cat.Id">@cat.CategoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Филтър с характеристики -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="categoryIds" style="color: #7d6608;">Характеристики</label>
+                                        <select class="select2 form-control" id="featureIds" name="featureIds" multiple="multiple" data-placeholder="Всички характеристики" style="width: 100%; height: 45px; background-color: #fef9e7; border-color: #e67e22; color: #7d6608;">
+                                            @foreach (var feature in Model.Features)
+                                            {
+                                                <option value="@feature.Id">@feature.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Филтър с ценови диапазони -->
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="priceRange" style="color: #7d6608;">Ценови диапазон</label>
+                                        <select class="form-control" id="priceRange" name="priceRange" style="width: 100%; height: 45px; background-color: #fef9e7; border-color: #e67e22; color: #7d6608;" data-placeholder="Избери диапазон">
+                                            <option value="">Всички цени</option>
+                                            <option value="budget">Под 20 лв.</option>
+                                            <option value="middle">Между 20-50 лв.</option>
+                                            <option value="premium">Над 50 лв.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Филтър с оценки -->
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="rating" style="color: #7d6608;">Оценка</label>
+                                        <select class="form-control" id="rating" name="rating" style="width: 100%; height: 45px; background-color: #fef9e7; border-color: #e67e22; color: #7d6608;" data-placeholder="Избери оценка">
+                                            <option value="">Всички оценки</option>
+                                            <option value="4.5">4.5+ <i class="fas fa-star text-warning"></i></option>
+                                            <option value="4">4+ <i class="fas fa-star text-warning"></i></option>
+                                            <option value="3">3+ <i class="fas fa-star text-warning"></i></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default search-button" style="background-color: #e67e22; border-color: #e67e22; color: white; height: 45px; width: 45px;">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" id="clearFilters" style="height: 45px; width: 45px;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Price Range Filter -->
-                    <div class="col-md-3 mb-2 mb-md-0">
-                        <div class="form-group mb-0">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle w-100 text-left border" type="button" id="priceRangeDropdown" data-toggle="dropdown" aria-expanded="false" style="background-color: #fef9e7; border-color: #e67e22; color: #7d6608;">
-                                    Ценови диапазон
-                                </button>
-                                <div class="dropdown-menu w-100" aria-labelledby="priceRangeDropdown">
-                                    <label class="dropdown-item" style="color: #7d6608;">
-                                        <input type="checkbox" name="priceRange" value="budget" style="margin-right: 8px;">
-                                        Под 20 лв.
-                                    </label>
-                                    <label class="dropdown-item" style="color: #7d6608;">
-                                        <input type="checkbox" name="priceRange" value="middle" style="margin-right: 8px;">
-                                        Между 20-50 лв.
-                                    </label>
-                                    <label class="dropdown-item" style="color: #7d6608;">
-                                        <input type="checkbox" name="priceRange" value="premium" style="margin-right: 8px;">
-                                        Над 50 лв.
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rating Filter -->
-                    <div class="col-md-3 mb-2 mb-md-0">
-                        <div class="form-group mb-0">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle w-100 text-left border" type="button" id="ratingDropdown" data-toggle="dropdown" aria-expanded="false" style="background-color: #fef9e7; border-color: #e67e22; color: #7d6608;">
-                                    Оценка
-                                </button>
-                                <div class="dropdown-menu w-100" aria-labelledby="ratingDropdown" style="background-color: #fef9e7;">
-                                    <label class="dropdown-item" style="color: #7d6608;">
-                                        <input type="checkbox" name="rating" value="4.5" style="margin-right: 8px;">
-                                        4.5+ <i class="fas fa-star text-warning"></i>
-                                    </label>
-                                    <label class="dropdown-item" style="color: #7d6608;">
-                                        <input type="checkbox" name="rating" value="4" style="margin-right: 8px;">
-                                        4+ <i class="fas fa-star text-warning"></i>
-                                    </label>
-                                    <label class="dropdown-item" style="color: #7d6608;">
-                                        <input type="checkbox" name="rating" value="3" style="margin-right: 8px;">
-                                        3+ <i class="fas fa-star text-warning"></i>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="col-md-3 mb-2 mb-md-0 d-flex align-items-center justify-content-end">
-                        <button class="btn btn-outline-secondary btn-sm" style="border-color: #7d6608; color: #7d6608;">
-                            <i class="fas fa-sliders-h mr-1"></i> Още филтри
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm ml-2" style="border-color: #d35400; color: #d35400;">
-                            <i class="fas fa-times mr-1"></i> Изчисти
-                        </button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -151,13 +130,16 @@
                                 if (restaurant.RestaurantCategoriesList.Any())
                                 {
                                     <div class="mb-2">
-                                        @foreach (var category in restaurant.RestaurantCategoriesList)
+                                        @foreach (var category in restaurant.RestaurantCategoriesList.Take(2))
                                         {
                                             <span class="badge mr-1" style="background-color: #f1c40f; color: #2c3e50;">@category.Category.CategoryName</span>
                                         }
+                                        @if (restaurant.RestaurantCategoriesList.Count > 2)
+                                        {
+                                            <span class="badge mr-1" style="background-color: #f1c40f; color: #2c3e50;">...</span>
+                                        }
                                     </div>
                                 }
-                                
                             }
 
                             <p class="card-text small mb-0" style="color: #7d6608;">
@@ -194,7 +176,7 @@
         {
             <div class="col-12">
                 <div class="alert alert-info" style="background-color: rgba(241, 196, 15, 0.77); color: #2c3e50;">
-                    <i class="fas fa-info-circle mr-2"></i> No restaurants found. Please try a different search or check back later.
+                    <i class="fas fa-info-circle mr-2"></i> Няма намерени ресторанти за това търсене. Моля, изберете различни филтри или опитайте отново по-късно.
                 </div>
             </div>
         }
@@ -219,20 +201,95 @@
 </div>
 
 @section Scripts {
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Search functionality
-            $("#searchInput").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#restaurantContainer .restaurant-card").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
+            $('#categoryIds').select2({
+                theme: 'default',
+                placeholder: function () {
+                    return $(this).data('placeholder');
+                },
+                allowClear: true,
+                minimumResultsForSearch: -1, // Напълно деактивира търсенето
             });
 
-            // Prevent dropdown from closing when clicking inside
-            $('.dropdown-menu').on('click', function (e) {
-                e.stopPropagation();
+            $('#featureIds').select2({
+                theme: 'default',
+                placeholder: function () {
+                    return $(this).data('placeholder');
+                },
+                allowClear: true,
+                minimumResultsForSearch: -1, // Напълно деактивира търсенето
+            });
+
+            // Принудително премахване на фокуса от търсещото поле
+            $('#categoryIds').on('select2:open', function () {
+                $('.select2-search__field').prop('disabled', true).css('display', 'none');
+            });
+
+            // Принудително премахване на фокуса от търсещото поле
+            $('#featureIds').on('select2:open', function () {
+                $('.select2-search__field').prop('disabled', true).css('display', 'none');
+            });
+
+            // Изчистване на филтрите
+            $('#clearFilters').click(function () {
+                $('#categoryIds').val(null).trigger('change');
+                $('#featureIds').val(null).trigger('change');
+                $('#priceRange').val('');
+                $('#rating').val('');
+                $('#restaurantName').val('');
             });
         });
     </script>
+    <style>
+        /* .select2-results__option--highlighted {
+            background-color: #e67e22 !important;
+            color: white !important;
+        } */
+
+        .select2-container .select2-selection--multiple {
+            color: #7d6608;
+            background-color: #fef9e7;
+            border-color: #e67e22;
+            min-height: 45px !important;
+        }
+
+        .select2-container .select2-search__field {
+            margin-top: 10px !important;
+        }
+
+        .select2-container .select2-search__field::placeholder {
+            color: #7d6608 !important;
+            text-align: left !important;
+            display: flex !important;
+        }
+
+        .select2-container .select2-selection__choice {
+            background-color: #e67e22 !important; /* Оранжев фон */
+            color: white !important; /* Бял текст */
+            border: none !important;
+            border-radius: 15px;
+            padding: 2px 8px;
+            margin: 2px;
+            white-space: nowrap;
+        }
+
+        .select2-container .select2-selection__choice__remove {
+            color: white !important; /* Бял "X" за премахване */
+            margin-right: 5px;
+            text-decoration: none !important; /* Премахва подчертаване */
+            cursor: pointer;
+            border: none !important;
+        }
+
+        .select2-container .select2-selection__choice__remove:hover {
+            color: white !important; /* Запазва цвета при ховер */
+            background-color: transparent !important; /* Без промяна на фона */
+            text-decoration: none !important; /* Без подчертаване при ховер */
+        }
+    </style>
 }

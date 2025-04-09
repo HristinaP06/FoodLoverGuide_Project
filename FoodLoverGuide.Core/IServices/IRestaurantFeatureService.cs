@@ -11,5 +11,7 @@ namespace FoodLoverGuide.Core.IServices
     public interface IRestaurantFeatureService : IService<RestaurantFeature>
     {
         Task<Guid> AddRestaurantFeatures(AddFeatureToRestaurantVM model);
+
+        Task<List<Guid>> GetFeatureIdsForRestaurantAsync(Guid restaurantId);
     }
 }

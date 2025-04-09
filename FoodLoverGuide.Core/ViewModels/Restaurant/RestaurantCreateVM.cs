@@ -27,5 +27,7 @@
         public int? IndoorCapacity { get; set; }
 
         public int? OutdoorCapacity { get; set; }
+
+        public string NextAction { get; set; }
     }
 }

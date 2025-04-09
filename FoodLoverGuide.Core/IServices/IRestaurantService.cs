@@ -14,6 +14,8 @@ namespace FoodLoverGuide.Core.IServices
 
         IQueryable<Restaurant> GetAllRestaurants();
 
+        IQueryable<Restaurant> GetRestaurantsWithFilters(string[] categoryIds = null, string[] featureIds = null, string priceRange = null, string rating = null);
+
         Task<Restaurant> GetByIdAsync(Guid id);
 
         Task Update(RestaurantCreateVM entity);

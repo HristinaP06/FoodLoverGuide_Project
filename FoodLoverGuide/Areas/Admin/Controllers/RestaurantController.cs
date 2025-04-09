@@ -1,5 +1,6 @@
 ﻿using FoodLoverGuide.Areas.Admin.Controllers;
 using FoodLoverGuide.Core;
+using FoodLoverGuide.Core.Constants;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.Models;
@@ -72,17 +73,16 @@ namespace FoodLoverGuide.Areas.Admin.Views
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateAsync(RestaurantCreateVM model)
         {
             Guid id = await this.rService.AddRestaurant(model);
 
-            return RedirectToAction("AssignCategories", new { restaurantId = id, step = 2 });
+            return RedirectToAction("AddRestaurantCategories", "RestaurantCategory", new { restaurantId = id });
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAsync(Guid id, int? step)
+        public async Task<IActionResult> EditAsync(Guid id, string nextAction = null)
         {
             var restaurant = await this.rService.GetByIdAsync(id);
             var vm = new RestaurantCreateVM
@@ -99,20 +99,21 @@ namespace FoodLoverGuide.Areas.Admin.Views
                 Email = restaurant.Email,
                 Instagram = restaurant.Instagram,
                 Facebook = restaurant.Facebook,
-                WebSite = restaurant.WebSite
+                WebSite = restaurant.WebSite,
+                NextAction = nextAction
             };
 
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAsync(RestaurantCreateVM model, string step)
+        public async Task<IActionResult> EditAsync(RestaurantCreateVM model)
         {
             await this.rService.Update(model);
 
-            if (!string.IsNullOrEmpty(step))
+            if (!string.IsNullOrEmpty(model.NextAction))
             {
-                return RedirectToAction("AssignCategories");
+                return RedirectToAction(model.NextAction, new { restaurantId = model.Id });
             }
 
             return RedirectToAction("Index");
@@ -126,74 +127,58 @@ namespace FoodLoverGuide.Areas.Admin.Views
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult AssignCategories(Guid restaurantId, int? step = null)
-        {
-            var categories = this.categoryService.GetAll();
-            var model = new AddCategoryToRestaurantVM
-            {
-                RestaurantId = restaurantId,
-                CategoriesList = categories.ToList(),
-            };
+        //[HttpGet]
+        //public async Task<IActionResult> AssignCategoriesAsync(Guid restaurantId, string nextAction = null)
+        //{
+        //    var categories = this.categoryService.GetAll();
+        //    var selectedCategoryIds = await this.restaurantCategoriesService.GetCategoryIdsForRestaurantAsync(restaurantId);
 
-            return View("AssignCategories", model);
-        }
+        //    var model = new AddCategoryToRestaurantVM
+        //    {
+        //        RestaurantId = restaurantId,
+        //        CategoriesList = categories.ToList(),
+        //        NextAction = nextAction,
+        //    };
 
-        [HttpPost]
-        public async Task<IActionResult> AssignCategories(AddCategoryToRestaurantVM model)
-        {
-            Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
-
-            return RedirectToAction("AssignFeatures", new { restaurantId = id, step = 3 });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditCategoriesAsync(Guid restaurantId, int? step = null)
-        {
-            var allCategories = this.categoryService.GetAll();
-            var selectedCategoryIds = await this.restaurantCategoriesService.GetCategoryIdsForRestaurantAsync(restaurantId);
-
-            var vm = new AddCategoryToRestaurantVM
-            {
-                RestaurantId = restaurantId,
-                CategoriesList = allCategories.ToList(),
-                SelectedCategoriesIds = selectedCategoryIds
-            };
-
-            return View(vm);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateAssignedCategories(AddCategoryToRestaurantVM model)
-        {
-            Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
-
-            return RedirectToAction("Index");
-        }
+        //    if (selectedCategoryIds.Any())
+        //    {
+        //        model.SelectedCategoriesIds = selectedCategoryIds;
+        //    }
+            
+        //    return View("AssignCategories", model);
+        //}
 
         //[HttpPost]
-        //public async Task<IActionResult> EditCategoriesAsync(AddCategoryToRestaurantVM model)
+        //public async Task<IActionResult> AssignCategoriesAsync(AddCategoryToRestaurantVM model)
         //{
-        //    if (!ModelState.IsValid)
+        //    Guid id = await this.restaurantCategoriesService.AddRestaurantCategories(model);
+
+        //    if (!string.IsNullOrEmpty(model.NextAction))
         //    {
-        //        // repopulate the list if validation fails
-        //        model.CategoriesList = await cService.GetAllAsync();
-        //        return View(model);
+        //        return RedirectToAction(model.NextAction, new { restaurantId = model.RestaurantId });
         //    }
 
-        //    await cService.AssignCategoriesAsync(model.RestaurantId, model.SelectedCategoriesIds);
-        //    return RedirectToAction("Edit", new { id = model.RestaurantId, step = 3 }); // or wherever Step 3 is
+        //    return RedirectToAction("Index");
         //}
 
         [HttpGet]
-        public IActionResult AssignFeatures(Guid restaurantId)
+        public async Task<IActionResult> AssignFeaturesAsync(Guid restaurantId, string nextAction = null)
         {
             var features = this.featureService.GetAll();
+            var selectedFeatureIds = await this.restaurantFeatureService.GetFeatureIdsForRestaurantAsync(restaurantId);
+
             var model = new AddFeatureToRestaurantVM
             {
                 RestaurantId = restaurantId,
                 FeaturesList = features.ToList(),
+                NextAction = nextAction,
             };
+
+            if (selectedFeatureIds.Any())
+            {
+                model.SelectedFeaturesIds = selectedFeatureIds;
+            }
+
             return View("AssignFeatures", model);
         }
 
@@ -202,7 +187,14 @@ namespace FoodLoverGuide.Areas.Admin.Views
         {
             Guid id = await this.restaurantFeatureService.AddRestaurantFeatures(model);
 
-            return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = id });
+            if (!string.IsNullOrEmpty(model.NextAction))
+            {
+                return RedirectToAction(model.NextAction, "WorkTimeSchedule", new { restaurantId = model.RestaurantId });
+            }
+
+            return RedirectToAction("Index");
+        }
+
         }
     }
 }

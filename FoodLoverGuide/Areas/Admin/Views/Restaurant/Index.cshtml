@@ -62,12 +62,12 @@
                                             <div class="btn-group-sm">
                                                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="background-color: #27ae60; color: white">Действия</button>
                                                 <div class="dropdown-menu" role="menu" style="">
-                                                    <a class="dropdown-item" asp-action="edit" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редакция</a>
-                                                    <a type="submit" class="dropdown-item" asp-action="editCategories" asp-controller="restaurant" asp-route-restaurantId="@restaurant.Id">Редактирай категории</a>
-                                                    <button type="submit" class="dropdown-item" asp-action="editFeatures" asp-controller="restaurant" asp-route-id="@restaurant.Id">Редактирай характеристики</button>
-                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="WorkTimeSchedule" asp-route-id="@restaurant.Id">Редактирай график</button>
-                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="RestaurantPhoto" asp-route-id="@restaurant.Id">Редактирай снимки</button>
-                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="MenuItem" asp-route-id="@restaurant.Id">Редактирай меню</button>
+                                                    <a class="dropdown-item" asp-action="edit" asp-controller="restaurant" asp-route-id="@restaurant.Id" asp-route-nexAction="Index">Редакция</a>
+                                                    <a type="submit" class="dropdown-item" asp-action="assignCategories" asp-controller="restaurant" asp-route-restaurantId="@restaurant.Id" asp-route-nexAction="Index">Редактирай категории</a>
+                                                    <button type="submit" class="dropdown-item" asp-action="assignFeatures" asp-controller="restaurant" asp-route-id="@restaurant.Id" asp-route-nexAction="Index">Редактирай характеристики</button>
+                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="WorkTimeSchedule" asp-route-id="@restaurant.Id" asp-route-nexAction="Index">Редактирай график</button>
+                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="RestaurantPhoto" asp-route-id="@restaurant.Id" asp-route-nexAction="Index">Редактирай снимки</button>
+                                                    <button type="submit" class="dropdown-item" asp-action="edit" asp-controller="MenuItem" asp-route-id="@restaurant.Id" asp-route-nexAction="Index">Редактирай меню</button>
                                                     <form method="post">
                                                         <button type="submit" class="dropdown-item" asp-action="delete" asp-controller="restaurant" asp-route-id="@restaurant.Id">Изтрий</button>
                                                     </form>

@@ -2,6 +2,7 @@
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
@@ -47,7 +48,9 @@ namespace FoodLoverGuide.Core.Services
 
 		public async Task<Guid> AddRestaurantCategories(AddCategoryToRestaurantVM model)
 		{
-			foreach (var cat in model.SelectedCategoriesIds)
+            var addedRestaurantCategories = this.repo.GetAllAsync<RestaurantCategories>().Select(r => r.CategoryId);
+
+			foreach (var cat in model.SelectedCategoriesIds.Where(r => !addedRestaurantCategories.Contains(r)))
 			{
 				var restCat = new RestaurantCategories()
 				{
@@ -57,7 +60,13 @@ namespace FoodLoverGuide.Core.Services
 
 				await this.repo.AddAsync(restCat);
 			}
+
             return model.RestaurantId;
 		}
-	}
+
+        public async Task<List<Guid>> GetCategoryIdsForRestaurantAsync(Guid restaurantId)
+        {
+            return await this.repo.GetAllAsync<RestaurantCategories>().Where(r => r.RestaurantId == restaurantId).Select(r => r.CategoryId).ToListAsync();
+        }
+    }
 }

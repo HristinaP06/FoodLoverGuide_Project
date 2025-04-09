@@ -2,6 +2,8 @@
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
@@ -54,6 +56,60 @@ namespace FoodLoverGuide.Core.Services
         public IQueryable<Restaurant> GetAllRestaurants()
         {
             return this.repo.GetAllAsync<Restaurant>();
+        }
+
+        public IQueryable<Restaurant> GetRestaurantsWithFilters(
+            string[] categoryIds = null,
+            string[] featureIds = null,
+            string priceRange = null,
+            string rating = null)
+        {
+            IQueryable<Restaurant> restaurants = this.repo.GetAllAsync<Restaurant>()
+                .Include(c => c.RestaurantCategoriesList)
+                .ThenInclude(y => y.Category)
+                .Include(f => f.Features)
+                .ThenInclude(x => x.Features)
+                .Include(r => r.Reviews)
+                .Include(p => p.Photos);
+
+            if (categoryIds != null && categoryIds.Any())
+            {
+                restaurants = restaurants.Where(r => r.RestaurantCategoriesList
+                    .Any(rc => categoryIds.Contains(rc.CategoryId.ToString())));
+            }
+
+            if (featureIds != null && featureIds.Any())
+            {
+                restaurants = restaurants.Where(r => r.Features
+                    .Any(f => featureIds.Contains(f.FeatureId.ToString())));
+            }
+
+            // Filter by price range
+            if (!string.IsNullOrEmpty(priceRange))
+            {
+                switch (priceRange.ToLower())
+                {
+                    case "budget":
+                        restaurants = restaurants.Where(r => r.PriceRangeTo <= 18);
+                        break;
+                    case "middle":
+                        restaurants = restaurants.Where(r => r.PriceRangeFrom >= 18 && r.PriceRangeTo <= 45);
+                        break;
+                    case "premium":
+                        restaurants = restaurants.Where(r => r.PriceRangeTo > 45);
+                        break;
+                }
+            }
+
+            // Filter by rating
+            if (!string.IsNullOrEmpty(rating) && double.TryParse(rating, NumberStyles.Any, CultureInfo.InvariantCulture, out double minRating))
+            {
+                restaurants = restaurants.Where(r => r.Reviews.Any()
+                    ? r.Reviews.Average(rev => rev.Rating) >= minRating
+                    : false);
+            }
+
+            return restaurants;
         }
 
         public async Task<Restaurant> GetByIdAsync(Guid id)
