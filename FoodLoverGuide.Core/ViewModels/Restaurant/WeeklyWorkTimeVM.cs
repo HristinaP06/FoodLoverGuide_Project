@@ -5,5 +5,7 @@
         public Guid RestaurantId { get; set; }
 
         public List<WorkTimeScheduleViewModel> WorkTimeSchedules { get; set; }
+
+        public string NextAction { get; set; }
     }
 }

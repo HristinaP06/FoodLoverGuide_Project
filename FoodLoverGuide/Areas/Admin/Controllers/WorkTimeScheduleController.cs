@@ -1,8 +1,6 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
-using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace FoodLoverGuide.Areas.Admin.Controllers
 {
@@ -50,7 +48,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
                 WorkTimeSchedules = weeklySchedule
             };
 
-            return View(model);
+            return View("ManageWorkTimeSchedule", model);
         }
 
         [HttpPost]
@@ -63,9 +61,64 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
                 return RedirectToAction("Create", "RestaurantPhoto", new { restaurantId = id });
             }
 
-            return View(model);
+            return View("ManageWorkTimeSchedule", model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditAsync(Guid restaurantId, string nextAction = null)
+        {
+            var restaurant = await restaurantService.GetByIdAsync(restaurantId);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
 
+            var workTimeSchedules = workTimeScheduleService.GetAll()
+                .Where(w => w.RestaurantId == restaurantId)
+                .ToList();
+
+            var weeklySchedule = Enum.GetValues(typeof(DayOfWeek))
+                .Cast<DayOfWeek>()
+                .OrderBy(d => (d == DayOfWeek.Sunday) ? 7 : (int)d)
+                .Select(day =>
+                {
+                    var existing = workTimeSchedules.FirstOrDefault(w => w.Day == day);
+                    return new WorkTimeScheduleViewModel
+                    {
+                        RestaurantId = restaurantId,
+                        Day = day,
+                        IsClosed = existing?.IsClosed ?? false,
+                        OpeningTime = existing?.OpeningTime ?? TimeSpan.Zero,
+                        ClosingTime = existing?.ClosingTime ?? TimeSpan.Zero
+                    };
+                }).ToList();
+
+            var model = new WeeklyWorkTimeVM
+            {
+                RestaurantId = restaurantId,
+                WorkTimeSchedules = weeklySchedule,
+                NextAction = nextAction
+            };
+
+            return View("ManageWorkTimeSchedule", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(WeeklyWorkTimeVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("ManageWorkTimeSchedule", model);
+            }
+
+            Guid id = await workTimeScheduleService.UpdateWorkTimeForRestaurantAsync(model);
+
+            if (!string.IsNullOrEmpty(model.NextAction))
+            {
+                return RedirectToAction(model.NextAction, "RestaurantPhoto", new { restaurantId = id });
+            }
+
+            return RedirectToAction("Index", "Restaurant");
+        }
     }
 }

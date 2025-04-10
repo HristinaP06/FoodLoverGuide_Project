@@ -64,5 +64,33 @@ namespace FoodLoverGuide.Core.Services
             }
             return model.RestaurantId;
         }
+
+        public async Task<Guid> UpdateWorkTimeForRestaurantAsync(WeeklyWorkTimeVM model)
+        {
+            var existing = this.GetAll()
+                .Where(w => w.RestaurantId == model.RestaurantId)
+                .ToList();
+
+            foreach (var e in existing)
+            {
+                await this.repo.DeleteAsync(e);
+            }
+
+            foreach (var day in model.WorkTimeSchedules)
+            {
+                var workTime = new WorkTimeSchedule
+                {
+                    RestaurantId = model.RestaurantId,
+                    Day = day.Day,
+                    IsClosed = day.IsClosed,
+                    OpeningTime = day.OpeningTime,
+                    ClosingTime = day.ClosingTime
+                };
+
+                await this.repo.AddAsync(workTime);
+            }
+
+            return model.RestaurantId;
+        }
     }
 }
