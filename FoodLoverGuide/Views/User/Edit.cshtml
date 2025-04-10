@@ -1,0 +1,87 @@
+﻿@model FoodLoverGuide.Core.ViewModels.User.UserEditVM
+
+@{
+    ViewData["Title"] = "Редактиране на профил";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card" style="border-radius: 15px; border: 0">
+                <div class="card-header" style="background-color: #e67e22; color: white; border-radius: 15px 15px 0 0;">
+                    <h4 class="mb-0 py-2">Редактиране на профил</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="FirstName" class="text-muted mb-2">Име</label>
+                                    <input asp-for="FirstName" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="LastName" class="text-muted mb-2">Фамилия</label>
+                                    <input asp-for="LastName" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="Email" class="text-muted mb-2">Имейл</label>
+                                    <input asp-for="Email" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="Age" class="text-muted mb-2">Възраст</label>
+                                    <input asp-for="Age" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="Age" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mt-4" style="color: #e67e22;">Смяна на парола (по желание)</h5>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="CurrentPassword" class="text-muted mb-2">Текуща парола</label>
+                                    <input asp-for="CurrentPassword" type="password" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="NewPassword" class="text-muted mb-2">Нова парола</label>
+                                    <input asp-for="NewPassword" type="password" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <label asp-for="ConfirmNewPassword" class="text-muted mb-2">Потвърди новата парола</label>
+                                    <input asp-for="ConfirmNewPassword" type="password" class="form-control" style="border-radius: 10px;" />
+                                    <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <button type="submit" class="btn" style="background-color: #e67e22; color: white; border-radius: 25px; padding: 10px 30px;">Запази</button>
+                            <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-outline-secondary" style="border-radius: 25px; padding: 10px 30px;">Отказ</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
