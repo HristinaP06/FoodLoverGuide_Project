@@ -3,6 +3,7 @@ using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace FoodLoverGuide.Core.Services
@@ -46,9 +47,9 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-		public async Task<Guid> AddRestaurantCategories(AddCategoryToRestaurantVM model)
+		public async Task<Guid> AddRestaurantCategoriesAsync(AddCategoryToRestaurantVM model)
 		{
-            var addedRestaurantCategories = this.repo.GetAllAsync<RestaurantCategories>().Select(r => r.CategoryId);
+            var addedRestaurantCategories = this.repo.GetAllAsync<RestaurantCategories>().Where(r => r.RestaurantId == model.RestaurantId).Select(r => r.CategoryId);
 
 			foreach (var cat in model.SelectedCategoriesIds.Where(r => !addedRestaurantCategories.Contains(r)))
 			{
@@ -63,6 +64,44 @@ namespace FoodLoverGuide.Core.Services
 
             return model.RestaurantId;
 		}
+
+        public async Task<Guid> UpdateRestaurantCategoriesAsync(AddCategoryToRestaurantVM model)
+        {
+            var existingCategoryIds = await this.repo
+                .GetAllAsync<RestaurantCategories>()
+                .Where(r => r.RestaurantId == model.RestaurantId)
+                .Select(r => r.CategoryId)
+                .ToListAsync();
+
+            var selectedCategoryIds = model.SelectedCategoriesIds ?? new List<Guid>();
+            var categoriesToAdd = selectedCategoryIds.Except(existingCategoryIds);
+
+            foreach (var categoryId in categoriesToAdd)
+            {
+                var newCategory = new RestaurantCategories
+                {
+                    RestaurantId = model.RestaurantId,
+                    CategoryId = categoryId
+                };
+
+                await this.repo.AddAsync(newCategory);
+            }
+
+            var categoriesToRemove = existingCategoryIds.Except(selectedCategoryIds);
+            foreach (var categoryId in categoriesToRemove)
+            {
+                var categoryToDelete = await this.repo
+                    .GetAllAsync<RestaurantCategories>()
+                    .FirstOrDefaultAsync(rf => rf.RestaurantId == model.RestaurantId && rf.CategoryId == categoryId);
+
+                if (categoryToDelete != null)
+                {
+                    await this.repo.DeleteAsync(categoryToDelete);
+                }
+            }
+
+            return model.RestaurantId;
+        }
 
         public async Task<List<Guid>> GetCategoryIdsForRestaurantAsync(Guid restaurantId)
         {

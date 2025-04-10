@@ -5,8 +5,10 @@ namespace FoodLoverGuide.Core.IServices
 {
 	public interface IRestaurantCategoriesService : IService<RestaurantCategories>
     {
-		Task<Guid> AddRestaurantCategories(AddCategoryToRestaurantVM model);
+		Task<Guid> AddRestaurantCategoriesAsync(AddCategoryToRestaurantVM model);
 
-		Task<List<Guid>> GetCategoryIdsForRestaurantAsync(Guid id);
+        Task<Guid> UpdateRestaurantCategoriesAsync(AddCategoryToRestaurantVM model);
+
+        Task<List<Guid>> GetCategoryIdsForRestaurantAsync(Guid id);
     }
 }

@@ -1,0 +1,52 @@
+﻿@using FoodLoverGuide.Core.ViewModels.Restaurant
+
+@model AddCategoryToRestaurantVM
+
+@{
+    string cardTitle = !string.IsNullOrEmpty(Model.NextAction) ? "Стъпка 2 - Добави категории" : "Редакция на категории";
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header" style="background-color: #27ae60">
+                <h3 class="card-title" style="color: white">@cardTitle</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
+                    <input type="hidden" name="NextAction" value="@Model.NextAction" />
+
+                    @foreach (var cat in Model.CategoriesList)
+                    {
+                        var isChecked = Model.SelectedCategoriesIds.Contains(cat.Id) ? "checked" : "";
+                        <div class="form-check mb-2 ml-2">
+                            <input type="checkbox" class="form-check-input" name="SelectedCategoriesIds" id="category-@cat.Id" value="@cat.Id" @isChecked />
+                            <label class="form-check-label" for="category-@cat.Id">@cat.CategoryName</label>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer">
+                    @if (!string.IsNullOrEmpty(Model.NextAction))
+                    {
+                        <button class="btn float-right" style="background-color: #27ae60; color: white" type="submit" asp-action="AddRestaurantCategories" asp-controller="RestaurantCategory">
+                            <i class="fas fa-plus-circle mr-1"></i>Напред
+                        </button>
+                        <a asp-action="Edit" asp-controller="restaurant" asp-route-id="@Model.RestaurantId" asp-route-nextAction="AddRestaurantCategories" class="btn btn-default">
+                            <i class="fas fa-arrow-left mr-1"></i> Назад
+                        </a>
+                    }
+                    else
+                    {
+                        <button class="btn float-right" style="background-color: #27ae60; color: white" type="submit" asp-action="EditRestaurantCategories" asp-controller="RestaurantCategory">
+                            <i class="fas fa-plus-circle mr-1"></i>Запази
+                        </button>
+                        <a asp-action="Index" asp-controller="restaurant" class="btn btn-default">
+                            <i class="fas fa-arrow-left mr-1"></i> Назад
+                        </a>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

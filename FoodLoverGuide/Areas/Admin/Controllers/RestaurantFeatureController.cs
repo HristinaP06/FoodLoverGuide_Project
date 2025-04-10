@@ -42,7 +42,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
                 return RedirectToAction(model.NextAction, "WorkTimeSchedule", new { restaurantId = model.RestaurantId });
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Restaurant");
         }
 
         [HttpGet]
