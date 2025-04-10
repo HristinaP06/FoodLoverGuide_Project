@@ -54,9 +54,9 @@ namespace FoodLoverGuide.Core.Services
         public async Task<bool> IsRestaurantOpen(Guid restaurantId, DateTime dateTime)
         {
             var workSchedule = await workTimeScheduleService.Find(w => w.RestaurantId == restaurantId && w.Day == dateTime.DayOfWeek);
-
             var schedule = workSchedule.FirstOrDefault();
-            if (schedule != null || schedule.IsClosed) 
+
+            if (schedule == null || schedule.IsClosed)
             {
                 return false;
             }

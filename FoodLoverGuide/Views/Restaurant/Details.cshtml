@@ -1,4 +1,9 @@
-﻿@model FoodLoverGuide.Models.Restaurant
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model FoodLoverGuide.Models.Restaurant
 
 @{
     ViewData["Title"] = Model.Name;
@@ -62,7 +67,6 @@
                             <p class="text-justify">@Model.Description</p>
                         </div>
 
-                        <!-- Добавяне на категории -->
                         @if (Model.RestaurantCategoriesList != null && Model.RestaurantCategoriesList.Any())
                         {
                             <div class="mb-4">
@@ -76,7 +80,6 @@
                             </div>
                         }
 
-                        <!-- Добавяне на характеристики -->
                         @if (Model.Features != null && Model.Features.Any())
                         {
                             <div class="mb-4">
@@ -216,13 +219,116 @@
                         </div>
                     </div>
                 }
+
+                <!-- Reviews and Rating Section -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-white d-flex align-items-center">
+                        <h5 class="mb-0">Отзиви и рейтинг</h5>
+                        <button class="btn btn-outline-primary btn-sm ms-auto" style="border-radius: 25px;" data-bs-toggle="collapse" data-bs-target="#addReviewForm">
+                            <i class="fas fa-plus mr-1"></i> Добави отзив
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <!-- Collapsible Form for Adding Rating and Review -->
+                        <div id="addReviewForm" class="collapse mt-3">
+                            <form asp-controller="Review" asp-action="Create" method="post" class="mb-4">
+                                <input type="hidden" name="RestaurantId" value="@Model.Id" />
+                                <div class="form-group mb-3">
+                                    <label for="rating" class="font-weight-bold">Оценка *</label>
+                                    <select name="Rating" id="rating" class="form-control" style="height: 45px;" required>
+                                        <option value="">Изберете оценка</option>
+                                        <option value="1">1 - Много лошо</option>
+                                        <option value="2">2 - Лошо</option>
+                                        <option value="3">3 - Средно</option>
+                                        <option value="4">4 - Добро</option>
+                                        <option value="5">5 - Отлично</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="reviewDescription" class="font-weight-bold">Отзив (по желание)</label>
+                                    <textarea name="Description" id="reviewDescription" class="form-control" rows="3" placeholder="Напишете вашия отзив тук"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="border-radius: 25px;">Добави</button>
+                            </form>
+                        </div>
+
+                        <!-- List of Reviews -->
+                        @if (Model.Reviews != null && Model.Reviews.Any())
+                        {
+                            <h5 class="border-bottom pb-2 mb-3 mt-4">Отзиви от потребители</h5>
+                            var currentUserId = UserManager.GetUserId(User);
+                            @foreach (var review in Model.Reviews.OrderByDescending(r => r.Id))
+                            {
+                                <div class="mb-4 pb-3 border-bottom">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0" style="color: #e67e22;">Оценка</h6>
+                                        <div>
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= Math.Floor(review.Rating))
+                                                {
+                                                    <i class="fas fa-star text-warning"></i>
+                                                }
+                                                else if (i - review.Rating > 0 && i - review.Rating < 1)
+                                                {
+                                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-star text-warning"></i>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted small mb-0">
+                                            От: @review.User?.UserName
+                                        </p>
+                                        @if (review.UserId == currentUserId)
+                                        {
+                                            <button type="button" class="btn btn-outline-danger btn-sm ms-auto" style="border-radius: 25px;"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
+                                                    data-review-id="@review.Id" data-restaurant-id="@Model.Id">
+                                                <i class="fas fa-trash-alt"></i> Изтрий
+                                            </button>
+                                        }
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(review.Description))
+                                    {
+                                        <p>@review.Description</p>
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted mt-3">Все още няма отзиви за този ресторант.</p>
+                        }
+                    </div>
+                </div>
+                <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 15px; border: 2px solid #e67e22;">
+                            <div class="modal-header" style="background-color: #e67e22; color: white; border-radius: 12px 12px 0 0;">
+                                <h5 class="modal-title" id="deleteReviewModalLabel">Потвърждение за изтриване</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center" style="color: #2c3e50;">Сигурни ли сте, че искате да изтриете това ревю?</p>
+                            </div>
+                            <div class="modal-footer justify-content-center" style="border-top: 0;">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius: 25px; padding: 8px 20px;">Отказ</button>
+                                <button type="button" class="btn" id="confirmDeleteReviewBtn" style="background-color: #e74c3c; color: white; border-radius: 25px; padding: 8px 20px;">Изтрий</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Дясна странична лента -->
         <div class="col-lg-4 ml-auto">
             <div class="sticky-sidebar">
-                <!-- Контакти -->
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header bg-white">
                         <h5 class="mb-0">Свържи се</h5>
@@ -265,7 +371,6 @@
                     </div>
                 </div>
 
-                <!-- Работно време -->
                 @if (Model.WorkTime != null && Model.WorkTime.Any())
                 {
                     <div class="card mb-4 shadow-sm">
@@ -293,7 +398,6 @@
                     </div>
                 }
 
-                <!-- Карта -->
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header bg-white">
                         <h5 class="mb-0">Местоположение</h5>
@@ -312,7 +416,7 @@
         </div>
 
         <div class="text-center mt-3">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-primary" style="border-radius: 25px;">
+            <a asp-controller="Restaurant" asp-action="Index" class="btn btn-primary" style="border-radius: 25px;">
                 <i class="fas fa-arrow-left mr-1"></i> Назад към всички ресторанти
             </a>
         </div>
@@ -336,24 +440,40 @@
     }
 }
 
-<script>
-    document.getElementById("toggleMenuButton").addEventListener("click", function (event) {
-        event.preventDefault();
-        const menuItems = document.querySelectorAll(".menu-photo.d-none");
-        const isHidden = menuItems.length > 0;
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("toggleMenuButton").addEventListener("click", function (event) {
+            event.preventDefault();
+            const menuItems = document.querySelectorAll(".menu-photo.d-none");
+            const isHidden = menuItems.length > 0;
 
-        if (isHidden) {
-            document.querySelectorAll(".menu-photo.d-none").forEach(photo => {
-                photo.classList.remove("d-none");
+            if (isHidden) {
+                document.querySelectorAll(".menu-photo.d-none").forEach(photo => {
+                    photo.classList.remove("d-none");
+                });
+                this.textContent = "Скрий всички";
+            } else {
+                document.querySelectorAll(".menu-photo").forEach((photo, index) => {
+                    if (index >= 3) {
+                        photo.classList.add("d-none");
+                    }
+                });
+                this.textContent = "Виж всички";
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteModal = document.getElementById('deleteReviewModal');
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget; // Бутонът, който отвори модала
+                var reviewId = button.getAttribute('data-review-id');
+                var restaurantId = button.getAttribute('data-restaurant-id');
+                var confirmDeleteBtn = deleteModal.querySelector('#confirmDeleteReviewBtn');
+                confirmDeleteBtn.onclick = function () {
+                    window.location.href = `/Review/Delete?reviewId=${reviewId}&restaurantId=${restaurantId}`;
+                };
             });
-            this.textContent = "Скрий всички";
-        } else {
-            document.querySelectorAll(".menu-photo").forEach((photo, index) => {
-                if (index >= 3) {
-                    photo.classList.add("d-none");
-                }
-            });
-            this.textContent = "Виж всички";
-        }
-    });
-</script>
+        });
+    </script>
+}
