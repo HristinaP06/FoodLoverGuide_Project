@@ -4,12 +4,11 @@
     ViewBag.Title = "Добре дошли в Ресторантския Каталог";
 }
 
-
 <html lang="en" style="height: auto;">
 <head>
     <title>FoodLoverGuide</title>
 </head>
-<body class="sidebar-mini" style="height:auto; background-image: url('/img/foodLover.png'); backdrop-filter:blur(1px)">
+<body style="height:auto; background-image: url('/img/foodLover.png'); backdrop-filter:blur(1px)">
     <div class="container">
         <!-- Послание -->
         <div class="welcome-section text-center mt-5">
@@ -36,6 +35,7 @@
                 <h4>Общо ресторанти в каталога: <span class="badge">@Model.RestaurantsCount</span></h4>
             </div>
         </div>
+
         <!-- Топ 3 ресторанта -->
         <div class="top-restaurants-container">
             <div class="top-restaurants">
@@ -43,6 +43,8 @@
                 <div class="row">
                     @foreach (var restaurant in Model.Restaurants)
                     {
+                        @if(restaurant.IsActive)
+                        {
                         <div class="col-md-4">
                             <div class="card mb-4">
                                 <div class="card-body">
@@ -64,13 +66,32 @@
                                 </div>
                             </div>
                         </div>
+                        }
                     }
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция "За нас" без снимка, изместена и с непрозрачен фон -->
+        <div class="about-us-container py-5 mt-5">
+            <div class="card shadow-sm" style="border-radius: 15px; border: 2px solid #e67e22; background-color: #ffffff;">
+                <div class="card-header" style="background-color: #e67e22; color: white; border-radius: 12px 12px 0 0;">
+                    <h3 class="mb-0 py-2 text-center">За нас</h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-center" style="color: #2c3e50;">
+                        Ние сме <strong>Food Lover Guide</strong> – вашето ръководство в света на кулинарията! Създадохме тази платформа, за да свържем любителите на храната с най-добрите ресторанти около тях. От малки семейни заведения до изискани гурме дестинации – тук ще намерите всичко, което ви трябва, за да превърнете всяко хранене в незабравимо изживяване.
+                    </p>
+                    <p class="text-center" style="color: #2c3e50;">
+                        Нашата мисия е да подкрепяме местните бизнеси и да улесняваме вашите избори с актуална информация, отзиви и лесни резервации. Присъединете се към нашата общност и споделете своите вкусни приключения!
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+
 @section Scripts {
     <!-- Добавяне на Font Awesome за звездичките -->
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>

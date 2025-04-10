@@ -95,6 +95,8 @@
         {
             @foreach (var restaurant in Model.Restaurants)
             {
+                @if(restaurant.IsActive)
+                {
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card h-100 restaurant-card" style="background-color: rgba(255, 255, 255, 0.95); border: 2px solid #e67e22;">
                         <div class="position-relative">
@@ -143,9 +145,9 @@
                             }
 
                             <p class="card-text small mb-0" style="color: #7d6608;">
-                                @if (!string.IsNullOrEmpty(restaurant.Description) && restaurant.Description.Length > 90)
+                                @if (!string.IsNullOrEmpty(restaurant.Description) && restaurant.Description.Length > 80)
                                 {
-                                    @(restaurant.Description.Substring(0, 90) + "...")
+                                    @(restaurant.Description.Substring(0, 80) + "...")
                                 }
                                 else
                                 {
@@ -170,6 +172,7 @@
                         </div>
                     </div>
                 </div>
+                }
             }
         }
         else

@@ -138,5 +138,26 @@ namespace FoodLoverGuide.Core.Services
 
             await this.repo.UpdateAsync(restaurant);
         }
+
+        public async Task Activate(Restaurant restaurant)
+        {
+            if (restaurant.IsActive)
+            {
+                return;
+            }
+            
+            restaurant.IsActive = true;
+            await this.repo.UpdateAsync(restaurant);
+        }
+
+        public async Task Deactivate(Restaurant restaurant)
+        {
+            if (!restaurant.IsActive)
+            {
+                return;
+            }
+            restaurant.IsActive = false;
+            await this.repo.UpdateAsync(restaurant);
+        }
     }
 }

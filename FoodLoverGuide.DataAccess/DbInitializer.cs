@@ -118,7 +118,8 @@ namespace FoodLoverGuide.DataAccess
                         PriceRangeFrom = 18,
                         PriceRangeTo = 45,
                         IndoorCapacity = 60,
-                        OutdoorCapacity = 60
+                        OutdoorCapacity = 60,
+                        IsActive = true
                      },
                      new Restaurant
                      {
@@ -138,7 +139,8 @@ namespace FoodLoverGuide.DataAccess
                         PriceRangeFrom = 18,
                         PriceRangeTo = 45,
                         IndoorCapacity = 30,
-                        OutdoorCapacity = 30
+                        OutdoorCapacity = 30,
+                        IsActive = true
                      },
                      new Restaurant
                      {
@@ -157,7 +159,8 @@ namespace FoodLoverGuide.DataAccess
                         PriceRangeFrom = 18,
                         PriceRangeTo = 45,
                         IndoorCapacity = 100,
-                        OutdoorCapacity = 0
+                        OutdoorCapacity = 0,
+                        IsActive = true
                      }
                 };
 

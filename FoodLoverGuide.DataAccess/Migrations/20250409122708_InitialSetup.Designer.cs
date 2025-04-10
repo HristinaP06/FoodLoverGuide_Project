@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLoverGuide.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250407121819_InitialSetup")]
+    [Migration("20250409122708_InitialSetup")]
     partial class InitialSetup
     {
         /// <inheritdoc />
@@ -126,6 +126,9 @@ namespace FoodLoverGuide.DataAccess.Migrations
 
                     b.Property<string>("Instagram")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Location")
                         .IsRequired()

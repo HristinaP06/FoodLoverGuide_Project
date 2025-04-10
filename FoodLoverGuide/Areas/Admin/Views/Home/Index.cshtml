@@ -1,1 +1,81 @@
-﻿
+﻿@model IEnumerable<FoodLoverGuide.Models.Restaurant>
+
+@{
+    ViewData["Title"] = "Всички ресторанти";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <h2 style="text-align:center; color: #e67e22">Ресторанти</h2>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th style="border-bottom-color: #e67e22">Име</th>
+                                    <th style="border-bottom-color: #e67e22">Състояние</th>
+                                    <th style="border-bottom-color: #e67e22">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var restaurant in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="name-label">
+                                                @restaurant.Name
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="badge" style="@(restaurant.IsActive ? "background-color: #27ae60;" : "background-color: #e74c3c;")">
+                                                @(restaurant.IsActive ? "Активен" : "Неактивен")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group-sm">
+                                                @if (restaurant.IsActive)
+                                                {
+                                                    <form method="post" asp-controller="Restaurant" asp-action="Deactivate" asp-route-id="@restaurant.Id" class="d-inline">
+                                                        <input type="hidden" name="id" value="@restaurant.Id" />
+                                                        <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+                                                        <button type="submit" class="btn" style="background-color: #e74c3c; color: white; border-radius: 25px; padding: 3px 7px;">Деактивирай</button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <form method="post" asp-controller="Restaurant" asp-action="Activate" asp-route-id="@restaurant.Id" class="d-inline">
+                                                        <input type="hidden" name="id" value="@restaurant.Id" />
+                                                        <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+                                                        <button type="submit" class="btn" style="background-color: #27ae60; color: white; border-radius: 25px; padding: 3px 7px;">Активирай</button>
+                                                    </form>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+
+<style>
+    .name-label {
+        text-decoration: none;
+        color: black;
+    }
+
+        .name-label:hover {
+            text-decoration: underline;
+            color: black;
+        }
+</style>

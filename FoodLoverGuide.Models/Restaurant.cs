@@ -50,5 +50,7 @@ namespace FoodLoverGuide.Models
         public string? Facebook { get; set; }
 
         public string? WebSite { get; set; }
+
+        public bool IsActive {  get; set; } = false;
     }
 }

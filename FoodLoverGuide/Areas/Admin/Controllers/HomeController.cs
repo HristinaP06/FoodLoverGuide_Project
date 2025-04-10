@@ -19,11 +19,10 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
             this.rService = rService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            var restaurants = rService.GetAllRestaurants().Include(r => r.Reviews).ToList();
-            
-            ViewData[MessageConstants.SuccessMessage] = "Everything works";
+            var restaurants = await rService.GetAllRestaurants().ToListAsync();
+
             return View(restaurants);
         }
 
