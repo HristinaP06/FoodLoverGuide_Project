@@ -27,17 +27,20 @@
                     }
                 </div>
                 <div class="card-footer">
-                    <button class="btn float-right" style="background-color: #27ae60; color: white" type="submit" asp-action="EditRestaurantFeatures" asp-controller="RestaurantFeature">
-                        <i class="fas fa-plus-circle mr-1"></i>Запази
-                    </button>
                     @if (!string.IsNullOrEmpty(Model.NextAction))
                     {
+                        <button class="btn float-right" style="background-color: #27ae60; color: white" type="submit" asp-action="AddRestaurantFeatures" asp-controller="RestaurantFeature">
+                            <i class="fas fa-plus-circle mr-1"></i>Напред
+                        </button>
                         <a asp-action="editCategories" asp-controller="restaurant" asp-route-restaurantId="@Model.RestaurantId" asp-route-nextAction="AssignFeatures" class="btn btn-default">
                             <i class="fas fa-arrow-left mr-1"></i> Назад
                         </a>
                     }
                     else
                     {
+                        <button class="btn float-right" style="background-color: #27ae60; color: white" type="submit" asp-action="EditRestaurantFeatures" asp-controller="RestaurantFeature">
+                            <i class="fas fa-plus-circle mr-1"></i>Запази
+                        </button>
                         <a asp-action="Index" asp-controller="Restaurant" class="btn btn-default">
                             <i class="fas fa-arrow-left mr-1"></i> Назад
                         </a>
