@@ -33,6 +33,12 @@ namespace FoodLoverGuide.DataAccess.Repository
             await this.context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync<T>(T entity) where T : class
+        {
+            DbSet<T>().Remove(entity);
+            await context.SaveChangesAsync();
+        }
+
         public async Task UpdateAsync<T>(T entity) where T : class
         {
             DbSet<T>().Update(entity);

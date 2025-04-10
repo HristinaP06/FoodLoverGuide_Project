@@ -1,13 +1,6 @@
-﻿using FoodLoverGuide.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoodLoverGuide.Core.ViewModels.Restaurant
+﻿namespace FoodLoverGuide.Core.ViewModels.Restaurant
 {
-	public class AddFeatureToRestaurantVM
+    public class AddFeatureToRestaurantVM
 	{
         public Guid RestaurantId { get; set; }
 

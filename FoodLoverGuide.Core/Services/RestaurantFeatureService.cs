@@ -48,7 +48,7 @@ namespace FoodLoverGuide.Core.Services
 
         public async Task<Guid> AddRestaurantFeatures(AddFeatureToRestaurantVM model)
         {
-            var addedRestaurantFeatures = this.repo.GetAllAsync<RestaurantFeature>().Select(r => r.FeatureId);
+            var addedRestaurantFeatures = this.repo.GetAllAsync<RestaurantFeature>().Where(r => r.RestaurantId == model.RestaurantId).Select(r => r.FeatureId);
 
             foreach (var feat in model.SelectedFeaturesIds.Where(r => !addedRestaurantFeatures.Contains(r)))
             {
@@ -60,6 +60,44 @@ namespace FoodLoverGuide.Core.Services
 
                 await this.repo.AddAsync(restFeat);
             }
+            return model.RestaurantId;
+        }
+
+        public async Task<Guid> UpdateRestaurantFeaturesAsync(AddFeatureToRestaurantVM model)
+        {
+            var existingFeatureIds = await this.repo
+                .GetAllAsync<RestaurantFeature>()
+                .Where(r => r.RestaurantId == model.RestaurantId)
+                .Select(r => r.FeatureId)
+                .ToListAsync();
+
+            var selectedFeatureIds = model.SelectedFeaturesIds ?? new List<Guid>();
+            var featuresToAdd = selectedFeatureIds.Except(existingFeatureIds);
+
+            foreach (var featureId in featuresToAdd)
+            {
+                var newFeature = new RestaurantFeature
+                {
+                    RestaurantId = model.RestaurantId,
+                    FeatureId = featureId
+                };
+
+                await this.repo.AddAsync(newFeature);
+            }
+
+            var featuresToRemove = existingFeatureIds.Except(selectedFeatureIds);
+            foreach (var featureId in featuresToRemove)
+            {
+                var featureToDelete = await this.repo
+                    .GetAllAsync<RestaurantFeature>()
+                    .FirstOrDefaultAsync(rf => rf.RestaurantId == model.RestaurantId && rf.FeatureId == featureId);
+
+                if (featureToDelete != null)
+                {
+                    await this.repo.DeleteAsync<RestaurantFeature>(featureToDelete);
+                }
+            }
+
             return model.RestaurantId;
         }
 
