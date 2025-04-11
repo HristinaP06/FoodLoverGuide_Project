@@ -78,5 +78,33 @@ namespace FoodLoverGuide.Core.Services
 
             return restaurantId;
         }
+
+        public async Task UpdateMenuItemPhotoAsync(Guid menuItemId, IFormFile file, string url)
+        {
+            var item = await this.repo.GetByIdAsync<MenuItem>(menuItemId);
+            if (item == null)
+            {
+                throw new ArgumentException("Menu item not found.");
+            }
+
+            string uploadedImageUrl = null;
+
+            if (file != null)
+            {
+                uploadedImageUrl = await cloudinary.UploadImageAsync(file);
+            }
+            else if (!string.IsNullOrEmpty(url))
+            {
+                uploadedImageUrl = url;
+            }
+
+            if (!string.IsNullOrEmpty(uploadedImageUrl))
+            {
+                item.Photo = uploadedImageUrl;
+                item.ImageFile = file;
+                await this.repo.UpdateAsync(item);
+            }
+        }
+
     }
 }
