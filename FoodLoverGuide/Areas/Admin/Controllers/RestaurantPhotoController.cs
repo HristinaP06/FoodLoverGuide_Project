@@ -1,7 +1,7 @@
 ﻿using FoodLoverGuide.Areas.Admin.Controllers;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
-using FoodLoverGuide.Models;
+using FoodLoverGuide.Core.ViewModels.RestaurantPhoto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +18,10 @@ namespace FoodLoverGuide.Areas.Admin.Views
             this.restaurantService = restaurantService;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        [HttpGet]
+        public async Task<IActionResult> IndexAsync(Guid restaurantId)
         {
-            var list = await this.restaurantPhotoService.GetAll().ToListAsync();
+            var list = await this.restaurantPhotoService.GetAll().Where(p => p.RestaurantId == restaurantId).ToListAsync();
 
             return View(list);
         }
@@ -50,7 +51,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
             {
                 foreach (var url in model.Photos)
                 {
-                    await this.restaurantPhotoService.AddRestaurantPhoto(model.RestaurantId, null, url);
+                    await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, null, url);
                 }
             }
 
@@ -58,7 +59,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
             {
                 foreach (var file in model.Files)
                 {
-                    await this.restaurantPhotoService.AddRestaurantPhoto(model.RestaurantId, file, null);
+                    await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, file, null);
                 }
             }
             return RedirectToAction("Create", "MenuItem", new { restaurantId = model.RestaurantId});
@@ -67,22 +68,36 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var obj = await this.restaurantPhotoService.GetById(id);
-            return View(obj);
+            var photo = await restaurantPhotoService.GetById(id);
+            if (photo == null)
+            {
+                return NotFound();
+            }
+
+            var model = new EditPhotoRestaurantVM
+            {
+                Id = photo.Id,
+                RestaurantId = photo.RestaurantId,
+                CurrentPhotoUrl = photo.Photo
+            };
+
+            return View(model);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> EditAsync(RestaurantPhoto photo)
+        public async Task<IActionResult> EditAsync(EditPhotoRestaurantVM model)
         {
-            await this.restaurantPhotoService.Update(photo);
-            return RedirectToAction("Index");
+            await this.restaurantPhotoService.UpdateRestaurantPhotoAsync(model.Id, model.NewFile, model.NewUrl);
+            return RedirectToAction("Index", new { model.RestaurantId });
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id, Guid restaurantId)
         {
             await this.restaurantPhotoService.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { restaurantId });
         }
     }
 }

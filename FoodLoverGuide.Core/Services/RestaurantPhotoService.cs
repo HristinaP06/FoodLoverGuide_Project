@@ -1,5 +1,4 @@
 ﻿using FoodLoverGuide.Core.IServices;
-using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.DataAccess.Repository;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Http;
@@ -47,14 +46,14 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-        public async Task<Guid> AddRestaurantPhoto(Guid restaurantId, IFormFile file, string url)
+        public async Task<Guid> AddRestaurantPhotoAsync(Guid restaurantId, IFormFile file, string url)
         {
             string uploadedImageUrl = null;
 
             // Handle file upload to Cloudinary
             if (file != null)
             {
-                uploadedImageUrl = await cloudinary.UploadImageAsync(file); // Upload to Cloudinary
+                uploadedImageUrl = await this.cloudinary.UploadImageAsync(file); // Upload to Cloudinary
             }
             // Handle URL input from the user
             else if (!string.IsNullOrEmpty(url))
@@ -77,5 +76,33 @@ namespace FoodLoverGuide.Core.Services
             return restaurantId;
         }
 
+        public async Task UpdateRestaurantPhotoAsync(Guid id, IFormFile newFile, string newUrl)
+        {
+            var existing = await this.repo.GetByIdAsync<RestaurantPhoto>(id);
+
+            if (existing == null)
+            {
+                throw new Exception("Photo not found.");
+            }
+
+            string updatedPhotoUrl = null;
+
+            if (newFile != null)
+            {
+                updatedPhotoUrl = await this.cloudinary.UploadImageAsync(newFile);
+                existing.ImageFile = newFile;
+            }
+            else if (!string.IsNullOrEmpty(newUrl))
+            {
+                updatedPhotoUrl = newUrl;
+                existing.ImageFile = null;
+            }
+
+            if (!string.IsNullOrEmpty(updatedPhotoUrl))
+            {
+                existing.Photo = updatedPhotoUrl;
+                await this.repo.UpdateAsync(existing);
+            }
+        }
     }
 }

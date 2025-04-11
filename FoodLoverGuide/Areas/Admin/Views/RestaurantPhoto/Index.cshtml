@@ -1,0 +1,39 @@
+﻿@model IEnumerable<FoodLoverGuide.Models.RestaurantPhoto>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <h2 style="text-align:center; color: #e67e22">Редакция на снимки</h2>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Снимка</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var photo in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="@photo.Photo" alt="Ресторантска снимка" style="max-height: 100px;" />
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@photo.Id" class="btn btn-warning btn-sm">Редактирай</a>
+                                            <form asp-action="Delete" asp-route-id="@photo.Id" asp-route-restaurantId="@photo.RestaurantId" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm">Изтрий</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
