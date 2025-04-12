@@ -1,13 +1,20 @@
-﻿@model FoodLoverGuide.Core.ViewModels.Restaurant.AddPhotoRestaurantVM
+﻿@using FoodLoverGuide.Core.ViewModels.MenuItem
+@model AddRestaurantMenuItemVM
+
+@{
+    string cardTitle = !string.IsNullOrEmpty(Model.NextAction) && Model.NextAction == "Index" ? "Добави снимка на меню" : "Стъпка 6 - Добави снимки на менюто";
+}
+
 <div class="row d-flex justify-content-center">
     <div class="col-md-8">
         <div class="card card-success">
             <div class="card-header" style="background-color: #27ae60">
-                <h3 class="card-title" style="color: white">Стъпка 6 - Добави снимки на менюто</h3>
+                <h3 class="card-title" style="color: white">@cardTitle</h3>
             </div>
             <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="MenuItem">
                 <div class="card-body">
                     <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
+                    <input type="hidden" name="NextAction" value="@Model.NextAction" />
 
                     <div class="form-group">
                         <label class="font-weight-bold">Качи снимка</label>
@@ -23,8 +30,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Photos" class="font-weight-bold">Или добави URL на снимата</label>
-                        <input type="text" class="form-control" asp-for="Photos" placeholder="Enter image URL" />
+                        <label for="MenuPhotos" class="font-weight-bold">Или добави URL на снимата</label>
+                        <input type="text" class="form-control" asp-for="MenuPhotos" placeholder="Enter image URL" />
                         <small class="form-text text-muted">За да добавите няколко URL адреса, разделете ги със запетая.</small>
                     </div>
                 </div>

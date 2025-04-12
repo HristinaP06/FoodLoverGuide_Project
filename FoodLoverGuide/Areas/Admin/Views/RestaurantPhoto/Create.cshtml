@@ -1,13 +1,20 @@
-﻿@model FoodLoverGuide.Core.ViewModels.Restaurant.AddPhotoRestaurantVM
+﻿@using FoodLoverGuide.Core.ViewModels.RestaurantPhoto
+@model AddPhotoRestaurantVM
+
+@{
+    string cardTitle = !string.IsNullOrEmpty(Model.NextAction) && Model.NextAction == "Index" ? "Добави снимка" : "Стъпка 5 - Добави снимки на ресторанта";
+}
+
 <div class="row d-flex justify-content-center">
     <div class="col-md-8">
         <div class="card card-success">
             <div class="card-header" style="background-color: #27ae60">
-                <h3 class="card-title" style="color: white">Стъпка 5 - Добави снимки на ресторанта</h3>
+                <h3 class="card-title" style="color: white">@cardTitle</h3>
             </div>
             <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="RestaurantPhoto">
                 <div class="card-body">
                     <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
+                    <input type="hidden" name="NextAction" value="@Model.NextAction" />
 
                     <div class="form-group">
                         <label class="font-weight-bold">Качи снимка</label>

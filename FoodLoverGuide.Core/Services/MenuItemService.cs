@@ -49,7 +49,7 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-        public async Task<Guid> AddRestaurantPhoto(Guid restaurantId, IFormFile file, string url)
+        public async Task<Guid> AddRestaurantMenuPhotoAsync(Guid restaurantId, IFormFile file, string url)
         {
             string uploadedImageUrl = null;
 

@@ -1,6 +1,5 @@
 ﻿using FoodLoverGuide.Areas.Admin.Controllers;
 using FoodLoverGuide.Core.IServices;
-using FoodLoverGuide.Core.ViewModels.Restaurant;
 using FoodLoverGuide.Core.ViewModels.RestaurantPhoto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +20,22 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public async Task<IActionResult> IndexAsync(Guid restaurantId)
         {
-            var list = await this.restaurantPhotoService.GetAll().Where(p => p.RestaurantId == restaurantId).ToListAsync();
+            var list = await this.restaurantPhotoService
+                .GetAll()
+                .Where(p => p.RestaurantId == restaurantId)
+                .ToListAsync();
 
-            return View(list);
+            var vm = new RestaurantPhotosVM
+            {
+                RestaurantId = restaurantId,
+                RestaurantPhotos = list,
+            };
+
+            return View(vm);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(Guid restaurantId)
+        public async Task<IActionResult> CreateAsync(Guid restaurantId, string nextAction = null)
         {
             var restaurant = await this.restaurantService.GetByIdAsync(restaurantId);
 
@@ -38,7 +46,8 @@ namespace FoodLoverGuide.Areas.Admin.Views
 
             var model = new AddPhotoRestaurantVM
             {
-                RestaurantId = restaurant.Id
+                RestaurantId = restaurant.Id,
+                NextAction = nextAction,
             };
 
             return View(model);
@@ -62,7 +71,15 @@ namespace FoodLoverGuide.Areas.Admin.Views
                     await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, file, null);
                 }
             }
-            return RedirectToAction("Create", "MenuItem", new { restaurantId = model.RestaurantId});
+
+            if (!string.IsNullOrEmpty(model.NextAction) && model.NextAction == "Index")
+            {
+                return RedirectToAction("Index", new { model.RestaurantId });
+            }
+            else
+            {
+                return RedirectToAction("Create", "MenuItem", new { restaurantId = model.RestaurantId});
+            }
         }
 
         [HttpGet]

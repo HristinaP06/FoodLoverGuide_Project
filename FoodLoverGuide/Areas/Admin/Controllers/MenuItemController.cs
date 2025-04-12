@@ -1,7 +1,6 @@
 ﻿using FoodLoverGuide.Areas.Admin.Controllers;
 using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.MenuItem;
-using FoodLoverGuide.Core.ViewModels.Restaurant;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,38 +9,76 @@ namespace FoodLoverGuide.Areas.Admin.Views
     public class MenuItemController : BaseController
     {
         private readonly IMenuItemService menuItemService;
+        private readonly IRestaurantService restaurantService;
 
-        public MenuItemController(IMenuItemService menuItemService)
+        public MenuItemController(IMenuItemService menuItemService, IRestaurantService restaurantService)
         {
             this.menuItemService = menuItemService;
+            this.restaurantService = restaurantService;
         }
 
         [HttpGet]
         public async Task<IActionResult> IndexAsync(Guid restaurantId)
         {
-            var list =  await this.menuItemService.GetAll().Where(p => p.RestaurantId == restaurantId).ToListAsync();
-            return View(list);
+            var list =  await this.menuItemService
+                .GetAll()
+                .Where(p => p.RestaurantId == restaurantId)
+                .ToListAsync();
+
+            var vm = new MenuItemsVM
+            {
+                RestaurantId = restaurantId,
+                MenuItems = list,
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create(Guid restaurantId, string nextAction = null)
+        {
+            var restaurant = await this.restaurantService.GetByIdAsync(restaurantId);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AddRestaurantMenuItemVM
+            {
+                RestaurantId = restaurant.Id,
+                NextAction = nextAction,
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(AddPhotoRestaurantVM model)
+        public async Task<IActionResult> CreateAsync(AddRestaurantMenuItemVM model)
         {
-            
-            if (model.Photos != null && model.Photos.Any())
+            if (model.MenuPhotos != null && model.MenuPhotos.Any())
             {
-                foreach (var url in model.Photos)
+                foreach (var url in model.MenuPhotos)
                 {
-                    await this.menuItemService.AddRestaurantPhoto(model.RestaurantId, null, url);
+                    await this.menuItemService.AddRestaurantMenuPhotoAsync(model.RestaurantId, null, url);
                 }
             }
             if (model.Files != null && model.Files.Any())
             {
                 foreach (var file in model.Files)
                 {
-                    await this.menuItemService.AddRestaurantPhoto(model.RestaurantId, file, null);
+                    await this.menuItemService.AddRestaurantMenuPhotoAsync(model.RestaurantId, file, null);
                 }
             }
-            return RedirectToAction("Index", "Restaurant");
+
+            if (!string.IsNullOrEmpty(model.NextAction) && model.NextAction == "Index")
+            {
+                return RedirectToAction("Index", new { model.RestaurantId });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Restaurant");
+            }
         }
 
         [HttpGet]

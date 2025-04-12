@@ -1,1 +1,44 @@
-﻿
+﻿@model FoodLoverGuide.Core.ViewModels.MenuItem.EditMenuItemPhotoVM
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card card-success">
+            <div class="card-header" style="background-color: #27ae60">
+                <h3 class="card-title" style="color: white">Редактирай снимка на меню</h3>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="RestaurantId" />
+
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group text-center">
+                        <label class="font-weight-bold">Текуща снимка</label>
+                        <img src="@Model.CurrentMenuPhotoUrl" class="img-fluid rounded" style="max-height: 200px;" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NewFile" class="form-label">Нова снимка (от файл)</label>
+                        <input asp-for="NewFile" type="file" class="form-control-file" />
+                        <span asp-validation-for="NewFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NewUrl" class="form-label">Или нов URL на снимката</label>
+                        <input asp-for="NewUrl" type="text" class="form-control" placeholder="https://..." />
+                        <span asp-validation-for="NewUrl" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn" style="background-color: #27ae60; color: white;">Редактирай</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

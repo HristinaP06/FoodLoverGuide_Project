@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace FoodLoverGuide.Core.ViewModels.Restaurant
+namespace FoodLoverGuide.Core.ViewModels.RestaurantPhoto
 {
     public class AddPhotoRestaurantVM
     {
@@ -9,5 +9,7 @@ namespace FoodLoverGuide.Core.ViewModels.Restaurant
         public List<string> Photos { get; set; }
 
         public List<IFormFile> Files { get; set; }
+
+        public string NextAction { get; set; }
     }
 }
