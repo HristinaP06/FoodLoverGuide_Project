@@ -1,10 +1,8 @@
-using System.Diagnostics;
-using FoodLoverGuide.Core.Constants;
 using FoodLoverGuide.Core.IServices;
-using FoodLoverGuide.DataAccess;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace FoodLoverGuide.Areas.Admin.Controllers
 {
@@ -19,9 +17,10 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
             this.rService = rService;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        [HttpGet]
+        public async Task<IActionResult> IndexAsync(string restaurantName = null, bool? isActive = null)
         {
-            var restaurants = await rService.GetAllRestaurants().ToListAsync();
+            var restaurants = await rService.GetAllRestaurants(restaurantName, isActive).ToListAsync();
 
             return View(restaurants);
         }

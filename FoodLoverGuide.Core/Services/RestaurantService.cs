@@ -53,9 +53,20 @@ namespace FoodLoverGuide.Core.Services
             return await this.repo.FindAsync(filter);
         }
 
-        public IQueryable<Restaurant> GetAllRestaurants()
+        public IQueryable<Restaurant> GetAllRestaurants(string restaurantName = null, bool? isActive = null)
         {
-            return this.repo.GetAllAsync<Restaurant>();
+            var restaurants = this.repo.GetAllAsync<Restaurant>();
+
+            if (!string.IsNullOrEmpty(restaurantName))
+            {
+                restaurants = restaurants.Where(r => r.Name.ToLower().Contains(restaurantName.ToLower()));
+            }
+            if (isActive.HasValue)
+            {
+                restaurants = restaurants.Where(r => r.IsActive == isActive.Value);
+            }
+
+            return restaurants;
         }
 
         public IQueryable<Restaurant> GetRestaurantsWithFilters(

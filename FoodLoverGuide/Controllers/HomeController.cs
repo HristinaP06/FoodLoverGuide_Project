@@ -19,13 +19,36 @@ namespace FoodLoverGuide.Controllers
             this.restaurantService = restaurantService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var restaurants = await this.restaurantService.GetAllRestaurants().Include(r => r.Reviews).ToListAsync();
+            var restaurants = await this.restaurantService
+                .GetAllRestaurants()
+                .Include(r => r.Reviews)
+                .ThenInclude(r => r.User)
+                .Include(r => r.Photos)
+                .ToListAsync();
+
+            var latestReviews = restaurants
+                .SelectMany(r => r.Reviews ?? new List<Review>())
+                .Take(3)
+                .ToList();
+
+            var featuredPhotos = restaurants
+                .SelectMany(r => r.Photos ?? new List<RestaurantPhoto>())
+                .Where(p => !string.IsNullOrEmpty(p.Photo))
+                .Take(6)
+                .ToList();
+
             var model = new HomeVM
             {
-                Restaurants = restaurants.Where(r => (r.Reviews.Select(x => x.Rating).Sum() / r.Reviews.Count) <= 5).Take(3).ToList(),
-                RestaurantsCount = restaurants.Count()
+                Restaurants = restaurants
+                    .Where(r => (r.Reviews.Count > 0 && (r.Reviews.Select(x => x.Rating).Sum() / r.Reviews.Count) <= 5))
+                    .Take(3)
+                    .ToList(),
+                RestaurantsCount = restaurants.Count,
+                LatestReviews = latestReviews,
+                FeaturedPhotos = featuredPhotos
             };
 
             return View(model);

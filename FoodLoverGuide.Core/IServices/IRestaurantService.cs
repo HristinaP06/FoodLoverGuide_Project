@@ -12,7 +12,7 @@ namespace FoodLoverGuide.Core.IServices
 
         Task<List<Restaurant>> Find(Expression<Func<Restaurant, bool>> filter);
 
-        IQueryable<Restaurant> GetAllRestaurants();
+        IQueryable<Restaurant> GetAllRestaurants(string restaurantName = null, bool? isActive = null);
 
         IQueryable<Restaurant> GetRestaurantsWithFilters(string[] categoryIds = null, string[] featureIds = null, string priceRange = null, string rating = null);
 
