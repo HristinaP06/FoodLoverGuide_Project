@@ -4,105 +4,108 @@
     ViewBag.Title = "Добре дошли в Ресторантския Каталог";
 }
 
-<html lang="en" style="height: auto;">
+<!DOCTYPE html>
+<html lang="bg">
 <head>
-    <title>FoodLoverGuide</title>
+    <meta charset="utf-8" />
+    <title>Food Lover Guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 </head>
-<body style="height:auto; background-image: url('/img/foodLover.png'); backdrop-filter:blur(1px)">
-    <div class="container">
-        <!-- Послание -->
-        <div class="welcome-section text-center mt-5">
-            <h1>Открий своя перфектен ресторант!</h1>
-            <p class="lead">
-                Добре дошли в Food Lover Guide – мястото, където кулинарните приключения започват!
-                Разгледай внимателно подбрана селекция от ресторанти, които предлагат уникални вкусове, уютна атмосфера и незабравими моменти.
-                Независимо дали търсиш място за романтична вечеря, семейно събиране или просто бързо хапване с приятели,
-                тук ще намериш идеалния избор за всеки повод. Направи резервация с лекота и сподели своето мнение,
-                за да помогнеш на други любители на храната да открият своите фаворити!!
-            </p>
-        </div>
-
-        <!-- Бутон към списъка с ресторанти -->
-        <div class="text-center mt-4">
-            <a href="@Url.Action("Index", "Restaurant")" class="btn btn-primary btn-lg" style="border-radius: 25px;">
-                Виж всички ресторанти
-            </a>
-        </div>
-
-        <!-- Брой на ресторантите -->
-        <div class="restaurant-count-container text-center">
-            <div class="restaurant-count">
-                <h4>Общо ресторанти в каталога: <span class="badge">@Model.RestaurantsCount</span></h4>
+<body>
+    <div class="container-fluid px-0">
+        <!-- Hero Section -->
+        <div class="section hero-section">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-3">Открий своя перфектен ресторант!</h1>
+                <p class="lead mb-4">
+                    Добре дошли в <strong>Food Lover Guide</strong> – вашето място за кулинарни приключения!</br>Разгледайте подбрана селекция от ресторанти с уют, вкус и незабравими емоции.
+                </p>
+                <a href="@Url.Action("Index", "Restaurant")" class="btn btn-primary">Виж всички ресторанти</a>
             </div>
         </div>
 
-        <!-- Топ 3 ресторанта -->
-        <div class="top-restaurants-container">
-            <div class="top-restaurants">
-                <h2 class="text-center mb-4">Топ 3 ресторанта</h2>
-                <div class="row">
-                    @foreach (var restaurant in Model.Restaurants)
+        <!-- Top Restaurants Section -->
+        <div class="section restaurants-section">
+            <div class="section-content">
+                <h2 class="section-title text-center">Най-високо оценени ресторанти</h2>
+                <div class="row g-4">
+                    @foreach (var restaurant in Model.Restaurants.Where(r => r.IsActive).Take(3))
                     {
-                        @if(restaurant.IsActive)
-                        {
+                        var avgRating = restaurant.Reviews.Any() ? restaurant.Reviews.Average(r => r.Rating) : 0;
                         <div class="col-md-4">
-                            <div class="card mb-4">
+                            <div class="card h-100 text-center">
+                                <h5 class="card-header">@restaurant.Name</h5>
                                 <div class="card-body">
-                                    <h5 class="card-title">@restaurant.Name</h5>
-                                    <p class="card-text">
-                                        @{
-                                            var avgRating = restaurant.Reviews.Any() ? restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count() : 0;
-                                            <div>Рейтинг: @avgRating</div>
-                                            <span class="text-warning">
-                                                @for (int i = 0; i < Math.Floor(avgRating); i++)
-                                                {
-                                                    <i class="fas fa-star"></i>
-                                                }
-                                            </span>
+                                    <p class="mb-2">@avgRating.ToString("0.0")</p>
+                                    <div class="mb-3 text-warning">
+                                        @for (int i = 0; i < Math.Floor(avgRating); i++)
+                                        {
+                                            <i class="fas fa-star"></i>
                                         }
-                                    </p>
+                                        @for (int i = (int)Math.Floor(avgRating); i < 5; i++)
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                    </div>
                                     <a href="@Url.Action("Details", "Restaurant", new { id = restaurant.Id })"
-                                       class="btn btn-outline-primary" style="border-radius: 25px;">Виж повече</a>
+                                       class="btn btn-outline-primary btn-sm rounded-pill">Виж повече</a>
                                 </div>
                             </div>
                         </div>
-                        }
                     }
                 </div>
             </div>
         </div>
 
-        <!-- Секция "За нас" без снимка, изместена и с непрозрачен фон -->
-        <div class="about-us-container py-5 mt-5">
-            <div class="card shadow-sm" style="border-radius: 15px; border: 2px solid #e67e22; background-color: #ffffff;">
-                <div class="card-header" style="background-color: #e67e22; color: white; border-radius: 12px 12px 0 0;">
-                    <h3 class="mb-0 py-2 text-center">За нас</h3>
+        <!-- Latest Reviews Section -->
+        <div class="section reviews-section">
+            <div class="section-content">
+                <h2 class="section-title text-center">Последни отзиви</h2>
+                <div class="row g-4">
+                    @foreach (var review in Model.LatestReviews.Take(3))
+                    {
+                        <div class="col-md-4">
+                            <div class="review-card">
+                                <h5 class="fw-bold">@review.Restaurant.Name</h5>
+                                <p class="mb-2">"@review.Description"</p>
+                                <div class="text-muted text-end">— @review.User.UserName</div>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="card-body p-4">
-                    <p class="text-center" style="color: #2c3e50;">
-                        Ние сме <strong>Food Lover Guide</strong> – вашето ръководство в света на кулинарията! Създадохме тази платформа, за да свържем любителите на храната с най-добрите ресторанти около тях. От малки семейни заведения до изискани гурме дестинации – тук ще намерите всичко, което ви трябва, за да превърнете всяко хранене в незабравимо изживяване.
-                    </p>
-                    <p class="text-center" style="color: #2c3e50;">
-                        Нашата мисия е да подкрепяме местните бизнеси и да улесняваме вашите избори с актуална информация, отзиви и лесни резервации. Присъединете се към нашата общност и споделете своите вкусни приключения!
-                    </p>
+            </div>
+        </div>
+
+        <!-- About Us Section -->
+        <div class="section about-section">
+            <div class="section-content" style="color: #f8f9fa; font-size: 1.2rem;">
+                <h2 class="section-title text-center" style="color: #f8f9fa;">За нас</h2>
+                <p class="text-center">
+                    Ние сме <strong>Food Lover Guide</strong> – вашето ръководство в света на кулинарията!
+                    Създадохме тази платформа, за да свържем любителите на храната с най-добрите ресторанти.
+                </p>
+                <p class="text-center">
+                    Нашата мисия е да подкрепяме местния бизнес и да улесняваме вашия избор чрез актуална информация,
+                    отзиви и възможност за резервации. Присъединете се към нас и споделете своите вкусни приключения!
+                </p>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="section gallery-section">
+            <div class="section-content">
+                <h2 class="section-title text-center">Галерия</h2>
+                <div class="row g-3">
+                    @foreach (var photo in Model.FeaturedPhotos.Take(6))
+                    {
+                        <div class="col-6 col-md-4">
+                            <img src="@photo.Photo" class="gallery-img" alt="Restaurant Photo" />
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-@section Scripts {
-    <!-- Добавяне на Font Awesome за звездичките -->
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
-}
-
-<style>
-    body {
-        /* Път до снимката */
-        background-size: cover; /* Изображението покрива цялата страница */
-        background-position: center; /* Центрира изображението */
-        background-repeat: no-repeat; /* Без повторение */
-        font-family: 'Arial', sans-serif;
-    }
-</style>
