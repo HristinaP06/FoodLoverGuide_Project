@@ -19,7 +19,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddRestaurantCategories(Guid restaurantId)
+        public IActionResult AddRestaurantCategories(Guid restaurantId, string nextAction = null)
         {
             var categories = this.categoryService.GetAll();
 
@@ -27,6 +27,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
             {
                 RestaurantId = restaurantId,
                 CategoriesList = categories.ToList(),
+                NextAction = nextAction
             };
 
             return View("AssignRestaurantCategories", model);
@@ -39,7 +40,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(model.NextAction))
             {
-                return RedirectToAction(model.NextAction, "RestaurantFeature", new { restaurantId = model.RestaurantId });
+                return RedirectToAction("AddRestaurantFeatures", "RestaurantFeature", new { restaurantId = model.RestaurantId, nextAction = model.NextAction });
             }
 
             return RedirectToAction("Index", "Restaurant");
@@ -69,7 +70,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(model.NextAction))
             {
-                return RedirectToAction(model.NextAction, "RestaurantFeature", new { restaurantId = id });
+                return RedirectToAction("AddRestaurantFeatures", "RestaurantFeature", new { restaurantId = id });
             }
 
             ViewData[MessageConstants.SuccessMessage] = "Успешна редакация!";

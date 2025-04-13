@@ -1,6 +1,7 @@
 ﻿using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.Restaurant;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodLoverGuide.Areas.Admin.Controllers
 {
@@ -17,7 +18,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(Guid restaurantId)
+        public async Task<IActionResult> Create(Guid restaurantId, string nextAction = null)
         {
             var restaurant = await restaurantService.GetByIdAsync(restaurantId);
 
@@ -45,7 +46,8 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
             var model = new WeeklyWorkTimeVM
             {
                 RestaurantId = restaurantId,
-                WorkTimeSchedules = weeklySchedule
+                WorkTimeSchedules = weeklySchedule,
+                NextAction = nextAction
             };
 
             return View("ManageWorkTimeSchedule", model);
@@ -56,9 +58,21 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Guid id = await workTimeScheduleService.AddWorkTimeToRestaurant(model);
+                bool alreadyHasSchedule = await this.workTimeScheduleService.GetAll()
+                    .Where(w => w.RestaurantId == model.RestaurantId)
+                    .AnyAsync();
 
-                return RedirectToAction("Create", "RestaurantPhoto", new { restaurantId = id });
+                Guid id = Guid.Empty;
+                if (alreadyHasSchedule)
+                {
+                    id = await workTimeScheduleService.UpdateWorkTimeForRestaurantAsync(model);
+                }
+                else
+                {
+                    id = await this.workTimeScheduleService.AddWorkTimeToRestaurant(model);
+                }
+
+                return RedirectToAction("Create", "RestaurantPhoto", new { restaurantId = id, model.NextAction });
             }
 
             return View("ManageWorkTimeSchedule", model);
@@ -112,11 +126,6 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
             }
 
             Guid id = await workTimeScheduleService.UpdateWorkTimeForRestaurantAsync(model);
-
-            if (!string.IsNullOrEmpty(model.NextAction))
-            {
-                return RedirectToAction(model.NextAction, "RestaurantPhoto", new { restaurantId = id });
-            }
 
             return RedirectToAction("Index", "Restaurant");
         }

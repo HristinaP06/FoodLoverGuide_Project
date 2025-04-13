@@ -56,6 +56,16 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpPost]
         public async Task<IActionResult> CreateAsync(AddPhotoRestaurantVM model)
         {
+            var restaurantPhotos = await this.restaurantPhotoService.GetAll().Where(p => p.RestaurantId == model.RestaurantId).ToListAsync();
+
+            if (restaurantPhotos.Any() && !string.IsNullOrEmpty(model.NextAction) && model.NextAction != "Index")
+            {
+                foreach (var photo in restaurantPhotos)
+                {
+                    await this.restaurantPhotoService.Delete(photo.Id);
+                }
+            }
+
             if (model.Photos != null && model.Photos.Any())
             {
                 int order = 0;
@@ -87,7 +97,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         [HttpGet]
         public async Task<IActionResult> EditAsync(Guid id)
         {
-            var photo = await restaurantPhotoService.GetById(id);
+            var photo = await this.restaurantPhotoService.GetById(id);
             if (photo == null)
             {
                 return NotFound();

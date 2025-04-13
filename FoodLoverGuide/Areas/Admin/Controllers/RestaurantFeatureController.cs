@@ -19,7 +19,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddRestaurantFeatures(Guid restaurantId)
+        public IActionResult AddRestaurantFeatures(Guid restaurantId, string nextAction = null)
         {
             var features = this.featureService.GetAll();
 
@@ -27,6 +27,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
             {
                 RestaurantId = restaurantId,
                 FeaturesList = features.ToList(),
+                NextAction = nextAction
             };
 
             return View("AssignRestaurantFeatures", model);
@@ -39,7 +40,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(model.NextAction))
             {
-                return RedirectToAction(model.NextAction, "WorkTimeSchedule", new { restaurantId = model.RestaurantId });
+                return RedirectToAction("Create", "WorkTimeSchedule", new { restaurantId = model.RestaurantId, nextAction = model.NextAction });
             }
 
             return RedirectToAction("Index", "Restaurant");

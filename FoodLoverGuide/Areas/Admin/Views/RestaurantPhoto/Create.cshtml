@@ -12,6 +12,8 @@
                 <h3 class="card-title" style="color: white">@cardTitle</h3>
             </div>
             <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="RestaurantPhoto">
+                <input type="hidden" name="NextAction" value="@Model.NextAction" />
+
                 <div class="card-body">
                     <input type="hidden" name="RestaurantId" value="@Model.RestaurantId" />
                     <input type="hidden" name="NextAction" value="@Model.NextAction" />
@@ -38,10 +40,10 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn float-right" style="background-color: #27ae60; color: white">
-                        <i class="fas fa-plus-circle mr-1"></i> Добави
+                        <i class="fas fa-plus-circle mr-1"></i> Напред
                     </button>
-                    <a href="javascript:history.back()" class="btn btn-default">
-                        <i class="fas fa-arrow-left mr-1"></i> Назад
+                    <a class="btn btn-secondary" asp-action="Edit" asp-controller="WorkTimeSchedule" asp-route-restaurantId="@Model.RestaurantId" asp-route-nextAction="Create">
+                        <i class="fas fa-arrow-left mr-1"></i>Назад
                     </a>
                 </div>
             </form>

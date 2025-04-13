@@ -21,10 +21,12 @@
                                     <div class="btn-group-sm">
                                         <button type="button" class="btn dropdown-toggle" style="background-color: #27ae60; color: white" data-toggle="dropdown">Действия</button>
                                         <div class="dropdown-menu" role="menu" style="">
-                                            <a class="dropdown-item" asp-action="edit" asp-controller="category" asp-route-id="@feature.Id">Редакция</a>
+                                            <a class="dropdown-item" asp-action="edit" asp-controller="feature" asp-route-id="@feature.Id">Редакция</a>
                                             <form method="post">
-                                                <button type="submit" class="dropdown-item" asp-action="delete" asp-controller="category" asp-route-id="@feature.Id">Изтрий</button>
+                                                <button type="submit" class="dropdown-item" asp-action="delete" asp-controller="feature" asp-route-id="@feature.Id">Изтрий</button>
                                             </form>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }

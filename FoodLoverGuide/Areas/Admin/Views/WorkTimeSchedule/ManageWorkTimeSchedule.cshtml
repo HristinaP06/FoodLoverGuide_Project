@@ -56,7 +56,7 @@
                         <button type="submit" class="btn btn-success float-right" asp-action="Create" asp-controller="WorkTimeSchedule">
                             <i class="fas fa-plus-circle mr-1"></i>Напред
                         </button>
-                        <a class="btn btn-secondary" asp-action="EditRestaurantFeatures" asp-controller="RestaurantFeatures" asp-route-nextAction="Create">
+                        <a class="btn btn-secondary" asp-action="EditRestaurantFeatures" asp-controller="RestaurantFeature" asp-route-restaurantId="@Model.RestaurantId" asp-route-nextAction="Create">
                             <i class="fas fa-arrow-left mr-1"></i>Назад
                         </a>
                     }
