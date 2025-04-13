@@ -5,7 +5,7 @@
 }
 
 <!-- Main content -->
-@*<section class="content">
+<section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -112,119 +112,6 @@
                     </div>
                     <div class="card-body">
                         <p>@Model.Description</p>
-                    </div>
-                </div>
-
-                <div class="text-center mt-3 mb-4">
-                    <a asp-controller="Restaurant" asp-action="Index" class="btn btn-secondary" style="background-color: #e67e22; color: white;">
-                        <i class="fas fa-arrow-left mr-1"></i> Назад
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-*@
-
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-success card-outline">
-                    <div class="card-body box-profile">
-                        <h3 class="profile-username text-center">@Model.Name</h3>
-                        <div class="text-center mb-3">
-                            @if (Model.Reviews != null && Model.Reviews.Any())
-                            {
-                                // Calculate average rating once
-                                var avgRating = Model.Reviews.Select(r => r.Rating).Sum() / Model.Reviews.Count();
-
-                                <div class="d-inline-block">
-                                    @for (int i = 1; i <= 5; i++)
-                                    {
-                                        if (i <= Math.Floor(avgRating))
-                                        {
-                                            <i class="fas fa-star text-warning"></i>
-                                        }
-                                        else if (i - avgRating > 0 && i - avgRating < 1)
-                                        {
-                                            <i class="fas fa-star-half-alt text-warning"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="far fa-star text-warning"></i>
-                                        }
-                                    }
-                                </div>
-
-                                <span class="badge bg-primary ml-2">@avgRating.ToString("0.0")</span>
-                                <span class="text-muted ml-1">(@Model.Reviews.Count() оценки)</span>
-                            }
-                            else
-                            {
-                                <div class="text-muted">
-                                    <i class="far fa-star text-secondary"></i>
-                                    <i class="far fa-star text-secondary"></i>
-                                    <i class="far fa-star text-secondary"></i>
-                                    <i class="far fa-star text-secondary"></i>
-                                    <i class="far fa-star text-secondary"></i>
-                                    <span class="ml-2">No ratings yet</span>
-                                </div>
-                            }
-                        </div>
-
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <i class="fas fa-map-marker-alt mr-2 text-danger"></i> <b>Локация</b> <span class="float-right">@Model.Location</span>
-                            </li>
-                            @if (!string.IsNullOrEmpty(Model.Telephone))
-                            {
-                                <li class="list-group-item">
-                                    <i class="fas fa-phone mr-2 text-primary"></i> <b>Телефон</b> <span class="float-right">@Model.Telephone</span>
-                                </li>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Email))
-                            {
-                                <li class="list-group-item">
-                                    <i class="fas fa-envelope mr-2 text-warning"></i> <b>Имейл</b> <span class="float-right">@Model.Email</span>
-                                </li>
-                            }
-                            <li class="list-group-item">
-                                <i class="fas fa-money-bill-wave mr-2 text-success"></i> <b>Ценови диапазон</b> <span class="float-right">@Model.PriceRangeFrom - @Model.PriceRangeTo лв.</span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-users mr-2 text-info"></i> <b>Капацитет</b>
-                                <span class="float-right">
-                                    Вътрешен: @Model.IndoorCapacity
-                                    @if (Model.OutdoorCapacity > 0)
-                                    {
-                                        <span>, Външен: @Model.OutdoorCapacity</span>
-                                    }
-                                </span>
-                            </li>
-                        </ul>
-
-                        <div class="mb-3">
-                            @if (!string.IsNullOrEmpty(Model.WebSite))
-                            {
-                                <a href="@(Model.WebSite.StartsWith("http") ? Model.WebSite : "http://" + Model.WebSite)" class="btn btn-primary mr-2" target="_blank">
-                                    <i class="fas fa-globe"></i> Website
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Facebook))
-                            {
-                                <a href="https://facebook.com/@Model.Facebook" class="btn btn-primary mr-2" target="_blank" style="background-color: blue">
-                                    <i class="fab fa-facebook"></i> Facebook
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.Instagram))
-                            {
-                                <a href="https://instagram.com/@Model.Instagram" class="btn btn-danger" target="_blank">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </a>
-                            }
-                        </div>
                     </div>
                 </div>
 
@@ -367,14 +254,6 @@
                 </div>
 
                 <!-- Описание -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Описание</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>@Model.Description</p>
-                    </div>
-                </div>
 
                 <div class="text-center mt-3 mb-4">
                     <a asp-controller="Restaurant" asp-action="Index" class="btn btn-secondary" style="background-color: #e67e22; color: white;">
