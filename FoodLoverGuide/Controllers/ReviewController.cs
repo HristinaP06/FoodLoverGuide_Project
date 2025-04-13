@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace FoodLoverGuide.Controllers
 {
-    public class ReviewController : Controller
+    public class ReviewController : BaseController
     {
         private readonly IReviewService reviewService;
 
