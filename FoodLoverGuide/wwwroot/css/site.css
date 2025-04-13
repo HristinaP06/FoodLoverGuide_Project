@@ -386,3 +386,16 @@ body {
 .select2-selection__arrow {
     height: 48px !important;
 }
+
+.user-area .footer {
+    background-color: #e67e22;
+    color: #f8f9fa;
+}
+
+.user-area .footer-content {
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    text-align: center;
+}

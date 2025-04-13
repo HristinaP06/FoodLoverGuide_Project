@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @await RenderSectionAsync("Head", false)
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini user-area">
     <header>
         <nav class="main-header navbar navbar-expand" style="margin-left: 0px !important;">
             <div class="container-fluid">
@@ -50,9 +50,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
         </nav>
     </header>
-    <main role="main" class="pb-3">
+    <main role="main">
         @RenderBody()
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content text-center py-4">
+            <p class="mb-1">&copy; @DateTime.Now.Year Food Lover Guide. Всички права запазени.</p>
+            <p class="mb-0 small">
+                Изградено с ❤️ и глад от кулинарни ентусиасти.
+            </p>
+        </div>
+    </footer>
 
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
