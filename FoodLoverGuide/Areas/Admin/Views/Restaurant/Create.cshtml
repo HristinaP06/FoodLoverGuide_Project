@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Description" class="form-label">Описание</label>
-                        <input asp-for="Description" type="text" class="form-control" aria-required="true" />
+                        <textarea asp-for="Description" type="text" class="form-control" aria-required="true"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -83,5 +83,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-

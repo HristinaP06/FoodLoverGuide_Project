@@ -62,7 +62,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
         {
             Guid id = await this.rService.AddRestaurant(model);
 
-            return RedirectToAction("AssignRestaurantCategories", "RestaurantCategory", new { restaurantId = id });
+            return RedirectToAction("AddRestaurantCategories", "RestaurantCategory", new { restaurantId = id, nextAction = "AddRestaurantCategories" });
         }
 
         [HttpGet]
@@ -97,7 +97,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
 
             if (!string.IsNullOrEmpty(model.NextAction))
             {
-                return RedirectToAction(model.NextAction, new { restaurantId = model.Id });
+                return RedirectToAction("AddRestaurantCategories", "RestaurantCategory", new { restaurantId = model.Id, nextAction = model.NextAction });
             }
 
             return RedirectToAction("Index");
@@ -113,10 +113,22 @@ namespace FoodLoverGuide.Areas.Admin.Views
 
         public async Task<IActionResult> ActivateAsync(Guid id)
         {
-            var restaurant = await this.rService.GetByIdAsync(id);
+            var restaurant = await this.rService.GetByIdWithIncludesAsync(id);
             if (restaurant == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Не е намерен такъв ресторант!";
+                TempData[MessageConstants.ErrorMessage] = "Не е намерен такъв ресторант!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!restaurant.RestaurantCategoriesList.Any())
+            {
+                TempData[MessageConstants.ErrorMessage] = "Ресторанта трябва да има поне 1 категория!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!restaurant.Features.Any())
+            {
+                TempData[MessageConstants.ErrorMessage] = "Ресторанта трябва да има поне 1 характеристика!";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -124,7 +136,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
 
             if (restaurant.IsActive)
             {
-                ViewData[MessageConstants.SuccessMessage] = "Статуса на ресторанта е успешно променен!";
+                TempData[MessageConstants.SuccessMessage] = "Статуса на ресторанта е успешно променен!";
             }
             return RedirectToAction("Index", "Home");
         }
@@ -134,7 +146,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
             var restaurant = await this.rService.GetByIdAsync(id);
             if (restaurant == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Не е намерен такъв ресторант!";
+                TempData[MessageConstants.ErrorMessage] = "Не е намерен такъв ресторант!";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -142,7 +154,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
 
             if (!restaurant.IsActive)
             {
-                ViewData[MessageConstants.SuccessMessage] = "Статуса на ресторанта е успешно променен!";
+                TempData[MessageConstants.SuccessMessage] = "Статуса на ресторанта е успешно променен!";
             }
             return RedirectToAction("Index", "Home");
         }

@@ -18,6 +18,8 @@ namespace FoodLoverGuide.Core.IServices
 
         Task<Restaurant> GetByIdAsync(Guid id);
 
+        Task<Restaurant> GetByIdWithIncludesAsync(Guid id);
+
         Task Update(RestaurantCreateVM entity);
 
         Task Activate(Restaurant restaurant);

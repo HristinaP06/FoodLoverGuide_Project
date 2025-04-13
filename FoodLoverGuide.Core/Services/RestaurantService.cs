@@ -128,6 +128,16 @@ namespace FoodLoverGuide.Core.Services
             return await this.repo.GetByIdAsync<Restaurant>(id);
         }
 
+        public async Task<Restaurant> GetByIdWithIncludesAsync(Guid id)
+        {
+            return await this.repo.GetAllAsync<Restaurant>()
+                .Where(r => r.Id == id)
+                .Include(r => r.RestaurantCategoriesList)
+                .Include(r => r.Features)
+                .Include(r => r.WorkTime)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task Update(RestaurantCreateVM model)
         {
             var restaurant = new Restaurant()

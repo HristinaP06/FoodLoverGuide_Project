@@ -9,7 +9,7 @@ namespace FoodLoverGuide.Models
         [Key]
         public Guid Id { get; set; }
 
-        public string? Photo { get; set; }
+        public string Photo { get; set; }
 
         [NotMapped]
         public IFormFile? ImageFile { get; set; }

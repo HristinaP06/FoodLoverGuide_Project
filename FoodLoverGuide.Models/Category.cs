@@ -6,7 +6,9 @@ namespace FoodLoverGuide.Models
     {
         [Key]
         public Guid Id { get; set; }
+
         [Required]
+        [MaxLength(300)]
         public string CategoryName { get; set; }
 
 

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodLoverGuide.Models
 {
@@ -17,11 +16,12 @@ namespace FoodLoverGuide.Models
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(300)]
         public string Location { get; set; }
 
-        public ICollection<Reservation>? Reservation {  get; set; }
+        public ICollection<Reservation> Reservation {  get; set; }
 
-        public ICollection<RestaurantCategories>? RestaurantCategoriesList { get; set; }
+        public ICollection<RestaurantCategories> RestaurantCategoriesList { get; set; }
 
         public ICollection<WorkTimeSchedule> WorkTime { get; set; }
 
@@ -29,27 +29,32 @@ namespace FoodLoverGuide.Models
 
         public double? PriceRangeTo { get; set; }
 
-        public ICollection<MenuItem>? Menu { get; set; }
+        public ICollection<MenuItem> Menu { get; set; }
 
-        public ICollection<RestaurantPhoto>? Photos { get; set; }
+        public ICollection<RestaurantPhoto> Photos { get; set; }
 
-        public ICollection<RestaurantFeature>? Features { get; set; }
+        public ICollection<RestaurantFeature> Features { get; set; }
 
-        public ICollection<Review>? Reviews { get; set; }
+        public ICollection<Review> Reviews { get; set; }
 
         public int? IndoorCapacity { get; set; }
 
         public int? OutdoorCapacity { get; set; }
 
-        public string? Telephone { get; set; }
+        [MaxLength(300)]
+        public string Telephone { get; set; }
 
-        public string? Email { get; set; }
+        [MaxLength(300)]
+        public string Email { get; set; }
 
-        public string? Instagram { get; set; }
+        [MaxLength(300)]
+        public string Instagram { get; set; }
 
-        public string? Facebook { get; set; }
+        [MaxLength(300)]
+        public string Facebook { get; set; }
 
-        public string? WebSite { get; set; }
+        [MaxLength(300)]
+        public string WebSite { get; set; }
 
         public bool IsActive {  get; set; } = false;
     }
