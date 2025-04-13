@@ -37,6 +37,7 @@ namespace FoodLoverGuide.Areas.Admin.Views
                 .ThenInclude(c => c.Category)
                 .Include(f => f.Features)
                 .ThenInclude(x => x.Features)
+                .Include(w => w.WorkTime)
                 .Include(p => p.Photos)
                 .Include(m => m.Menu)
                 .Include(r => r.Reviews)
