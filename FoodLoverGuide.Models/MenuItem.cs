@@ -17,5 +17,7 @@ namespace FoodLoverGuide.Models
         public Guid RestaurantId { get; set; }
 
         public Restaurant Restaurant { get; set; }
+
+        public int Order { get; set; }
     }
 }

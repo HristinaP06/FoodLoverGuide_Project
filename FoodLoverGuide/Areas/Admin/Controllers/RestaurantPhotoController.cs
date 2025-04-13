@@ -58,17 +58,19 @@ namespace FoodLoverGuide.Areas.Admin.Views
         {
             if (model.Photos != null && model.Photos.Any())
             {
+                int order = 0;
                 foreach (var url in model.Photos)
                 {
-                    await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, null, url);
+                    await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, null, url, order++);
                 }
             }
 
             if (model.Files != null && model.Files.Any())
             {
+                int order = 0;
                 foreach (var file in model.Files)
                 {
-                    await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, file, null);
+                    await this.restaurantPhotoService.AddRestaurantPhotoAsync(model.RestaurantId, file, null, order++);
                 }
             }
 

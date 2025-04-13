@@ -172,7 +172,7 @@
                                     @{
                                         var firstPhoto = true;
                                     }
-                                    @foreach (var photo in Model.Photos)
+                                    @foreach (var photo in Model.Photos.OrderBy(x => x.Order))
                                     {
                                         <div class="carousel-item @(firstPhoto ? "active" : "")">
                                             <img src="@photo.Photo" class="d-block w-100" alt="@Model.Name" style="height: 400px; object-fit: cover;">
@@ -206,7 +206,7 @@
                                     int visibleCount = 3;
                                     int index = 0;
                                 }
-                                @foreach (var menuPhoto in Model.Menu)
+                                @foreach (var menuPhoto in Model.Menu.OrderBy(x => x.Order))
                                 {
                                     <div class="col-md-4 col-sm-6 mb-3 menu-photo @(index >= visibleCount ? "d-none" : "")">
                                         <a href="@menuPhoto.Photo" data-lightbox="menu-gallery">

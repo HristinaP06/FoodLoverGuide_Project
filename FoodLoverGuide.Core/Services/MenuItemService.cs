@@ -49,19 +49,17 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-        public async Task<Guid> AddRestaurantMenuPhotoAsync(Guid restaurantId, IFormFile file, string url)
+        public async Task<Guid> AddRestaurantMenuPhotoAsync(Guid restaurantId, IFormFile file, string url, int order)
         {
             string uploadedImageUrl = null;
 
-            // Handle file upload to Cloudinary
             if (file != null)
             {
-                uploadedImageUrl = await cloudinary.UploadImageAsync(file); // Upload to Cloudinary
+                uploadedImageUrl = await cloudinary.UploadImageAsync(file);
             }
-            // Handle URL input from the user
             else if (!string.IsNullOrEmpty(url))
             {
-                uploadedImageUrl = url; // Use the provided URL
+                uploadedImageUrl = url;
             }
 
             if (!string.IsNullOrEmpty(uploadedImageUrl))
@@ -70,10 +68,11 @@ namespace FoodLoverGuide.Core.Services
                 {
                     RestaurantId = restaurantId,
                     Photo = uploadedImageUrl,
-                    ImageFile = file // We still store the file even though URL is provided (optional)
+                    ImageFile = file,
+                    Order = order
                 };
 
-                await this.repo.AddAsync(photo); // Save the photo in the database
+                await this.repo.AddAsync(photo);
             }
 
             return restaurantId;
