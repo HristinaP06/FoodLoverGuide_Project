@@ -86,7 +86,7 @@ namespace FoodLoverGuide.Controllers
             var result = await this.userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
-                 ViewData[MessageConstants.ErrorMessage] = "Имате проблем с данните!";
+                TempData[MessageConstants.ErrorMessage] = "Имате проблем с данните!";
                 return View(model);
             }
 
@@ -94,7 +94,7 @@ namespace FoodLoverGuide.Controllers
             {
                 if (model.NewPassword != model.ConfirmNewPassword)
                 {
-                    ViewData[MessageConstants.ErrorMessage] = "Новата парола и потвърдената нова парола не съвпадат!";
+                    TempData[MessageConstants.ErrorMessage] = "Новата парола и потвърдената нова парола не съвпадат!";
                     return View(model);
                 }
 

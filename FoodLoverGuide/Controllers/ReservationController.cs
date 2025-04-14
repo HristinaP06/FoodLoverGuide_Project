@@ -1,4 +1,5 @@
-﻿using FoodLoverGuide.Core.IServices;
+﻿using FoodLoverGuide.Core.Constants;
+using FoodLoverGuide.Core.IServices;
 using FoodLoverGuide.Core.ViewModels.UserArea;
 using FoodLoverGuide.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -51,17 +52,20 @@ namespace FoodLoverGuide.Controllers
             // Проверки с правилна логика
             if (!await reservationService.IsRestaurantOpen(model.RestaurantId, model.SelectedDate))
             {
-                ModelState.AddModelError("", "Ресторантът не е отворен за дадения час.");
+                TempData[MessageConstants.ErrorMessage] = "Ресторантът не е отворен за дадения час.";
+                return View(model);
             }
 
             if (!await reservationService.HasAvailableSeats(model.RestaurantId, model.SelectedDate, model.Adults + model.Children))
             {
-                ModelState.AddModelError("", "Няма достатъчно места за избрания час.");
+                TempData[MessageConstants.ErrorMessage] = "Няма достатъчно места за избрания час.";
+                return View(model);
             }
 
             if (await reservationService.IsDuplicateReservation(model.RestaurantId, userId, model.SelectedDate))
             {
-                ModelState.AddModelError("", "Вече имате резервация за този час.");
+                TempData[MessageConstants.ErrorMessage] = "Вече имате резервация за този час.";
+                return View(model);
             }
 
             // Ако има грешки, връщаме изгледа

@@ -73,7 +73,7 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
                 return RedirectToAction("AddRestaurantFeatures", "RestaurantFeature", new { restaurantId = id });
             }
 
-            ViewData[MessageConstants.SuccessMessage] = "Успешна редакация!";
+            TempData[MessageConstants.SuccessMessage] = "Успешна редакация!";
 
             return RedirectToAction("Index", "Restaurant");
         }

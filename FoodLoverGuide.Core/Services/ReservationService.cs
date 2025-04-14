@@ -61,7 +61,10 @@ namespace FoodLoverGuide.Core.Services
                 return false;
             }
 
-            var reservationLimit = schedule.ClosingTime - TimeSpan.FromHours(2);
+            var rawClosingTime = schedule.ClosingTime == TimeSpan.Zero
+                ? TimeSpan.FromHours(24)
+                : schedule.ClosingTime;
+            var reservationLimit = rawClosingTime - TimeSpan.FromHours(2);
             return dateTime.TimeOfDay >= schedule.OpeningTime && dateTime.TimeOfDay <= reservationLimit;
         }
 
@@ -102,13 +105,16 @@ namespace FoodLoverGuide.Core.Services
 
             var availableTimes = new List<DateTime>();
             var startTime = date.Date + workTime.OpeningTime;
-            var endTime = date.Date + workTime.ClosingTime - TimeSpan.FromHours(1); // Резервации до 2 часа преди затваряне
+            var rawClosingTime = workTime.ClosingTime == TimeSpan.Zero
+                ? TimeSpan.FromHours(24)
+                : workTime.ClosingTime;
+            var endTime = date.Date + rawClosingTime - TimeSpan.FromHours(2);
 
             var currentTime = startTime;
             while (currentTime <= endTime)
             {
                 availableTimes.Add(currentTime);
-                currentTime = currentTime.AddMinutes(90); // По-малък интервал от 30 минути вместо 90
+                currentTime = currentTime.AddMinutes(60);
             }
 
             return availableTimes;
