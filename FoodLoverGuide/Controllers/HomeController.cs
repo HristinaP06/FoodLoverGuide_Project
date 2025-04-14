@@ -34,9 +34,11 @@ namespace FoodLoverGuide.Controllers
                 .Take(3)
                 .ToList();
 
+            var random = new Random();
             var featuredPhotos = restaurants
                 .SelectMany(r => r.Photos ?? new List<RestaurantPhoto>())
                 .Where(p => !string.IsNullOrEmpty(p.Photo))
+                .OrderBy(p => random.Next())
                 .Take(6)
                 .ToList();
 

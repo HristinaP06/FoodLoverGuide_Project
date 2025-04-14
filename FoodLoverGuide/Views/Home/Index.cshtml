@@ -97,7 +97,7 @@
             <div class="section-content">
                 <h2 class="section-title text-center">Галерия</h2>
                 <div class="row g-3">
-                    @foreach (var photo in Model.FeaturedPhotos.Take(6))
+                    @foreach (var photo in Model.FeaturedPhotos)
                     {
                         <div class="col-6 col-md-4">
                             <img src="@photo.Photo" class="gallery-img" alt="Restaurant Photo" />
