@@ -37,7 +37,6 @@ builder.Services.AddDefaultIdentity<User>(options =>
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped(typeof(IRepository), typeof(Repository));
