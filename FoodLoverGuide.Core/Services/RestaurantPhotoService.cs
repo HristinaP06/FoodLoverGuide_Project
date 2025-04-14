@@ -46,7 +46,7 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(entity);
         }
 
-        public async Task<Guid> AddRestaurantPhotoAsync(Guid restaurantId, IFormFile file, string url, int order)
+        public async Task<Guid> AddRestaurantPhotoAsync(Guid restaurantId, IFormFile file, string url)
         {
             string uploadedImageUrl = null;
 
@@ -61,12 +61,15 @@ namespace FoodLoverGuide.Core.Services
 
             if (!string.IsNullOrEmpty(uploadedImageUrl))
             {
+                var existingPhotos = await this.repo.FindAsync<RestaurantPhoto>(x => x.RestaurantId == restaurantId);
+                int nextOrder = existingPhotos.Count > 0 ? existingPhotos.Max(p => p.Order) + 1 : 1;
+
                 var photo = new RestaurantPhoto
                 {
                     RestaurantId = restaurantId,
                     Photo = uploadedImageUrl,
                     ImageFile = file,
-                    Order = order,
+                    Order = nextOrder,
                 };
 
                 await this.repo.AddAsync(photo);

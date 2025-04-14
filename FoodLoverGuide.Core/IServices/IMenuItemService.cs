@@ -5,7 +5,7 @@ namespace FoodLoverGuide.Core.IServices
 {
     public interface IMenuItemService : IService<MenuItem>
     {
-        Task<Guid> AddRestaurantMenuPhotoAsync(Guid restaurantId, IFormFile file, string url, int order);
+        Task<Guid> AddRestaurantMenuPhotoAsync(Guid restaurantId, IFormFile file, string url);
 
         Task UpdateMenuItemPhotoAsync(Guid menuItemId, IFormFile file, string url);
     }
