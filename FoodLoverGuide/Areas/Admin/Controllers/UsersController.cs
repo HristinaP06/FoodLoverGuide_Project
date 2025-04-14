@@ -69,5 +69,28 @@ namespace FoodLoverGuide.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var user = this.userManager.Users.Where(u => u.Id == id.ToString()).First();
+            if(user == null)
+            {
+                return NotFound();
+            }
+            var result = await this.userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException($"Unexpected error occurred deleting user.");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
