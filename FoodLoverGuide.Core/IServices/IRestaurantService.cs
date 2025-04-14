@@ -6,9 +6,9 @@ namespace FoodLoverGuide.Core.IServices
 {
     public interface IRestaurantService
     {
-        Task<Guid> AddRestaurant(RestaurantCreateVM model);
+        Task<Guid> AddRestaurantAsync(RestaurantCreateVM model);
 
-        Task DeleteRestaurant(Guid id);
+        Task DeleteRestaurantAsync(Guid id);
 
         Task<List<Restaurant>> Find(Expression<Func<Restaurant, bool>> filter);
 
@@ -20,10 +20,10 @@ namespace FoodLoverGuide.Core.IServices
 
         Task<Restaurant> GetByIdWithIncludesAsync(Guid id);
 
-        Task Update(RestaurantCreateVM entity);
+        Task UpdateAsync(RestaurantCreateVM entity);
 
-        Task Activate(Restaurant restaurant);
+        Task ActivateAsync(Restaurant restaurant);
 
-        Task Deactivate(Restaurant restaurant);
+        Task DeactivateAsync(Restaurant restaurant);
     }
 }

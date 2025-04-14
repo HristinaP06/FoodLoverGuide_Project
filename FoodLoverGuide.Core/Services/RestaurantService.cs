@@ -19,7 +19,7 @@ namespace FoodLoverGuide.Core.Services
             this.restaurantCategoriesService = restaurantCategoriesService;
         }
 
-        public async Task<Guid> AddRestaurant(RestaurantCreateVM model)
+        public async Task<Guid> AddRestaurantAsync(RestaurantCreateVM model)
         {
             var restaurant = new Restaurant()
             {
@@ -43,7 +43,7 @@ namespace FoodLoverGuide.Core.Services
             return restaurant.Id;
         }
 
-        public async Task DeleteRestaurant(Guid id)
+        public async Task DeleteRestaurantAsync(Guid id)
         {
             await this.repo.DeleteAsync<Restaurant>(id);
         }
@@ -138,7 +138,7 @@ namespace FoodLoverGuide.Core.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task Update(RestaurantCreateVM model)
+        public async Task UpdateAsync(RestaurantCreateVM model)
         {
             var restaurant = new Restaurant()
             {
@@ -160,7 +160,7 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(restaurant);
         }
 
-        public async Task Activate(Restaurant restaurant)
+        public async Task ActivateAsync(Restaurant restaurant)
         {
             if (restaurant.IsActive)
             {
@@ -171,7 +171,7 @@ namespace FoodLoverGuide.Core.Services
             await this.repo.UpdateAsync(restaurant);
         }
 
-        public async Task Deactivate(Restaurant restaurant)
+        public async Task DeactivateAsync(Restaurant restaurant)
         {
             if (!restaurant.IsActive)
             {

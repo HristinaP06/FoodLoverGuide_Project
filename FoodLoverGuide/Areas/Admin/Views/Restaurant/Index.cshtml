@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<FoodLoverGuide.Models.Restaurant>
 
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Ресторанти";
 }
 
-<!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -37,7 +36,7 @@
                                                 @{
                                                     var avgRating = restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count();
                                                 }
-                                                <span class="badge bg-primary mr-2">@(double.IsNaN(avgRating) ? 0 : avgRating)</span>
+                                                <span class="badge bg-primary mr-2">@(double.IsNaN(avgRating) ? 0 : avgRating.ToString("0.0"))</span>
                                                 <div>
                                                     @for (int i = 1; i <= 5; i++)
                                                     {
@@ -45,7 +44,8 @@
                                                         {
                                                             <i class="fas fa-star text-warning"></i>
                                                         }
-                                                        else if (i - (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()) > 0 && i - (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()) < 1)
+                                                        else if (i - (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()) > 0 &&
+                                                                 i - (restaurant.Reviews.Select(r => r.Rating).Sum() / restaurant.Reviews.Count()) < 1)
                                                         {
                                                             <i class="fas fa-star-half-alt text-warning"></i>
                                                         }
@@ -79,12 +79,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
-        <!-- /.row -->
     </div>
 </section>
 
